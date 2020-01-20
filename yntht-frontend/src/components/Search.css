@@ -1,0 +1,37 @@
+.Search {
+  display: flex;
+  flex: 1;
+  margin-right: 100px;
+}
+
+.Search img {
+  height: 20px;
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 15px;
+}
+
+.Search input {
+  border: none;
+  box-sizing: border-box;
+  flex: 1;
+  padding-left: 60px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: transparent;
+  color: var(--main-text-color);
+  font-size: var(--font-s);
+  border-radius: 3px;
+  margin: 10px 0px;
+}
+
+.Search input:focus {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.Search input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--main-text-color);
+  opacity: 1; /* Firefox */
+}

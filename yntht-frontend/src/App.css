@@ -1,0 +1,85 @@
+:root {
+  --main-text-color: #FFFFFF;
+  --font-xs: 12px;
+  --font-s: 20px;
+  --font-m: 30px;
+  --font-l: 30px;
+  --font-xl: 60px;
+}
+
+@font-face {
+  font-family: 'Brandon Med';
+  src: local('Brandon_med'), url(./fonts/Brandon_med.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Brandon Bold';
+  src: local('Brandon_bld'), url(./fonts/Brandon_bld.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Brandon Black';
+  src: local('Brandon_blk'), url(./fonts/Brandon_blk.otf) format('opentype');
+}
+
+* {
+  font-family: 'Brandon Med', sans-serif;
+}
+
+/* Main Stuff */
+
+.App {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.MainContentContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-bottom: 80px;
+}
+
+/* Nav Menu */
+.NavMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.NavMenu div {
+  color: var(--main-text-color);
+  font-size: var(--font-s);
+}
+
+.NavMenu div:hover {
+  cursor: pointer;
+}
+
+/* Page Container */
+.PageContainer {
+  padding: 0px 100px;
+}
+
+/* Element Features */
+.Bold {
+  font-family: 'Brandon Bold', sans-serif;
+}
+
+.Black {
+  font-family: 'Brandon Black', sans-serif;
+}

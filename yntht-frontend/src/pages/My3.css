@@ -1,0 +1,26 @@
+.SongContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.SongDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.SongDetailsTitle {
+  color: var(--main-text-color);
+  font-size: var(--font-m);
+  font-family: 'Brandon Bold';
+}
+
+.SongDetailsArtist {
+  color: var(--main-text-color);
+  font-size: var(--font-s);
+}
+
+.SongImgContainer img {
+  height: 100px;
+}

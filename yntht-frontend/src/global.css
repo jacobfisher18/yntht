@@ -1,0 +1,5 @@
+.PageTitle {
+  font-size: var(--font-xl);
+  font-family: 'Brandon Black';
+  color: var(--main-text-color);
+}
