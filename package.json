@@ -1,0 +1,12 @@
+{
+  "name": "yntht",
+  "version": "1.0.0",
+  "description": "A social music sharing app",
+  "scripts": {
+    "start-frontend": "cd yntht-frontend && npm start",
+    "start-backend": "cd yntht-backend && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacob Fisher",
+  "license": "ISC"
+}
