@@ -11,14 +11,14 @@ import './App.css';
 const PAGES = {
   FEED: { 
     name: "Feed",
-    bgColor: "#24316E",
-    highlightColor: "#FCFF2B",
+    bgColor: "#BCA6CE",
+    highlightColor: "#FCE849",
     presentInMenu: true,
   },
   MY3: {
     name: "My 3",
-    bgColor: "#91DBCD",
-    highlightColor: "#FA4739",
+    bgColor: "#24316E",
+    highlightColor: "#FCFF2B",
     presentInMenu: true,
   },
   HISTORY: {
@@ -29,8 +29,8 @@ const PAGES = {
   },
   PROFILE: {
     name: "Profile",
-    bgColor: "#BCA6CE",
-    highlightColor: "#FCE849",
+    bgColor: "#91DBCD",
+    highlightColor: "#FA4739",
     presentInMenu: true,
   },
   SEARCH_RESULTS: {

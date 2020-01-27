@@ -1,10 +1,15 @@
 :root {
   --main-text-color: #FFFFFF;
   --font-xs: 12px;
-  --font-s: 20px;
-  --font-m: 30px;
+  --font-s: 18px;
+  --font-m: 25px;
   --font-l: 30px;
-  --font-xl: 60px;
+  --font-xl: 55px;
+}
+
+@font-face {
+  font-family: 'Brandon Regular';
+  src: local('Brandon_reg'), url(./fonts/Brandon_reg.otf) format('opentype');
 }
 
 @font-face {

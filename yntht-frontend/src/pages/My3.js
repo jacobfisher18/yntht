@@ -2,6 +2,7 @@ import React from 'react';
 import DrakeImg from '../images/img1.png';
 import CaminoImg from '../images/img2.png';
 import ChelseaImg from '../images/img3.png';
+import SongView from '../components/SongView.js'
 import '../global.css';
 import './My3.css';
 
@@ -34,15 +35,13 @@ class My3 extends React.Component {
   renderSongs() {
     return this.state.songs.map(song => {
       return (
-        <div className="SongContainer" key={`${song.title}-${song.artist}`}>
-          <div className="SongImgContainer">
-            <img src={song.img} alt="See Through"></img>
-          </div>
-          <div className="SongDetailsContainer">
-            <div className="SongDetailsTitle">{song.title}</div>
-            <div className="SongDetailsArtist">{song.artist}</div>
-          </div>
-        </div>
+        <SongView
+          key={`${song.title}-${song.artist}`}
+          size="M"
+          title={song.title}
+          artist={song.artist}
+          img={song.img}
+        />
       )
     })
   }
