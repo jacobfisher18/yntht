@@ -28,7 +28,7 @@
 
 .Search input:focus {
   outline: none;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 .Search input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

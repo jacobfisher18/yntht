@@ -1,0 +1,55 @@
+.InfoButton {
+  height: 20px;
+  margin-left: 20px;
+}
+
+.InfoButton:hover {
+  opacity: 70%;
+}
+
+.Tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.Tooltip .TooltipTextContainer {
+  visibility: hidden;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  width: 300px;
+  position: absolute;
+  z-index: 1;
+  display: inline;
+  font-size: 14px;
+  top: 32px;
+  left: 55px;
+}
+
+.TooltipText {
+  font-size: 14px;
+  font-family: 'Brandon Regular';
+}
+
+.Tooltip:hover .TooltipTextContainer {
+  visibility: visible;
+}
+
+.Tooltip {
+  background-color: blue;
+  box-sizing: border-box;
+  height: 0px;
+}
+
+.Tooltip .TooltipTextContainer::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent rgba(0,0,0,0.3) transparent transparent;
+}

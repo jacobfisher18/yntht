@@ -1,4 +1,7 @@
 import React from 'react';
+import DrakeImg from './images/img1.png';
+import CaminoImg from './images/img2.png';
+import ChelseaImg from './images/img3.png';
 import Feed from './pages/Feed.js';
 import My3 from './pages/My3.js';
 import History from './pages/History.js';
@@ -51,6 +54,23 @@ class App extends React.Component {
       spotifySearchResults: {},
       spotifySearchIsLoading: false,
       spotifySearchIsInError: false,
+      my3: [
+        {
+          title: "Life Is Good 2 (feat. Drake)",
+          artist: "Future, Drake",
+          img: DrakeImg,
+        },
+        {
+          title: "See Through",
+          artist: "The Band Camino",
+          img: CaminoImg,
+        },
+        {
+          title: "Are You Listening",
+          artist: "Chelsea Cutler",
+          img: ChelseaImg,
+        }
+      ]
     }
   }
 
@@ -71,6 +91,14 @@ class App extends React.Component {
     })
   }
 
+  replaceSongInMy3(oldSong, newSong) {
+    this.setState(prevState => {
+      return {
+        my3: prevState.my3.map(currSong => currSong.title === oldSong.title ? newSong : currSong),
+      };
+    })
+  }
+
   renderTab() {
     switch (this.state.activeTab) {
       case PAGES.FEED.name:
@@ -85,6 +113,7 @@ class App extends React.Component {
           <My3
             bgColor={PAGES.MY3.bgColor}
             highlightColor={PAGES.MY3.highlightColor}
+            songs={this.state.my3}
           />
         )
       case PAGES.HISTORY.name:
@@ -109,6 +138,8 @@ class App extends React.Component {
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
             spotifySearchIsInError={this.state.spotifySearchIsInError}
+            my3={this.state.my3}
+            replaceSongInMy3={(oldSong, newSong) => this.replaceSongInMy3(oldSong, newSong)}
           />
         )
       default:
@@ -134,6 +165,7 @@ class App extends React.Component {
   }
 
   render() {
+    // TO-DO: add message at the top of the screen, and we should be able to fire a message at any time
     return (
       <div className="App">
         <div className="MainContentContainer">

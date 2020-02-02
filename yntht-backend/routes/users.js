@@ -18,7 +18,7 @@ router.post('/user', (req, res) => {
 
   const { username, password } = req.body;
 
-  // To-do: validate username and password
+  // TO-DO: validate username and password
   //    validate username and password (correct length, format, etc.)
   //    make sure the username doesn't exist yet
   //    hash password

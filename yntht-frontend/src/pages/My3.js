@@ -1,39 +1,13 @@
 import React from 'react';
-import DrakeImg from '../images/img1.png';
-import CaminoImg from '../images/img2.png';
-import ChelseaImg from '../images/img3.png';
+import InfoImg from '../images/info.png';
 import SongView from '../components/SongView.js'
 import '../global.css';
 import './My3.css';
 
 class My3 extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      songs: [
-        {
-          title: "Life Is Good (feat. Drake)",
-          artist: "Future, Drake",
-          img: DrakeImg,
-        },
-        {
-          title: "See Through",
-          artist: "The Band Camino",
-          img: CaminoImg,
-        },
-        {
-          title: "Are You Listening",
-          artist: "Chelsea Cutler",
-          img: ChelseaImg,
-        }
-      ]
-    }
-  }
-
   renderSongs() {
-    return this.state.songs.map(song => {
+    return this.props.songs.map(song => {
       return (
         <SongView
           key={`${song.title}-${song.artist}`}
@@ -58,7 +32,20 @@ class My3 extends React.Component {
           className="PageTitle"
           style={{ color: this.props.highlightColor }}
         >
-          My 3</h1>
+          My 3
+          <div className="Tooltip">
+            <img
+              className="InfoButton"
+              src={InfoImg}
+              alt="info"
+            />
+            <div className="TooltipTextContainer">
+              <span className="TooltipText">Search for a song above to add it to Your 3</span>
+            </div>
+          </div>
+          
+        </h1>
+        
         {this.renderSongs()}
       </div>
     )
