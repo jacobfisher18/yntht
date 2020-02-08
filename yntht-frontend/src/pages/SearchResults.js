@@ -2,6 +2,7 @@ import React from 'react';
 import SongView from '../components/SongView.js';
 import Modal from 'react-modal';
 import CloseImg from '../images/close.png';
+import { putMy3ForUser } from '../api/my3client';
 import '../global.css';
 import './SearchResults.css';
 
@@ -42,6 +43,10 @@ class SearchResults extends React.Component {
     return !(matchingItems.length >= 2 && matchingItems[0].id !== value.id);
   }
 
+  songIsNull(song) {
+    return (!song.title || !song.artist || !song.img)
+  }
+
   renderResults() {
     // TO-DO: Reusable error component
     if (!this.props.spotifySearchResults ||
@@ -59,14 +64,51 @@ class SearchResults extends React.Component {
             title={track.name}
             artist={track.artists[0].name} // TO-DO: use all artists, do null checking; note impact on onlyUnique above
             img={track.album.images[0].url} // TO-DO: null checking
-            onClick={() => this.setState({
-              isModalOpen: true,
-              selectedSong: {
-                title: track.name,
-                artist: track.artists[0].name,
-                img: track.album.images[0].url,
+            onClick={() => {
+
+              let isFull = true;
+              let lowestEmptyIndex = 0;
+
+              if (this.songIsNull(this.props.my3[0])) {
+                isFull = false;
+                lowestEmptyIndex = 0;
+              } else if (this.songIsNull(this.props.my3[1])) {
+                isFull = false;
+                lowestEmptyIndex = 1;
+              } else if (this.songIsNull(this.props.my3[2])) {
+                isFull = false;
+                lowestEmptyIndex = 2;
               }
-            })}
+
+              console.log('lowestEmptyIndex', lowestEmptyIndex);
+
+              if (isFull) {
+                this.setState({
+                  isModalOpen: true,
+                  selectedSong: {
+                    title: track.name,
+                    artist: track.artists[0].name,
+                    img: track.album.images[0].url,
+                  }
+                })
+              } else {
+                const userID = 14;
+
+                const newSong = {
+                  title: track.name,
+                  artist: track.artists[0].name,
+                  img: track.album.images[0].url,
+                };
+
+                putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
+                  this.props.addSongToMy3(lowestEmptyIndex, newSong);
+                  // TO-DO: give some indication in the UI that the song was added
+                }).catch(err => {
+                  // deal with error
+                })
+              }
+            }
+            }
           />
         )
       })
@@ -103,14 +145,22 @@ class SearchResults extends React.Component {
                 this.props.my3.map(song => {
                   return (
                     <div
-                      key={song.title}
+                      key={`${song.title}-${song.artist}-${song.item_index}`}
                       className="ModalSongContainer">
                       <div
                         className="MinusButton"
                         onClick={() => {
                           // TO-DO: API operation to change song, and proceed on success; handle error
-                          this.props.replaceSongInMy3(song, this.state.selectedSong);
-                          this.setState({ isModalOpen: false });
+                          const userID = 14;
+
+                          const newSong = this.state.selectedSong;
+
+                          putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(res => {
+                            this.props.replaceSongInMy3(song.item_index, this.state.selectedSong);
+                            this.setState({ isModalOpen: false });
+                          }).catch(err => {
+                            // deal with error
+                          })
                         }
                         } />
                       {song.title}

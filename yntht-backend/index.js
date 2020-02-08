@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({
 // import routes
 app.use(require('./routes/spotify'));
 app.use(require('./routes/users'));
+app.use(require('./routes/my3'));
 
 // health check
 app.get('/health', (req, res) => {

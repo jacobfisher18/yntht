@@ -1,18 +1,16 @@
 import React from 'react';
-import DrakeImg from './images/img1.png';
-import CaminoImg from './images/img2.png';
-import ChelseaImg from './images/img3.png';
 import Feed from './pages/Feed.js';
 import My3 from './pages/My3.js';
 import History from './pages/History.js';
 import Profile from './pages/Profile.js';
 import SearchResults from './pages/SearchResults.js';
 import Search from './components/Search.js';
-import { spotifySearchRequest } from './spotify/spotifyClient.js';
+import { spotifySearchRequest } from './api/spotifyClient.js';
+import { getMy3ForUser } from './api/my3client.js';
 import './App.css';
 
 const PAGES = {
-  FEED: { 
+  FEED: {
     name: "Feed",
     bgColor: "#BCA6CE",
     highlightColor: "#FCE849",
@@ -50,28 +48,57 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      loading: false,
+      error: false,
       activeTab: PAGES.MY3.name,
       spotifySearchResults: {},
       spotifySearchIsLoading: false,
       spotifySearchIsInError: false,
+      userID: 14, // TO-DO: actually get user id
       my3: [
         {
-          title: "Life Is Good 2 (feat. Drake)",
-          artist: "Future, Drake",
-          img: DrakeImg,
+          title: null,
+          artist: null,
+          img: null,
+          item_index: 0
         },
         {
-          title: "See Through",
-          artist: "The Band Camino",
-          img: CaminoImg,
+          title: null,
+          artist: null,
+          img: null,
+          item_index: 1
         },
         {
-          title: "Are You Listening",
-          artist: "Chelsea Cutler",
-          img: ChelseaImg,
+          title: null,
+          artist: null,
+          img: null,
+          item_index: 2
         }
       ]
     }
+  }
+
+  componentDidMount() {
+    // TO-DO: get user profile from API or cookie or something and set state
+
+    // get data
+    this.setState({ loading: true })
+    getMy3ForUser(this.state.userID).then(data => {
+      this.setState({
+        loading: false,
+        my3: data.sort((a, b) => a.item_index < b.item_index).map(item => {
+          return {
+            title: item.title,
+            artist: item.artist,
+            img: item.img,
+            item_index: item.item_index
+          }
+        })
+      })
+    }).catch(err => {
+      console.log(err);
+      this.setState({ loading: false, error: true })
+    })
   }
 
   selectTab(tab) {
@@ -91,10 +118,20 @@ class App extends React.Component {
     })
   }
 
-  replaceSongInMy3(oldSong, newSong) {
+  addSongToMy3(index, newSong) {
+    console.log('addSongToMy3');
+    console.log(index, newSong);
     this.setState(prevState => {
       return {
-        my3: prevState.my3.map(currSong => currSong.title === oldSong.title ? newSong : currSong),
+        my3: prevState.my3.map(currSong => currSong.item_index === index ? newSong : currSong),
+      };
+    })
+  }
+
+  replaceSongInMy3(index, newSong) {
+    this.setState(prevState => {
+      return {
+        my3: prevState.my3.map(currSong => currSong.item_index === index ? { ...newSong, item_index: index} : currSong),
       };
     })
   }
@@ -140,6 +177,7 @@ class App extends React.Component {
             spotifySearchIsInError={this.state.spotifySearchIsInError}
             my3={this.state.my3}
             replaceSongInMy3={(oldSong, newSong) => this.replaceSongInMy3(oldSong, newSong)}
+            addSongToMy3={(index, newSong) => this.addSongToMy3(index, newSong)}
           />
         )
       default:
@@ -168,19 +206,23 @@ class App extends React.Component {
     // TO-DO: add message at the top of the screen, and we should be able to fire a message at any time
     return (
       <div className="App">
-        <div className="MainContentContainer">
-          <div className="HeaderContainer">
-            <Search
-              onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
-            />
-            <div className="NavMenu">
-              {this.renderMenu()}
-            </div>
-          </div>
-          <div className="PageContainer">
-            {this.renderTab()}
-          </div>
-        </div>
+        {
+          this.state.loading ? <p>Loading...</p> :
+            this.state.error ? <p>Error</p> :
+              <div className="MainContentContainer">
+                <div className="HeaderContainer">
+                  <Search
+                    onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
+                  />
+                  <div className="NavMenu">
+                    {this.renderMenu()}
+                  </div>
+                </div>
+                <div className="PageContainer">
+                  {this.renderTab()}
+                </div>
+              </div>
+        }
       </div>
     );
   }

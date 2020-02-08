@@ -7,7 +7,9 @@ import './My3.css';
 class My3 extends React.Component {
 
   renderSongs() {
-    return this.props.songs.map(song => {
+    return this.props.songs
+      .filter(song => song.title && song.artist && song.img)
+      .map(song => {
       return (
         <SongView
           key={`${song.title}-${song.artist}`}
