@@ -1,7 +1,13 @@
 export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
   fetch(`/my3/${userID}`)
-    .then(response => response.json())
-    .then((myJson) => {
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      } else {
+        return response.json();
+      }
+    })
+    .then(myJson => {
       console.log("Retrieved my3 from backend:", myJson);
       resolve(myJson);
     })

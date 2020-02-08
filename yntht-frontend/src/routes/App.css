@@ -9,22 +9,22 @@
 
 @font-face {
   font-family: 'Brandon Regular';
-  src: local('Brandon_reg'), url(./fonts/Brandon_reg.otf) format('opentype');
+  src: local('Brandon_reg'), url(../fonts/Brandon_reg.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'Brandon Med';
-  src: local('Brandon_med'), url(./fonts/Brandon_med.otf) format('opentype');
+  src: local('Brandon_med'), url(../fonts/Brandon_med.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'Brandon Bold';
-  src: local('Brandon_bld'), url(./fonts/Brandon_bld.otf) format('opentype');
+  src: local('Brandon_bld'), url(../fonts/Brandon_bld.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'Brandon Black';
-  src: local('Brandon_blk'), url(./fonts/Brandon_blk.otf) format('opentype');
+  src: local('Brandon_blk'), url(../fonts/Brandon_blk.otf) format('opentype');
 }
 
 * {

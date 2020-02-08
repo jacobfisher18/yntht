@@ -1,12 +1,12 @@
 import React from 'react';
-import Feed from './pages/Feed.js';
-import My3 from './pages/My3.js';
-import History from './pages/History.js';
-import Profile from './pages/Profile.js';
-import SearchResults from './pages/SearchResults.js';
-import Search from './components/Search.js';
-import { spotifySearchRequest } from './api/spotifyClient.js';
-import { getMy3ForUser } from './api/my3client.js';
+import Feed from '../pages/Feed.js';
+import My3 from '../pages/My3.js';
+import History from '../pages/History.js';
+import Profile from '../pages/Profile.js';
+import SearchResults from '../pages/SearchResults.js';
+import Search from '../components/Search.js';
+import { spotifySearchRequest } from '../api/spotifyClient.js';
+import { getMy3ForUser } from '../api/my3client.js';
 import './App.css';
 
 const PAGES = {
@@ -96,7 +96,6 @@ class App extends React.Component {
         })
       })
     }).catch(err => {
-      console.log(err);
       this.setState({ loading: false, error: true })
     })
   }
