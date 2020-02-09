@@ -10,13 +10,12 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
     ("${userID}", ${2})
     `
 
-  connection.query(query, (error, results, fields) => {
+  connection.query(query, (error, results) => {
     if (error) throw error;
-    // TODO: check if results looks about right (i.e. 3 items)
-    if (results) {
+    if (results && results.affectedRows === 3) {
       resolve();
     } else {
-      reject();
+      reject(`Error initializing my3 rows for userID ${userID}`);
     }
   });
 })

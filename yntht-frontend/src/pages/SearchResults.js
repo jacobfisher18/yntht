@@ -90,15 +90,13 @@ class SearchResults extends React.Component {
                   }
                 })
               } else {
-                const userID = 14;
-
                 const newSong = {
                   title: track.name,
                   artist: track.artists[0].name,
                   img: track.album.images[0].url,
                 };
 
-                putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
+                putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
                   this.props.addSongToMy3(lowestEmptyIndex, newSong);
                   // TODO: give some indication in the UI that the song was added
                 }).catch(err => {
@@ -148,16 +146,13 @@ class SearchResults extends React.Component {
                       <div
                         className="MinusButton"
                         onClick={() => {
-                          // TODO: API operation to change song, and proceed on success; handle error
-                          const userID = 14;
-
                           const newSong = this.state.selectedSong;
 
-                          putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(res => {
+                          putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(() => {
                             this.props.replaceSongInMy3(song.item_index, this.state.selectedSong);
                             this.setState({ isModalOpen: false });
                           }).catch(err => {
-                            // deal with error
+                            // TODO: deal with error
                           })
                         }
                         } />

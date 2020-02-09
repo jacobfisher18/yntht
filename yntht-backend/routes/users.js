@@ -50,17 +50,17 @@ router.post('/user', (req, res) => {
     // Get the ID we just generated
     connection.query('SELECT @@IDENTITY', (error, results, fields) => {
       if (error) throw error;
-      const user_id = results[0]['@@IDENTITY'];
+      const userID = results[0]['@@IDENTITY'];
 
       // Create my3 slots in the db for the user
-      initMy3(user_id).then(() => {
+      initMy3(userID).then(() => {
         res.send({
           status: "Created",
-          user_id,
+          user_id: userID,
           username
         })
       }).catch(err => {
-        console.log("Error with initMy3:", err);
+        console.log(err);
       })
     });
   });
@@ -86,7 +86,6 @@ router.post('/user/auth', (req, res) => {
 
   const hashedPassword = mystr;
 
-  // TODO: check on if there's a better way to search mysql than just a select query
   const query = `SELECT * FROM users WHERE username='${username}'`;
 
   connection.query(query, (error, results, fields) => {

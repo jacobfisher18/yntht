@@ -21,8 +21,6 @@ class Login extends React.Component {
 
   handleSubmit() {
     const { username, password } = this.state;
-    // TODO: input validation
-    // alert(`Username: ${this.state.username}, password: ${this.state.password}`)
 
     authUser(username, password).then(result => {
       // handle all the cases

@@ -1,5 +1,4 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import Feed from '../pages/Feed.js';
 import My3 from '../pages/My3.js';
 import History from '../pages/History.js';
@@ -55,7 +54,6 @@ class App extends React.Component {
       spotifySearchResults: {},
       spotifySearchIsLoading: false,
       spotifySearchIsInError: false,
-      userID: 0,
       my3: [
         {
           title: null,
@@ -80,34 +78,21 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: get user profile from API or cookie or something and set state
-
-    const cookies = new Cookies();
-    const userID = cookies.get('user_id');
-    if (!userID) {
-      // TODO: force to landing page; look into why this happened
-    }
-
-    this.setState({ userID }, () => {
-
-      // get data
-      this.setState({ loading: true })
-      getMy3ForUser(this.state.userID).then(data => {
-        this.setState({
-          loading: false,
-          my3: data.sort((a, b) => a.item_index < b.item_index).map(item => {
-            return {
-              title: item.title,
-              artist: item.artist,
-              img: item.img,
-              item_index: item.item_index
-            }
-          })
+    this.setState({ loading: true })
+    getMy3ForUser(this.props.userID).then(data => {
+      this.setState({
+        loading: false,
+        my3: data.sort((a, b) => a.item_index < b.item_index).map(item => {
+          return {
+            title: item.title,
+            artist: item.artist,
+            img: item.img,
+            item_index: item.item_index
+          }
         })
-      }).catch(err => {
-        this.setState({ loading: false, error: true })
       })
-
+    }).catch(err => {
+      this.setState({ loading: false, error: true })
     })
   }
 
@@ -180,6 +165,7 @@ class App extends React.Component {
           <SearchResults
             bgColor={PAGES.SEARCH_RESULTS.bgColor}
             highlightColor={PAGES.SEARCH_RESULTS.highlightColor}
+            userID={this.props.userID}
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
             spotifySearchIsInError={this.state.spotifySearchIsInError}

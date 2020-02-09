@@ -11,13 +11,13 @@ class App extends React.Component {
     const cookies = new Cookies();
 
     this.state = {
-      authenticated_id: cookies.get('user_id')
+      userID: cookies.get('user_id')
     }
   }
 
   render() {
-    if (this.state.authenticated_id) {
-      return <Home/>;
+    if (this.state.userID) {
+      return <Home userID={this.state.userID}/>;
     } else {
       return <Landing />;
     }
