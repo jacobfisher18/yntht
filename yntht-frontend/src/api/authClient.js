@@ -17,7 +17,6 @@ export const authUser = (username, password) => new Promise((resolve, reject) =>
       }
     })
     .then(myJson => {
-      console.log(myJson)
       resolve(myJson)
     })
     .catch(err => {

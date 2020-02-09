@@ -8,7 +8,6 @@ export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
       }
     })
     .then(myJson => {
-      console.log("Retrieved my3 from backend:", myJson);
       resolve(myJson);
     })
     .catch(err => {

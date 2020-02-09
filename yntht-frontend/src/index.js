@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Cookies from 'universal-cookie';
 import App from './routes/App';
 import Login from './routes/Login';
 import Signup from './routes/Signup';

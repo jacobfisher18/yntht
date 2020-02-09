@@ -80,8 +80,6 @@ class SearchResults extends React.Component {
                 lowestEmptyIndex = 2;
               }
 
-              console.log('lowestEmptyIndex', lowestEmptyIndex);
-
               if (isFull) {
                 this.setState({
                   isModalOpen: true,

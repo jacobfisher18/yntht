@@ -129,8 +129,6 @@ class App extends React.Component {
   }
 
   addSongToMy3(index, newSong) {
-    console.log('addSongToMy3');
-    console.log(index, newSong);
     this.setState(prevState => {
       return {
         my3: prevState.my3.map(currSong => currSong.item_index === index ? newSong : currSong),
