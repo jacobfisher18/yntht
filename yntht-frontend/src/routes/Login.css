@@ -1,0 +1,56 @@
+.Login {
+  background-color: #F9F9F9;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  padding-top: 100px;
+  color: #333;
+}
+
+.FormContainer {
+  border: 1px solid #D8DEE2;
+  width: 250px;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.InputTitle {
+  margin-bottom: 5px;
+}
+
+.FormInput {
+  flex: 1;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: 1px solid #D8DEE2;
+  line-height: 5px;
+  font-family: 'Brandon Regular';
+}
+
+input:focus {
+  outline: none;
+}
+
+.SubmitButton {
+  background: linear-gradient(85deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  flex: 1;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
+  border: none;
+}
+
+/* To-Do: hover effect for this button */
+.SubmitButton:hover {
+  background: linear-gradient(90deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
+  cursor: pointer;
+}
