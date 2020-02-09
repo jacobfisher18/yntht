@@ -1,4 +1,5 @@
 import React from 'react';
+import { createUser } from '../api/authClient';
 import '../global.css';
 import './Signup.css';
 
@@ -10,15 +11,26 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      error: '' //To-Do: render this
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    // To-Do: input validation
-    alert(`Username: ${this.state.username}, password: ${this.state.password}`)
+    const { username, password } = this.state;
+    // To-Do: input validation (i.e. do passwords match?)
+
+    createUser(username, password).then(result => {
+      if (result.status === "Created") {
+        // To-Do: go to a profile created page
+      } else {
+        this.setState({ error: "An unknown error has occurred." })
+      }
+    }).catch(err => {
+      this.setState({ error: "An unknown error has occurred." })
+    })
   }
 
   handleFormSubmit(event) {
@@ -35,7 +47,7 @@ class Signup extends React.Component {
         <h1 className="SignupTitle">
           Create a YNTHT account
         </h1>
-        <form onSubmit={this.handleFormSubmit}>
+        {/* <form onSubmit={this.handleFormSubmit}> */}
           <div className="FormContainer">
             <p className="InputTitle UsernameTitle">Username</p>
             <input
@@ -65,7 +77,7 @@ class Signup extends React.Component {
               onClick={() => this.handleSubmit()}
             />
           </div>
-        </form>
+        {/* </form> */}
       </div>
     )
   }

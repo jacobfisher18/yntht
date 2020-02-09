@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const crypto = require('crypto');
+const { initMy3 } = require('../utilities/my3');
 
 // get all users
 router.get('/users', (req, res) => {
@@ -36,17 +37,32 @@ router.post('/user', (req, res) => {
 
   const hashedPassword = mystr;
 
-  // decrypt
-  // var mykey = crypto.createDecipher('aes-128-cbc', secret);
-  // var mystr = mykey.update(mystr, 'hex', 'utf8')
-  // mystr += mykey.final('utf8');
-  // console.log(mystr);
+  const query = `
+    INSERT INTO
+    users (username, password)
+    VALUES ("${username}", "${hashedPassword}")
+    `
 
-  const query = `INSERT INTO users (username, password) VALUES ("${username}", "${hashedPassword}")`
-
+  // Insert the user into the DB
   connection.query(query, (error, results, fields) => {
     if (error) throw error;
-    res.sendStatus(200);
+
+    // Get the ID we just generated
+    connection.query('SELECT @@IDENTITY', (error, results, fields) => {
+      if (error) throw error;
+      const user_id = results[0]['@@IDENTITY'];
+
+      // Create my3 slots in the db for the user
+      initMy3(user_id).then(() => {
+        res.send({
+          status: "Created",
+          user_id,
+          username
+        })
+      }).catch(err => {
+        console.log("Error with initMy3:", err);
+      })
+    });
   });
 
 })
