@@ -12,7 +12,7 @@ class Signup extends React.Component {
       username: '',
       password: '',
       confirmPassword: '',
-      error: '' //To-Do: render this
+      error: '' //TODO: render this
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,11 +20,11 @@ class Signup extends React.Component {
 
   handleSubmit() {
     const { username, password } = this.state;
-    // To-Do: input validation (i.e. do passwords match?)
+    // TODO: input validation (i.e. do passwords match?)
 
     createUser(username, password).then(result => {
       if (result.status === "Created") {
-        // To-Do: go to a profile created page
+        // TODO: go to a profile created page
       } else {
         this.setState({ error: "An unknown error has occurred." })
       }
@@ -38,9 +38,9 @@ class Signup extends React.Component {
     event.preventDefault();
   }
 
-  // To-do: add a link to login
-  // To-do: confirm password
-  // To-do: get enter key working
+  // TODO: add a link to login
+  // TODO: confirm password
+  // TODO: get enter key working
   render() {
     return (
       <div className="Signup">

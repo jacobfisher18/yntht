@@ -49,7 +49,7 @@ input:focus {
   border: none;
 }
 
-/* To-Do: hover effect for this button */
+/* TODO: hover effect for this button */
 .SubmitButton:hover {
   background: linear-gradient(90deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
   cursor: pointer;

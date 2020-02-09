@@ -21,7 +21,7 @@ class Login extends React.Component {
 
   handleSubmit() {
     const { username, password } = this.state;
-    // To-Do: input validation
+    // TODO: input validation
     // alert(`Username: ${this.state.username}, password: ${this.state.password}`)
 
     authUser(username, password).then(result => {
@@ -61,9 +61,9 @@ class Login extends React.Component {
     this.handleSubmit();
   }
 
-  // To-do: forgot password flow
-  // To-do: add a link to create an account
-  // To-do: get enter key working
+  // TODO: forgot password flow
+  // TODO: add a link to create an account
+  // TODO: get enter key working
   render() {
     return (
       <div className="Login">

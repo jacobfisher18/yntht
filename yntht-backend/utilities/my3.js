@@ -1,6 +1,6 @@
 // Create 3 rows in the my3 table for the user
 const initMy3 = (userID) => new Promise((resolve, reject) => {
-  // To-Do: if there is already some data in the db for the userID, we should probably deal with that case
+  // TODO: if there is already some data in the db for the userID, we should probably deal with that case
   // the user shouldn't be in the database at all yet
 
   const query = `
@@ -12,7 +12,7 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
 
   connection.query(query, (error, results, fields) => {
     if (error) throw error;
-    // To-Do: check if results looks about right (i.e. 3 items)
+    // TODO: check if results looks about right (i.e. 3 items)
     if (results) {
       resolve();
     } else {
@@ -23,4 +23,4 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
 
 module.exports = { initMy3 }
 
-// To-Do: delete these 3 cells when a user is deleted
+// TODO: delete these 3 cells when a user is deleted

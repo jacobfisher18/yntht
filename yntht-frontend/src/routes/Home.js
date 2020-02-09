@@ -80,12 +80,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // To-Do: get user profile from API or cookie or something and set state
+    // TODO: get user profile from API or cookie or something and set state
 
     const cookies = new Cookies();
     const userID = cookies.get('user_id');
     if (!userID) {
-      // To-Do: force to landing page; look into why this happened
+      // TODO: force to landing page; look into why this happened
     }
 
     this.setState({ userID }, () => {
@@ -211,7 +211,7 @@ class App extends React.Component {
   }
 
   render() {
-    // TO-DO: add message at the top of the screen, and we should be able to fire a message at any time
+    // TODO: add message at the top of the screen, and we should be able to fire a message at any time
     return (
       <div className="App">
         {

@@ -19,7 +19,7 @@ router.post('/user', (req, res) => {
 
   const { username, password } = req.body;
 
-  // TO-DO: validate username and password
+  // TODO: validate username and password
   //    validate username and password (correct length, format, etc.)
   //    make sure the username doesn't exist yet
 
@@ -86,7 +86,7 @@ router.post('/user/auth', (req, res) => {
 
   const hashedPassword = mystr;
 
-  // To-Do: check on if there's a better way to search mysql than just a select query
+  // TODO: check on if there's a better way to search mysql than just a select query
   const query = `SELECT * FROM users WHERE username='${username}'`;
 
   connection.query(query, (error, results, fields) => {

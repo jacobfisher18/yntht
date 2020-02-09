@@ -48,13 +48,13 @@ class SearchResults extends React.Component {
   }
 
   renderResults() {
-    // TO-DO: Reusable error component
+    // TODO: Reusable error component
     if (!this.props.spotifySearchResults ||
       !this.props.spotifySearchResults.tracks ||
       !this.props.spotifySearchResults.tracks.items
       ) return <p>Other Error</p>;
 
-    // TO-DO: Message for 0 results
+    // TODO: Message for 0 results
     return (
       this.props.spotifySearchResults.tracks.items.filter(this.onlyUnique).map(track => {
         return (
@@ -62,8 +62,8 @@ class SearchResults extends React.Component {
             key={track.id}
             size="S"
             title={track.name}
-            artist={track.artists[0].name} // TO-DO: use all artists, do null checking; note impact on onlyUnique above
-            img={track.album.images[0].url} // TO-DO: null checking
+            artist={track.artists[0].name} // TODO: use all artists, do null checking; note impact on onlyUnique above
+            img={track.album.images[0].url} // TODO: null checking
             onClick={() => {
 
               let isFull = true;
@@ -100,7 +100,7 @@ class SearchResults extends React.Component {
 
                 putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
                   this.props.addSongToMy3(lowestEmptyIndex, newSong);
-                  // TO-DO: give some indication in the UI that the song was added
+                  // TODO: give some indication in the UI that the song was added
                 }).catch(err => {
                   // deal with error
                 })
@@ -116,7 +116,7 @@ class SearchResults extends React.Component {
   render() {
     this.setBackgroundColor();
 
-    // TO-DO: Better Loading component
+    // TODO: Better Loading component
     return (
       <div className="SearchResults">
         <Modal
@@ -148,7 +148,7 @@ class SearchResults extends React.Component {
                       <div
                         className="MinusButton"
                         onClick={() => {
-                          // TO-DO: API operation to change song, and proceed on success; handle error
+                          // TODO: API operation to change song, and proceed on success; handle error
                           const userID = 14;
 
                           const newSong = this.state.selectedSong;
