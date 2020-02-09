@@ -2,7 +2,7 @@ import React from 'react';
 import SongView from '../components/SongView.js';
 import Modal from 'react-modal';
 import CloseImg from '../images/close.png';
-import { putMy3ForUser } from '../api/my3client';
+import { putMy3ForUser } from '../api/my3Client';
 import '../global.css';
 import './SearchResults.css';
 

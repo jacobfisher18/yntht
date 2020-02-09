@@ -1,6 +1,9 @@
 import React from 'react';
+import Cookies from 'universal-cookie';
+import { withRouter } from "react-router-dom";
 import '../global.css';
 import './Login.css';
+import { authUser } from '../api/authClient';
 
 class Login extends React.Component {
 
@@ -9,32 +12,70 @@ class Login extends React.Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: '',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
+    const { username, password } = this.state;
     // To-Do: input validation
-    alert(`Username: ${this.state.username}, password: ${this.state.password}`)
+    // alert(`Username: ${this.state.username}, password: ${this.state.password}`)
+
+    authUser(username, password).then(result => {
+      // handle all the cases
+      switch (result.status) {
+        case "Not Found":
+          this.setState({ error: "That username was not found." })
+          break;
+        case "Error":
+          this.setState({ error: "An unknown error has occurred." })
+          break;
+        case "Incorrect Password":
+          this.setState({ error: "The password you entered is incorrect." })
+          break;
+        case "Found":
+          // success, we can move forward
+          this.setState({ error: "" })
+
+          // set a cookie to log in
+          const cookies = new Cookies();
+          cookies.set('user_id', result.user_id, { path: '/' });
+          cookies.set('username', result.username, { path: '/' });
+
+          // redirect to app
+          this.props.history.push("/");
+          break;
+        default:
+          this.setState({ error: "An unknown error has occurred." })
+      }
+    }).catch(err => {
+      this.setState({ error: "An unknown error has occurred." })
+    })
   }
 
   handleFormSubmit(event) {
-    alert('A name was submitted: ' + this.state.username);
     event.preventDefault();
+    this.handleSubmit();
   }
 
   // To-do: forgot password flow
   // To-do: add a link to create an account
+  // To-do: get enter key working
   render() {
     return (
       <div className="Login">
         <h1 className="LoginTitle">
           Sign in to YNTHT
         </h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="FormContainer">
+        {/* <form onSubmit={this.handleFormSubmit}> */}
+        <div className="FormContainer">
+          {
+            this.state.error &&
+              <p className="ErrorMessage">{this.state.error}</p>
+          }
             <p className="InputTitle UsernameTitle">Username</p>
             <input
               className="FormInput UsernameInput"
@@ -56,10 +97,10 @@ class Login extends React.Component {
               onClick={() => this.handleSubmit()}
               />
           </div>
-        </form>
+        {/* </form> */}
       </div>
     )
   }
 }
 
-export default Login;
+export default withRouter(Login);

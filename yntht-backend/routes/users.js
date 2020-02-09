@@ -21,7 +21,6 @@ router.post('/user', (req, res) => {
   // TO-DO: validate username and password
   //    validate username and password (correct length, format, etc.)
   //    make sure the username doesn't exist yet
-  //    hash password
 
   if (!username || !password) {
     console.log('Please supply a username and a password')
@@ -48,6 +47,56 @@ router.post('/user', (req, res) => {
   connection.query(query, (error, results, fields) => {
     if (error) throw error;
     res.sendStatus(200);
+  });
+
+})
+
+// authenticate a user
+router.post('/user/auth', (req, res) => {
+
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    console.log('Please supply a username and a password')
+    res.sendStatus(400);
+    return;
+  }
+
+  // encrypt password
+  const secret = 'abc123'
+  var mykey = crypto.createCipher('aes-128-cbc', secret);
+  var mystr = mykey.update(password, 'utf8', 'hex')
+  mystr += mykey.final('hex');
+
+  const hashedPassword = mystr;
+
+  // To-Do: check on if there's a better way to search mysql than just a select query
+  const query = `SELECT * FROM users WHERE username='${username}'`;
+
+  connection.query(query, (error, results, fields) => {
+    if (error) throw error;
+
+    if (results.length < 1) {
+      // there's no use with that username
+      res.send({ status: "Not Found" });
+    } else if (results.length > 1) {
+      // there are multiple users with that username in the db, this is an issue
+      res.send({ status: "Error" });
+    } else {
+      const foundUser = results[0];
+
+      // check if password was right
+      if (foundUser.password !== hashedPassword) {
+        res.send({ status: "Incorrect Password" });
+      } else {
+        // user and password were found
+        res.send({
+          status: "Found",
+          user_id: foundUser.id,
+          username: foundUser.username
+        })
+      }
+    }
   });
 
 })

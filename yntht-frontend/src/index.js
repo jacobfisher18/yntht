@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Cookies from 'universal-cookie';
 import App from './routes/App';
-import Landing from './routes/Landing';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
 import Notfound from './routes/Notfound';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
-
-const authenticated = false; // To-Do: read from cookie
 
 const routing = (
   <BrowserRouter>
@@ -15,12 +13,19 @@ const routing = (
       <Switch>
         <Route
           exact path="/"
-          component={authenticated ? App : Landing}
+          component={App}
         />
-        <Route exact path="/" component={App} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route component={Notfound} />
+        <Route
+          path="/login"
+          component={Login}
+        />
+        <Route
+          path="/signup"
+          component={Signup}
+        />
+        <Route
+          component={Notfound}
+        />
       </Switch>
     </div>
   </BrowserRouter>

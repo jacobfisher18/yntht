@@ -54,3 +54,9 @@ input:focus {
   background: linear-gradient(90deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
   cursor: pointer;
 }
+
+.ErrorMessage {
+  margin: 0;
+  color: #FC615D;
+  font-size: 13px;
+}
