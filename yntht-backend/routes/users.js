@@ -92,7 +92,7 @@ router.post('/user/auth', (req, res) => {
     if (error) throw error;
 
     if (results.length < 1) {
-      // there's no use with that username
+      // there's no user with that username
       res.send({ status: "Not Found" });
     } else if (results.length > 1) {
       // there are multiple users with that username in the db, this is an issue
