@@ -21,6 +21,9 @@ router.put('/my3/:userID', (req, res) => {
 
   const { title, artist, img, item_index } = req.body;
 
+  // TODO: escape certain characters that break this (i.e. apostrophe)
+  // TODO: check length of the song, artists, img, etc. and such
+
   const query = `
     UPDATE my3
     SET title='${title}', artist='${artist}', img='${img}'
