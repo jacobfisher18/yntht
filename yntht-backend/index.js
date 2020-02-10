@@ -37,9 +37,9 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}!`)
 
-  connectToDB().then((threadID) => {
+  connectToDB().then(threadID => {
     console.log(`connected to DB with threat ID: ${threadID}`)
-  }).catch((err) => {
+  }).catch(err => {
     console.log(`error connecting to DB: ${err}`)
   });
 })

@@ -29,14 +29,15 @@ class Signup extends React.Component {
         this.setState({ error: "An unknown error has occurred." })
       }
     }).catch(err => {
+      console.log(err);
       this.setState({ error: "An unknown error has occurred." })
     })
   }
 
-  handleFormSubmit(event) {
-    alert('A name was submitted: ' + this.state.username);
-    event.preventDefault();
-  }
+  // handleFormSubmit(event) {
+  //   alert('A name was submitted: ' + this.state.username);
+  //   event.preventDefault();
+  // }
 
   // TODO: add a link to login
   // TODO: confirm password

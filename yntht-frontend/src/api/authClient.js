@@ -20,8 +20,7 @@ export const authUser = (username, password) => new Promise((resolve, reject) =>
       resolve(myJson)
     })
     .catch(err => {
-      console.log(`Error with authUser request: ${err}`);
-      reject("Error with authUser request");
+      reject(err);
     });
 })
 
@@ -49,7 +48,6 @@ export const createUser = (username, password) => new Promise((resolve, reject) 
       resolve(myJson)
     })
     .catch(err => {
-      console.log(`Error with authUser request: ${err}`);
-      reject("Error with authUser request");
+      reject(err);
     });
 })

@@ -11,8 +11,7 @@ export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
       resolve(myJson);
     })
     .catch(err => {
-      console.log(`Error with my3 GET request: ${err}`);
-      reject("Error with my3 GET request");
+      reject(err);
     });
 })
 
@@ -35,7 +34,6 @@ export const putMy3ForUser = (userID, title, artist, img, item_index) => new Pro
       resolve(response)
     })
     .catch(err => {
-      console.log(`Error with PUT my3 request: ${err}`);
-      reject("Error with PUT my3 request");
+      reject(err);
     });
 })

@@ -17,14 +17,16 @@
 
 .ModalSongsContainer {
   padding: 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .CloseModal {
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   display: flex;
   align-self: flex-end;
-  margin: 20px;
+  margin: 25px;
   margin-bottom: 0px;
 }
 
@@ -42,27 +44,30 @@
 }
 
 .ModalTitle {
-  color: #FFF;
+  color: #FFFFFF;
   text-align: center;
   margin-top: 0px;
+  font-family: "Brandon Regular";
 }
 
-.MinusButton {
-  height: 15px;
-  width: 15px;
-  background-color: #FC615D;
+.ReplaceButton {
+  color: #EF4B47;
   border: 1px solid #EF4B47;
+  font-size: 11px;
+  padding: 5px 8px;
+  font-family: "Brandon Bold";
   border-radius: 15px;
   display: inline-block;
   margin-right: 10px;
-  transform: translate(0%, 13%);
 }
 
-.MinusButton:hover {
+.ReplaceButton:hover {
   cursor: pointer;
   background-color: #EF4B47;
+  color: #FFFFFF;
 }
 
 .ModalSongContainer {
-  height: 40px;
+  align-items: center;
+  margin: 12px 0px;
 }

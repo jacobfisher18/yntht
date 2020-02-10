@@ -5,7 +5,6 @@ export const spotifySearchRequest = (searchTerm) => new Promise((resolve, reject
       resolve(myJson);
     })
     .catch(err => {
-      console.log(`Error with Spotify /search request: ${err}`);
-      reject("Error with Spotify /search request");
+      reject(err);
     });
 })

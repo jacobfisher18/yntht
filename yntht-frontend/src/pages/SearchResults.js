@@ -98,9 +98,10 @@ class SearchResults extends React.Component {
 
                 putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
                   this.props.addSongToMy3(lowestEmptyIndex, newSong);
-                  // TODO: give some indication in the UI that the song was added
+                  this.props.notify('Info', 'Song added to My3');
                 }).catch(err => {
-                  // deal with error
+                  console.log(err);
+                  this.props.notify('Error', 'Error adding song to My3');
                 })
               }
             }
@@ -144,18 +145,21 @@ class SearchResults extends React.Component {
                       key={`${song.title}-${song.artist}-${song.item_index}`}
                       className="ModalSongContainer">
                       <div
-                        className="MinusButton"
+                        className="ReplaceButton"
                         onClick={() => {
                           const newSong = this.state.selectedSong;
 
                           putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(() => {
                             this.props.replaceSongInMy3(song.item_index, this.state.selectedSong);
                             this.setState({ isModalOpen: false });
+                            this.props.notify('Info', 'Song replaced in My3');
                           }).catch(err => {
-                            // TODO: deal with error
+                            console.log(err);
+                            this.props.notify('Error', 'Error replacing song in My3');
+                            this.setState({ isModalOpen: false });
                           })
                         }
-                        } />
+                        }>REPLACE</div>
                       {song.title}
                     </div>
                   )

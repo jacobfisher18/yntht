@@ -14,7 +14,7 @@
   width: 250px;
   border-radius: 5px;
   padding: 20px;
-  background-color: white;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
 }
@@ -39,7 +39,7 @@ input:focus {
 
 .SubmitButton {
   background: linear-gradient(85deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
-  color: #fff;
+  color: #FFFFFF;
   padding: 10px;
   border-radius: 5px;
   flex: 1;

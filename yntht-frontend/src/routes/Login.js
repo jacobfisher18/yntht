@@ -50,6 +50,7 @@ class Login extends React.Component {
           this.setState({ error: "An unknown error has occurred." })
       }
     }).catch(err => {
+      console.log(err);
       this.setState({ error: "An unknown error has occurred." })
     })
   }

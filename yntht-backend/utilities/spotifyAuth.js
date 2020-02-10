@@ -6,8 +6,7 @@ const clientSecret = "40a3e7ffb8a84bb18807331c494620a2";
 const encodedKeyAndSecret = Buffer.from(`${clientID}:${clientSecret}`).toString('base64');
 const spotifyAuthUrl = "https://accounts.spotify.com/api/token";
 
-// TODO: spotifyToken needs to be private, we only access it through the function getSpotifyToken
-let spotifyToken = "";
+let spotifyToken = ""; // spotifyToken is private, we only access it through the function getSpotifyToken
 let spotifyTokenExpired = false;
 let tokenExpirationTimeout;
 

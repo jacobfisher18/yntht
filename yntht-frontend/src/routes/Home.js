@@ -5,42 +5,11 @@ import History from '../pages/History.js';
 import Profile from '../pages/Profile.js';
 import SearchResults from '../pages/SearchResults.js';
 import Search from '../components/Search.js';
+import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient.js';
 import { getMy3ForUser } from '../api/my3Client.js';
+import { PAGES } from '../utilities/constants.js';
 import './Home.css';
-
-const PAGES = {
-  FEED: {
-    name: "Feed",
-    bgColor: "#BCA6CE",
-    highlightColor: "#FCE849",
-    presentInMenu: true,
-  },
-  MY3: {
-    name: "My 3",
-    bgColor: "#24316E",
-    highlightColor: "#FCFF2B",
-    presentInMenu: true,
-  },
-  HISTORY: {
-    name: "History",
-    bgColor: "#EF3EA5",
-    highlightColor: "#CFF36E",
-    presentInMenu: true,
-  },
-  PROFILE: {
-    name: "Profile",
-    bgColor: "#91DBCD",
-    highlightColor: "#FA4739",
-    presentInMenu: true,
-  },
-  SEARCH_RESULTS: {
-    name: "Search Results",
-    bgColor: "#DA6990",
-    highlightColor: "#0B6450",
-    presentInMenu: false,
-  }
-}
 
 class App extends React.Component {
 
@@ -73,8 +42,13 @@ class App extends React.Component {
           img: null,
           item_index: 2
         }
-      ]
+      ],
+      notificationText: '',
+      notificationType: '',
+      displayNotification: false
     }
+
+    this.notify = this.notify.bind(this);
   }
 
   componentDidMount() {
@@ -92,6 +66,7 @@ class App extends React.Component {
         })
       })
     }).catch(err => {
+      console.log(err);
       this.setState({ loading: false, error: true })
     })
   }
@@ -172,6 +147,7 @@ class App extends React.Component {
             my3={this.state.my3}
             replaceSongInMy3={(oldSong, newSong) => this.replaceSongInMy3(oldSong, newSong)}
             addSongToMy3={(index, newSong) => this.addSongToMy3(index, newSong)}
+            notify={this.notify}
           />
         )
       default:
@@ -190,16 +166,41 @@ class App extends React.Component {
     spotifySearchRequest(searchTerm).then(res => {
       this.setState({ spotifySearchResults: res })
     }).catch(err => {
+      console.log(err);
       this.setState({ spotifySearchIsInError: true });
     }).finally(() => {
       this.setState({ spotifySearchIsLoading: false });
     })
   }
 
+  notify(type, message) {
+    if (this.state.displayNotification) {
+      console.log(`Notification already displayed. New message: ${message}`);
+    } else {
+      this.setState({
+        displayNotification: true,
+        notificationType: type,
+        notificationText: message,
+      })
+
+      setTimeout(() => {
+        this.setState({
+          displayNotification: false,
+          // don't reset type or text, because they are needed during the transition
+        })
+      }, 3000);
+    }
+  }
+
   render() {
-    // TODO: add message at the top of the screen, and we should be able to fire a message at any time
     return (
       <div className="App">
+        <Notification
+          displayNotification={this.state.displayNotification}
+          notificationType={this.state.notificationType}
+          notificationText={this.state.notificationText}
+          close={() => { this.setState({ displayNotification: false })}}
+        />
         {
           this.state.loading ? <p>Loading...</p> :
             this.state.error ? <p>Error</p> :
