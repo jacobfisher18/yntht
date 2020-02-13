@@ -7,15 +7,6 @@ const spotifySearchUrl = "https://api.spotify.com/v1/search";
 const searchTypes = "album,track,artist";
 const searchResponseLimit = 30;
 
-router.get('/auth', (req, res) => {
-  getSpotifyToken().then(response => {
-    res.send(response);
-  }).catch(err => {
-    console.log(err);
-    res.status(500).send('Spotify auth request error');
-  })
-})
-
 // Search spotify api
 router.get('/search', (req, res) => {
 
