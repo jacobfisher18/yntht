@@ -32,4 +32,5 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
 
 module.exports = { initMy3 }
 
-// TODO: delete these 3 cells when a user is deleted
+// TODO: add ability to delete user profile from the front end
+// then delete these 3 cells when a user is deleted

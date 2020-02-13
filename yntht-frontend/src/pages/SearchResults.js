@@ -63,8 +63,8 @@ class SearchResults extends React.Component {
             key={track.id}
             size="S"
             title={track.name}
-            artist={track.artists[0].name} // TODO: use all artists, do null checking; note impact on onlyUnique above
-            img={track.album.images[0].url} // TODO: null checking
+            artist={track.artists[0].name} // TODO: use all artists; note impact on onlyUnique above
+            img={track.album.images[0].url}
             onClick={() => {
 
               let isFull = true;

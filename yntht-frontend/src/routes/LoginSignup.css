@@ -9,6 +9,17 @@
   color: #333;
 }
 
+.Signup {
+  background-color: #F9F9F9;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  padding-top: 100px;
+  color: #333;
+}
+
 .FormContainer {
   border: 1px solid #D8DEE2;
   width: 250px;
@@ -49,9 +60,8 @@ input:focus {
   border: none;
 }
 
-/* TODO: hover effect for this button */
 .SubmitButton:hover {
-  background: linear-gradient(90deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
+  background: linear-gradient(90deg, #BE2B5C 0%, #CDA349 100%);  box-sizing: border-box;
   cursor: pointer;
 }
 

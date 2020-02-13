@@ -1,7 +1,7 @@
 import React from 'react';
 import { createUser } from '../api/authClient';
 import '../global.css';
-import './Signup.css';
+import './LoginSignup.css';
 
 class Signup extends React.Component {
 

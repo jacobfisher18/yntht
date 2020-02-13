@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import { withRouter } from "react-router-dom";
 import '../global.css';
-import './Login.css';
+import './LoginSignup.css';
 import { authUser } from '../api/authClient';
 
 class Login extends React.Component {
