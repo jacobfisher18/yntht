@@ -3,6 +3,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import './Loader.css';
 
 class Loader extends React.Component {
+  _isMounted = false;
 
   constructor(props) {
     super(props);
@@ -12,9 +13,17 @@ class Loader extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
     setTimeout(() => {
-      this.setState({ hidden: false });
+      if (this._isMounted) {
+        this.setState({ hidden: false });
+      }
     }, 500);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
