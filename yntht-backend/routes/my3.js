@@ -2,6 +2,7 @@
 // We either return 200 response with some data, 200 without data, or an error code
 // On the front end, all requests should then look the same and handle errors the same
 const express = require('express')
+const mysql = require('mysql')
 const router = express.Router()
 
 // get my3 for a given user ID
@@ -32,7 +33,7 @@ router.put('/my3/:userID', (req, res) => {
 
   const query = `
     UPDATE my3
-    SET title='${title}', artist='${artist}', img='${img}'
+    SET title="${mysql.escape(title)}", artist="${mysql.escape(artist)}", img="${mysql.escape(img)}"
     WHERE user_id='${userID}' AND item_index=${item_index};
   `
 

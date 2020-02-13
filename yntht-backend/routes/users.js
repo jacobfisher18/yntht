@@ -1,4 +1,5 @@
 const express = require('express')
+const mysql = require('mysql')
 const router = express.Router()
 const crypto = require('crypto');
 const { initMy3 } = require('../utilities/my3');
@@ -43,7 +44,7 @@ router.post('/user', (req, res) => {
   const query = `
     INSERT INTO
     users (username, password)
-    VALUES ("${username}", "${hashedPassword}")
+    VALUES ("${mysql.escape(username)}", "${hashedPassword}")
     `
 
   // Insert the user into the DB
@@ -96,7 +97,7 @@ router.post('/user/auth', (req, res) => {
 
   const hashedPassword = mystr;
 
-  const query = `SELECT * FROM users WHERE username='${username}'`;
+  const query = `SELECT * FROM users WHERE username="${mysql.escape(username)}"`;
 
   connection.query(query, (error, results, fields) => {
     if (error) throw error;
