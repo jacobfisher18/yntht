@@ -60,8 +60,6 @@ class Login extends React.Component {
     this.handleSubmit();
   }
 
-  // TODO: forgot password flow
-  // TODO: add a link to create an account
   // TODO: get enter key working
   render() {
     return (
@@ -73,29 +71,35 @@ class Login extends React.Component {
         <div className="FormContainer">
           {
             this.state.error &&
-              <p className="ErrorMessage">{this.state.error}</p>
+            <p className="ErrorMessage">{this.state.error}</p>
           }
-            <p className="InputTitle UsernameTitle">Username</p>
-            <input
-              className="FormInput UsernameInput"
-              type="text"
-              value={this.state.username}
-              onChange={e => this.setState({ username: e.target.value })}
-            />
-            <p className="InputTitle PasswordTitle">Password</p>
-            <input
-              className="FormInput PasswordInput"
-              type="password"
-              value={this.state.password}
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-            <input
-              type="submit"
-              value="Submit"
-              className="SubmitButton"
-              onClick={() => this.handleSubmit()}
-              />
-          </div>
+          <p className="InputTitle UsernameTitle">Username</p>
+          <input
+            className="FormInput UsernameInput"
+            type="text"
+            value={this.state.username}
+            onChange={e => this.setState({ username: e.target.value })}
+          />
+          <p className="InputTitle PasswordTitle">Password</p>
+          <input
+            className="FormInput PasswordInput"
+            type="password"
+            value={this.state.password}
+            onChange={e => this.setState({ password: e.target.value })}
+          />
+          <input
+            type="submit"
+            value="Submit"
+            className="SubmitButton"
+            onClick={() => this.handleSubmit()}
+          />
+        </div>
+        <div className="NewHereContainer">
+          New here? <span
+            className="CreateAnAccountLink"
+            onClick={() => { this.props.history.push("/signup") }}
+          >Create an account.</span>
+        </div>
         {/* </form> */}
       </div>
     )

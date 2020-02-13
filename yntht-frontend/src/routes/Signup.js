@@ -12,7 +12,7 @@ class Signup extends React.Component {
       username: '',
       password: '',
       confirmPassword: '',
-      error: '' //TODO: render this
+      error: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +50,10 @@ class Signup extends React.Component {
         </h1>
         {/* <form onSubmit={this.handleFormSubmit}> */}
           <div className="FormContainer">
+            {
+              this.state.error &&
+              <p className="ErrorMessage">{this.state.error}</p>
+            }
             <p className="InputTitle UsernameTitle">Username</p>
             <input
               className="FormInput UsernameInput"
