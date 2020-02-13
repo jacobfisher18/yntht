@@ -5,7 +5,7 @@ const { getSpotifyToken } = require('../utilities/spotifyAuth')
 
 const spotifySearchUrl = "https://api.spotify.com/v1/search";
 const searchTypes = "album,track,artist";
-const searchResponseLimit = 15;
+const searchResponseLimit = 30;
 
 router.get('/auth', (req, res) => {
   getSpotifyToken().then(response => {

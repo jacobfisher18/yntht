@@ -34,8 +34,6 @@ class Signup extends React.Component {
     })
   }
 
-  // TODO: add a link to login
-  // TODO: confirm password
   render() {
     return (
       <div className="Signup">
