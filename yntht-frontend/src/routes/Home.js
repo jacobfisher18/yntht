@@ -23,6 +23,7 @@ class App extends React.Component {
       spotifySearchResults: {},
       spotifySearchIsLoading: false,
       my3IsLoading: false,
+      searchedTerm: '', // just for passing to SearchResults
       my3: [
         {
           title: null,
@@ -141,6 +142,7 @@ class App extends React.Component {
           <SearchResults
             bgColor={PAGES.SEARCH_RESULTS.bgColor}
             highlightColor={PAGES.SEARCH_RESULTS.highlightColor}
+            searchedTerm={this.state.searchedTerm}
             userID={this.props.userID}
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
@@ -163,7 +165,10 @@ class App extends React.Component {
     });
 
     spotifySearchRequest(searchTerm).then(res => {
-      this.setState({ spotifySearchResults: res })
+      this.setState({
+        spotifySearchResults: res,
+        searchedTerm: searchTerm
+      })
     }).catch(err => {
       console.log(err);
       this.setState({ showErrorPage: true });

@@ -3,6 +3,7 @@ import SongView from '../components/SongView.js';
 import Modal from 'react-modal';
 import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
+import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
 import '../global.css';
 import './SearchResults.css';
@@ -49,13 +50,24 @@ class SearchResults extends React.Component {
   }
 
   renderResults() {
-    // TODO: Handle this case
     if (!this.props.spotifySearchResults ||
       !this.props.spotifySearchResults.tracks ||
-      !this.props.spotifySearchResults.tracks.items
-    ) return <p>Other Error</p>;
+      !this.props.spotifySearchResults.tracks.items) {
+      return (
+        <ErrorText
+          text="Something went wrong, please try refreshing the page."
+        />
+      )
+    }
 
-    // TODO: Message for 0 results
+    if (this.props.spotifySearchResults.tracks.items.length === 0) {
+      return (
+        <ErrorText
+          text={`Your search for "${this.props.searchedTerm}" returned zero results. Please try another search.`}
+        />
+      )
+    }
+
     return (
       this.props.spotifySearchResults.tracks.items.filter(this.onlyUnique).map(track => {
         return (
