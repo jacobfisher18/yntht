@@ -1,5 +1,7 @@
 import React from 'react';
 import { createUser } from '../api/authClient';
+import { withRouter } from "react-router-dom";
+import { setUserCookies } from '../utilities/helpers';
 import '../global.css';
 import './LoginSignup.css';
 
@@ -24,7 +26,9 @@ class Signup extends React.Component {
 
     createUser(username, password).then(result => {
       if (result.status === "Created") {
-        // TODO: go to a profile created page
+        setUserCookies(result.user_id, result.username);
+
+        this.props.history.push("/welcome");
       } else {
         this.setState({ error: "An error has occurred." })
       }
@@ -80,4 +84,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

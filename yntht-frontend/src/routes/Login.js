@@ -1,9 +1,9 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import { withRouter } from "react-router-dom";
+import { setUserCookies } from '../utilities/helpers';
+import { authUser } from '../api/authClient';
 import '../global.css';
 import './LoginSignup.css';
-import { authUser } from '../api/authClient';
 
 class Login extends React.Component {
 
@@ -36,12 +36,9 @@ class Login extends React.Component {
           break;
         case "Found":
           // success, we can move forward
-          this.setState({ error: "" })
+          this.setState({ error: "" });
 
-          // set a cookie to log in
-          const cookies = new Cookies();
-          cookies.set('user_id', result.user_id, { path: '/' });
-          cookies.set('username', result.username, { path: '/' });
+          setUserCookies(result.user_id, result.username);
 
           // redirect to app
           this.props.history.push("/");

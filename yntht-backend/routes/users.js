@@ -44,7 +44,7 @@ router.post('/user', (req, res) => {
   const query = `
     INSERT INTO
     users (username, password)
-    VALUES (${mysql.escape(username)}, ${hashedPassword})
+    VALUES (${mysql.escape(username)}, '${hashedPassword}')
     `
 
   // Insert the user into the DB
@@ -107,6 +107,7 @@ router.post('/user/auth', (req, res) => {
       res.send({ status: "Not Found" });
     } else if (results.length > 1) {
       // there are multiple users with that username in the db, this is an issue
+      console.log(`Error: Multiple users with username ${username}`);
       res.send({ status: "Error" });
     } else {
       const foundUser = results[0];

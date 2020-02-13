@@ -1,0 +1,40 @@
+.Welcome {
+  background-color: #F9F9F9;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  color: #333;
+}
+
+.WelcomeTitle {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  font-size: 80px;
+  font-family: 'Brandon Black';
+}
+
+.WelcomeSubtitle {
+  margin-top: 0;
+  font-size: 20px;
+  font-family: 'Brandon Med';
+}
+
+.LetsStartButton {
+  background: linear-gradient(85deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
+  color: #FFFFFF;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: 'Brandon Bold';
+  text-align: center;
+  margin-top: 20px;
+  border: none;
+  letter-spacing: 1.5px;
+}
+
+.LetsStartButton:hover {
+  background: linear-gradient(90deg, #BE2B5C 0%, #CDA349 100%);  box-sizing: border-box;
+  cursor: pointer;
+}
