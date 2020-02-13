@@ -34,21 +34,15 @@ class Signup extends React.Component {
     })
   }
 
-  // handleFormSubmit(event) {
-  //   alert('A name was submitted: ' + this.state.username);
-  //   event.preventDefault();
-  // }
-
   // TODO: add a link to login
   // TODO: confirm password
-  // TODO: get enter key working
   render() {
     return (
       <div className="Signup">
         <h1 className="LoginSignupTitle">
           Create a YNTHT account
         </h1>
-        {/* <form onSubmit={this.handleFormSubmit}> */}
+        <form onSubmit={e => e.preventDefault()}>
           <div className="FormContainer">
             {
               this.state.error &&
@@ -82,7 +76,7 @@ class Signup extends React.Component {
               onClick={() => this.handleSubmit()}
             />
           </div>
-        {/* </form> */}
+        </form>
       </div>
     )
   }

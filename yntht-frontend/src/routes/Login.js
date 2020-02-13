@@ -55,52 +55,46 @@ class Login extends React.Component {
     })
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-    this.handleSubmit();
-  }
-
-  // TODO: get enter key working
   render() {
     return (
       <div className="Login">
         <h1 className="LoginSignupTitle">
           Sign in to YNTHT
         </h1>
-        {/* <form onSubmit={this.handleFormSubmit}> */}
-        <div className="FormContainer">
-          {
-            this.state.error &&
-            <p className="ErrorMessage">{this.state.error}</p>
-          }
-          <p className="InputTitle UsernameTitle">Username</p>
-          <input
-            className="FormInput UsernameInput"
-            type="text"
-            value={this.state.username}
-            onChange={e => this.setState({ username: e.target.value })}
-          />
-          <p className="InputTitle PasswordTitle">Password</p>
-          <input
-            className="FormInput PasswordInput"
-            type="password"
-            value={this.state.password}
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <input
-            type="submit"
-            value="Submit"
-            className="SubmitButton"
-            onClick={() => this.handleSubmit()}
-          />
-        </div>
-        <div className="NewHereContainer">
-          New here? <span
-            className="CreateAnAccountLink"
-            onClick={() => { this.props.history.push("/signup") }}
-          >Create an account.</span>
-        </div>
-        {/* </form> */}
+        <form onSubmit={e => e.preventDefault()}>
+          <div className="FormContainer">
+            {
+              this.state.error &&
+              <p className="ErrorMessage">{this.state.error}</p>
+            }
+            <p className="InputTitle UsernameTitle">Username</p>
+            <input
+              className="FormInput UsernameInput"
+              type="text"
+              value={this.state.username}
+              onChange={e => this.setState({ username: e.target.value })}
+            />
+            <p className="InputTitle PasswordTitle">Password</p>
+            <input
+              className="FormInput PasswordInput"
+              type="password"
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })}
+            />
+            <input
+              type="submit"
+              value="Submit"
+              className="SubmitButton"
+              onClick={() => this.handleSubmit()}
+            />
+          </div>
+          <div className="NewHereContainer">
+            New here? <span
+              className="CreateAnAccountLink"
+              onClick={() => { this.props.history.push("/signup") }}
+            >Create an account.</span>
+          </div>
+        </form>
       </div>
     )
   }
