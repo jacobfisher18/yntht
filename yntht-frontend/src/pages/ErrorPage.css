@@ -1,0 +1,43 @@
+.ErrorPage {
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ErrorPageTitle {
+  color: #FCFF2B;
+  margin-top: 120px;
+  margin-bottom: 20px;
+  font-size: 80px;
+  font-family: 'Brandon Black';
+}
+
+.ErrorPageSubtitle {
+  margin-top: 0px;
+  font-size: 30px;
+  font-family: 'Brandon Bold';
+}
+
+.ErrorPageText {
+  margin-top: 0px;
+  font-size: 18px;
+  font-family: 'Brandon Regular';
+}
+
+.GoToHomepageButton {
+  margin-top: 30px;
+  background-color: #FFFFFF;
+  padding: 10px 30px;
+  color: #333333;
+  font-family: 'Brandon Bold';
+  font-size: 12px;
+  border-radius: 100px;
+  box-shadow: 0 3px 7px 0 rgba(0,0,0,0.30);
+  transition: background-color 0.1s ease-in;
+}
+
+.GoToHomepageButton:hover {
+  cursor: pointer;
+  background-color: #FCFF2B;
+}

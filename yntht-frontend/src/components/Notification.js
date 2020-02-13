@@ -16,13 +16,13 @@ class Notification extends React.Component {
           className="IconImg"
           src={this.props.notificationType === "Info" ? checkImg :
             this.props.notificationType === "Error" ? crossImg : ''}
-          alt="Icon Image"
+          alt="Icon"
         />
         <p>{this.props.notificationText}</p>
         <img
           className="ExitImg"
           src={exitImg}
-          alt="Exit Image"
+          alt="Exit"
           onClick={this.props.close}
         />
       </div>

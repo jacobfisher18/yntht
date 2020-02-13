@@ -1,6 +1,7 @@
 import React from 'react';
 import SongView from '../components/SongView.js';
 import Modal from 'react-modal';
+import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
 import { putMy3ForUser } from '../api/my3Client';
 import '../global.css';
@@ -48,11 +49,11 @@ class SearchResults extends React.Component {
   }
 
   renderResults() {
-    // TODO: Reusable error component
+    // TODO: Handle this case
     if (!this.props.spotifySearchResults ||
       !this.props.spotifySearchResults.tracks ||
       !this.props.spotifySearchResults.tracks.items
-      ) return <p>Other Error</p>;
+    ) return <p>Other Error</p>;
 
     // TODO: Message for 0 results
     return (
@@ -115,12 +116,11 @@ class SearchResults extends React.Component {
   render() {
     this.setBackgroundColor();
 
-    // TODO: Better Loading component
     return (
       <div className="SearchResults">
         <Modal
           isOpen={this.state.isModalOpen}
-          onAfterOpen={() => {}}
+          onAfterOpen={() => { }}
           onRequestClose={() => { }}
           style={modalStyles}
           contentLabel="Example Modal"
@@ -133,7 +133,7 @@ class SearchResults extends React.Component {
                 src={CloseImg}
                 alt="close"
                 className="CloseModal"
-                onClick={() => this.setState({isModalOpen: false})}
+                onClick={() => this.setState({ isModalOpen: false })}
               />
               <h2 className="ModalTitle">Chose a song to replace</h2>
             </div>
@@ -173,11 +173,13 @@ class SearchResults extends React.Component {
           style={{ color: this.props.highlightColor }}
         >Songs</h1>
         {
-          this.props.spotifySearchIsLoading ? <p>Loading...</p> :
-            this.props.spotifySearchIsInError ? <p>Error</p> :
-              <div className="SearchResultsContainer">
-                {this.renderResults()}
-              </div>
+          this.props.spotifySearchIsLoading ?
+            <Loader
+              loading={this.props.loading}
+            /> :
+            <div className="SearchResultsContainer">
+              {this.renderResults()}
+            </div>
         }
       </div>
     )

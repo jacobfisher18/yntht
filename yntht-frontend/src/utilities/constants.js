@@ -31,4 +31,17 @@ const PAGES = {
   }
 }
 
-module.exports = { PAGES }
+const ERROR_PAGES = {
+  NOT_FOUND: {
+    title: '404',
+    subtitle: "This page doesn't exist.",
+    text: 'Try going to the homepage.',
+  },
+  OOPS: {
+    title: 'Oops!',
+    subtitle: 'Looks like something went wrong.',
+    text: 'This was probably something that went wrong on our side.',
+  }
+}
+
+module.exports = { PAGES, ERROR_PAGES }

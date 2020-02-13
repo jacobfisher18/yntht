@@ -1,6 +1,7 @@
 import React from 'react';
 import InfoImg from '../images/info.png';
-import SongView from '../components/SongView.js'
+import SongView from '../components/SongView.js';
+import Loader from '../components/Loader';
 import '../global.css';
 import './My3.css';
 
@@ -10,16 +11,16 @@ class My3 extends React.Component {
     return this.props.songs
       .filter(song => song.title && song.artist && song.img)
       .map(song => {
-      return (
-        <SongView
-          key={`${song.title}-${song.artist}`}
-          size="M"
-          title={song.title}
-          artist={song.artist}
-          img={song.img}
-        />
-      )
-    })
+        return (
+          <SongView
+            key={`${song.title}-${song.artist}`}
+            size="M"
+            title={song.title}
+            artist={song.artist}
+            img={song.img}
+          />
+        )
+      })
   }
 
   setBackgroundColor() {
@@ -45,10 +46,15 @@ class My3 extends React.Component {
               <span className="TooltipText">Search for a song above to add it to Your 3</span>
             </div>
           </div>
-          
+
         </h1>
-        
-        {this.renderSongs()}
+        {
+          this.props.loading ?
+            <Loader
+              loading={this.props.loading}
+            /> :
+            this.renderSongs()
+        }
       </div>
     )
   }

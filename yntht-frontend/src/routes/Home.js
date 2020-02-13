@@ -4,6 +4,7 @@ import My3 from '../pages/My3.js';
 import History from '../pages/History.js';
 import Profile from '../pages/Profile.js';
 import SearchResults from '../pages/SearchResults.js';
+import ErrorPage from '../pages/ErrorPage.js';
 import Search from '../components/Search.js';
 import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient.js';
@@ -17,12 +18,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      loading: false,
-      error: false,
       activeTab: PAGES.MY3.name,
+      showErrorPage: false,
       spotifySearchResults: {},
       spotifySearchIsLoading: false,
-      spotifySearchIsInError: false,
+      my3IsLoading: false,
       my3: [
         {
           title: null,
@@ -52,10 +52,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: true })
+    this.setState({ my3IsLoading: true })
     getMy3ForUser(this.props.userID).then(data => {
       this.setState({
-        loading: false,
+        my3IsLoading: false,
         my3: data.sort((a, b) => a.item_index < b.item_index).map(item => {
           return {
             title: item.title,
@@ -67,7 +67,7 @@ class App extends React.Component {
       })
     }).catch(err => {
       console.log(err);
-      this.setState({ loading: false, error: true })
+      this.setState({ my3IsLoading: false, showErrorPage: true })
     })
   }
 
@@ -119,6 +119,7 @@ class App extends React.Component {
             bgColor={PAGES.MY3.bgColor}
             highlightColor={PAGES.MY3.highlightColor}
             songs={this.state.my3}
+            loading={this.state.my3IsLoading}
           />
         )
       case PAGES.HISTORY.name:
@@ -143,7 +144,6 @@ class App extends React.Component {
             userID={this.props.userID}
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
-            spotifySearchIsInError={this.state.spotifySearchIsInError}
             my3={this.state.my3}
             replaceSongInMy3={(oldSong, newSong) => this.replaceSongInMy3(oldSong, newSong)}
             addSongToMy3={(index, newSong) => this.addSongToMy3(index, newSong)}
@@ -160,14 +160,13 @@ class App extends React.Component {
 
     this.setState({
       spotifySearchIsLoading: true,
-      spotifySearchIsInError: false
     });
 
     spotifySearchRequest(searchTerm).then(res => {
       this.setState({ spotifySearchResults: res })
     }).catch(err => {
       console.log(err);
-      this.setState({ spotifySearchIsInError: true });
+      this.setState({ showErrorPage: true });
     }).finally(() => {
       this.setState({ spotifySearchIsLoading: false });
     })
@@ -202,21 +201,23 @@ class App extends React.Component {
           close={() => { this.setState({ displayNotification: false })}}
         />
         {
-          this.state.loading ? <p>Loading...</p> :
-            this.state.error ? <p>Error</p> :
-              <div className="MainContentContainer">
-                <div className="HeaderContainer">
-                  <Search
-                    onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
-                  />
-                  <div className="NavMenu">
-                    {this.renderMenu()}
-                  </div>
-                </div>
-                <div className="PageContainer">
-                  {this.renderTab()}
+          this.state.showErrorPage ?
+            <ErrorPage
+              type={'OOPS'}
+            /> :
+            <div className="MainContentContainer">
+              <div className="HeaderContainer">
+                <Search
+                  onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
+                />
+                <div className="NavMenu">
+                  {this.renderMenu()}
                 </div>
               </div>
+              <div className="PageContainer">
+                {this.renderTab()}
+              </div>
+            </div>
         }
       </div>
     );
