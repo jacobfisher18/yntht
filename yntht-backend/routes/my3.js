@@ -1,4 +1,4 @@
-// TO-DO: for all backend routes, standardize what we return for success or error
+// TODO: for all backend routes, standardize what we return for success or error
 // We either return 200 response with some data, 200 without data, or an error code
 // On the front end, all requests should then look the same and handle errors the same
 const express = require('express')
