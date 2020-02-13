@@ -29,7 +29,7 @@ class Login extends React.Component {
           this.setState({ error: "That username was not found." })
           break;
         case "Error":
-          this.setState({ error: "An unknown error has occurred." })
+          this.setState({ error: "An error has occurred." })
           break;
         case "Incorrect Password":
           this.setState({ error: "The password you entered is incorrect." })
@@ -47,11 +47,11 @@ class Login extends React.Component {
           this.props.history.push("/");
           break;
         default:
-          this.setState({ error: "An unknown error has occurred." })
+          this.setState({ error: "An error has occurred." })
       }
     }).catch(err => {
       console.log(err);
-      this.setState({ error: "An unknown error has occurred." })
+      this.setState({ error: "An error has occurred." })
     })
   }
 

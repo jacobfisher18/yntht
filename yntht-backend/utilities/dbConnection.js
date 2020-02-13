@@ -18,7 +18,4 @@ const connectToDB = () => new Promise((resolve, reject) => {
   });
 })
 
-// TODO: look into field lengths for VARCHAR (is 150 enough? too much?)
-// TODO: (Related) Data insertion breaks if we try to insert something too long, so check for that
-
 module.exports = { connectToDB }

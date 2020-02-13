@@ -26,11 +26,11 @@ class Signup extends React.Component {
       if (result.status === "Created") {
         // TODO: go to a profile created page
       } else {
-        this.setState({ error: "An unknown error has occurred." })
+        this.setState({ error: "An error has occurred." })
       }
     }).catch(err => {
       console.log(err);
-      this.setState({ error: "An unknown error has occurred." })
+      this.setState({ error: "An error has occurred." })
     })
   }
 
