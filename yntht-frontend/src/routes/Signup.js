@@ -45,7 +45,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="Signup">
-        <h1 className="SignupTitle">
+        <h1 className="LoginSignupTitle">
           Create a YNTHT account
         </h1>
         {/* <form onSubmit={this.handleFormSubmit}> */}

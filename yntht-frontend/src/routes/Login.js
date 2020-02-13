@@ -64,7 +64,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
-        <h1 className="LoginTitle">
+        <h1 className="LoginSignupTitle">
           Sign in to YNTHT
         </h1>
         {/* <form onSubmit={this.handleFormSubmit}> */}
