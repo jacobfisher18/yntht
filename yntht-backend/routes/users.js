@@ -44,7 +44,7 @@ router.post('/user', (req, res) => {
   const query = `
     INSERT INTO
     users (username, password)
-    VALUES ("${mysql.escape(username)}", "${hashedPassword}")
+    VALUES (${mysql.escape(username)}, ${hashedPassword})
     `
 
   // Insert the user into the DB
@@ -97,7 +97,7 @@ router.post('/user/auth', (req, res) => {
 
   const hashedPassword = mystr;
 
-  const query = `SELECT * FROM users WHERE username="${mysql.escape(username)}"`;
+  const query = `SELECT * FROM users WHERE username=${mysql.escape(username)}`;
 
   connection.query(query, (error, results, fields) => {
     if (error) throw error;

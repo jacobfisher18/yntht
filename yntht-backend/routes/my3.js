@@ -30,7 +30,7 @@ router.put('/my3/:userID', (req, res) => {
 
   const query = `
     UPDATE my3
-    SET title="${mysql.escape(title)}", artist="${mysql.escape(artist)}", img="${mysql.escape(img)}"
+    SET title=${mysql.escape(title)}, artist=${mysql.escape(artist)}, img=${mysql.escape(img)}
     WHERE user_id='${userID}' AND item_index=${item_index};
   `
 
