@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
 import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
+import { getArtist } from '../utilities/helpers';
 import '../global.css';
 import './SearchResults.css';
 
@@ -40,7 +41,7 @@ class SearchResults extends React.Component {
   }
 
   onlyUnique(value, index, self) {
-    const matchingItems = self.filter((obj) => obj.name === value.name && obj.artists[0].name === value.artists[0].name);
+    const matchingItems = self.filter((obj) => obj.name === value.name && getArtist(obj.artists) === getArtist(value.artists));
 
     return !(matchingItems.length >= 2 && matchingItems[0].id !== value.id);
   }
@@ -75,7 +76,7 @@ class SearchResults extends React.Component {
             key={track.id}
             size="S"
             title={track.name}
-            artist={track.artists[0].name} // TODO: use all artists; note impact on onlyUnique above
+            artist={getArtist(track.artists)}
             img={track.album.images[0].url}
             onClick={() => {
 
@@ -98,14 +99,14 @@ class SearchResults extends React.Component {
                   isModalOpen: true,
                   selectedSong: {
                     title: track.name,
-                    artist: track.artists[0].name,
+                    artist: getArtist(track.artists),
                     img: track.album.images[0].url,
                   }
                 })
               } else {
                 const newSong = {
                   title: track.name,
-                  artist: track.artists[0].name,
+                  artist: getArtist(track.artists),
                   img: track.album.images[0].url,
                 };
 
