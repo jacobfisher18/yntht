@@ -7,11 +7,14 @@ const { initMy3 } = require('../utilities/my3');
 router.get('/users', (req, res) => {
 
   connection.query('SELECT * FROM users', (error, results, fields) => {
-    if (error) throw error;
-    console.log('Users: ', results);
-    res.send(results);
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      console.log('Users: ', results);
+      res.send(results);
+    }
   });
-
 })
 
 // add a new user
@@ -45,26 +48,33 @@ router.post('/user', (req, res) => {
 
   // Insert the user into the DB
   connection.query(query, (error, results, fields) => {
-    if (error) throw error;
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      // Get the ID we just generated
+      connection.query('SELECT @@IDENTITY', (error, results, fields) => {
+        if (error) {
+          console.log(error.sqlMessage || err.code);
+          res.sendStatus(500);
+        } else {
+          const userID = results[0]['@@IDENTITY'];
 
-    // Get the ID we just generated
-    connection.query('SELECT @@IDENTITY', (error, results, fields) => {
-      if (error) throw error;
-      const userID = results[0]['@@IDENTITY'];
-
-      // Create my3 slots in the db for the user
-      initMy3(userID).then(() => {
-        res.send({
-          status: "Created",
-          user_id: userID,
-          username
-        })
-      }).catch(err => {
-        console.log(err);
-      })
-    });
+          // Create my3 slots in the db for the user
+          initMy3(userID).then(() => {
+            res.send({
+              status: "Created",
+              user_id: userID,
+              username
+            })
+          }).catch(err => {
+            console.log(err);
+            res.sendStatus(500);
+          })
+        }
+      });
+    }
   });
-
 })
 
 // authenticate a user
@@ -124,9 +134,13 @@ router.delete('/user/:userID', (req, res) => {
   const query = `DELETE FROM users WHERE id = "${userID}"`
 
   connection.query(query, (error, results, fields) => {
-    if (error) throw error;
-    console.log("Number of records deleted: " + results.affectedRows);
-    res.sendStatus(200);
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      console.log("Number of records deleted: " + results.affectedRows);
+      res.sendStatus(200);
+    }
   });
 
 })

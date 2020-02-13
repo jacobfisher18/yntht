@@ -30,8 +30,11 @@ export const putMy3ForUser = (userID, title, artist, img, item_index) => new Pro
     })
   })
     .then(response => {
-      console.log(response)
-      resolve(response)
+      if (response.ok) {
+        resolve(response)
+      } else {
+        reject(response.statusText);
+      }
     })
     .catch(err => {
       reject(err);

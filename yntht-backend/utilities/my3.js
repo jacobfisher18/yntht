@@ -5,7 +5,7 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
     `
 
   connection.query(checkBlankQuery, (error, results) => {
-    if (error) throw error;
+    if (error) reject(`Error initializing my3 rows for userID ${userID}`);;
     if (results.length > 0) {
       reject(`Error initializing my3 rows for userID ${userID}, data already exists for this user`);
     } else {
@@ -17,7 +17,7 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
         `
 
       connection.query(insertQuery, (error, results) => {
-        if (error) throw error;
+        if (error) reject(`Error initializing my3 rows for userID ${userID}`);;
         if (results && results.affectedRows === 3) {
           resolve();
         } else {

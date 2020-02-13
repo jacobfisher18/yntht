@@ -1,3 +1,6 @@
+// TO-DO: for all backend routes, standardize what we return for success or error
+// We either return 200 response with some data, 200 without data, or an error code
+// On the front end, all requests should then look the same and handle errors the same
 const express = require('express')
 const router = express.Router()
 
@@ -7,14 +10,17 @@ router.get('/my3/:userID', (req, res) => {
   const userID = req.params.userID;
 
   connection.query(`SELECT * FROM my3 WHERE user_id='${userID}'`, (error, results, fields) => {
-    if (error) throw error;
-    console.log('Users: ', results);
-    res.send(results);
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      console.log('Users: ', results);
+      res.send(results);
+    }
   });
-
 })
 
-// update a songin my3 for a user
+// update a song in my3 for a user
 router.put('/my3/:userID', (req, res) => {
 
   const userID = req.params.userID;
@@ -31,11 +37,14 @@ router.put('/my3/:userID', (req, res) => {
   `
 
   connection.query(query, (error, results, fields) => {
-    if (error) throw error;
-    console.log('Results: ', results);
-    res.sendStatus(200);
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      console.log('Results: ', results);
+      res.sendStatus(200);
+    }
   });
-
 })
 
 // reset my3 to blank for a user
@@ -50,9 +59,13 @@ router.put('/my3/:userID/reset', (req, res) => {
   `
 
   connection.query(query, (error, results, fields) => {
-    if (error) throw error;
-    console.log('Results: ', results);
-    res.sendStatus(200);
+    if (error) {
+      console.log(error.sqlMessage || err.code);
+      res.sendStatus(500);
+    } else {
+      console.log('Results: ', results);
+      res.sendStatus(200);
+    }
   });
 
 })
