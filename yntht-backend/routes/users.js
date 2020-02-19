@@ -10,10 +10,10 @@ router.get('/users', (req, res) => {
   connection.query('SELECT * FROM users', (error, results, fields) => {
     if (error) {
       console.log(error.sqlMessage || err.code);
-      res.sendStatus(500);
+      res.status(500).send('MYSQL error');
     } else {
       console.log('Users: ', results);
-      res.send(results);
+      res.status(200).send(results);
     }
   });
 })
@@ -25,11 +25,11 @@ router.post('/user', (req, res) => {
 
   // TODO: validate username and password
   //    validate username and password (correct length, format, etc.)
-  //    make sure the username doesn't exist yet
+  //    make sure the username doesn't exist yet and handle that error on frontend
 
   if (!username || !password) {
-    console.log('Please supply a username and a password')
-    res.sendStatus(400);
+    console.log('Username or password not provided');
+    res.status(400).send('Username or password not provided');
     return;
   }
 
@@ -51,26 +51,26 @@ router.post('/user', (req, res) => {
   connection.query(query, (error, results, fields) => {
     if (error) {
       console.log(error.sqlMessage || err.code);
-      res.sendStatus(500);
+      res.status(500).send('MYSQL error');
     } else {
       // Get the ID we just generated
       connection.query('SELECT @@IDENTITY', (error, results, fields) => {
         if (error) {
           console.log(error.sqlMessage || err.code);
-          res.sendStatus(500);
+          res.status(500).send('MYSQL error');
         } else {
           const userID = results[0]['@@IDENTITY'];
 
           // Create my3 slots in the db for the user
           initMy3(userID).then(() => {
-            res.send({
+            res.status(200).send({
               status: "Created",
               user_id: userID,
               username
             })
           }).catch(err => {
             console.log(err);
-            res.sendStatus(500);
+            res.status(500).send('Error initializing My3');
           })
         }
       });
@@ -85,7 +85,7 @@ router.post('/user/auth', (req, res) => {
 
   if (!username || !password) {
     console.log('Please supply a username and a password')
-    res.sendStatus(400);
+    res.status(400).send('Username or password was not provided');
     return;
   }
 
@@ -104,20 +104,20 @@ router.post('/user/auth', (req, res) => {
 
     if (results.length < 1) {
       // there's no user with that username
-      res.send({ status: "Not Found" });
+      res.status(401).send("Username Not Found");
     } else if (results.length > 1) {
       // there are multiple users with that username in the db, this is an issue
       console.log(`Error: Multiple users with username ${username}`);
-      res.send({ status: "Error" });
+      res.status(500).send("Error");
     } else {
       const foundUser = results[0];
 
       // check if password was right
       if (foundUser.password !== hashedPassword) {
-        res.send({ status: "Incorrect Password" });
+        res.status(403).send("Incorrect Password");
       } else {
         // user and password were found
-        res.send({
+        res.status(200).send({
           status: "Found",
           user_id: foundUser.id,
           username: foundUser.username
@@ -138,10 +138,10 @@ router.delete('/user/:userID', (req, res) => {
   connection.query(query, (error, results, fields) => {
     if (error) {
       console.log(error.sqlMessage || err.code);
-      res.sendStatus(500);
+      res.status(500).send('MYSQL error');
     } else {
       console.log("Number of records deleted: " + results.affectedRows);
-      res.sendStatus(200);
+      res.status(200).send('Records succesfully deleted');
     }
   });
 

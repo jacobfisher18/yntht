@@ -11,7 +11,7 @@ export const authUser = (username, password) => new Promise((resolve, reject) =>
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText);
+        return response;
       } else {
         return response.json();
       }

@@ -25,16 +25,16 @@ class Login extends React.Component {
     authUser(username, password).then(result => {
       // handle all the cases
       switch (result.status) {
-        case "Not Found":
+        case 401:
           this.setState({ error: "That username was not found." })
           break;
-        case "Error":
+        case 500:
           this.setState({ error: "An error has occurred." })
           break;
-        case "Incorrect Password":
+        case 403:
           this.setState({ error: "The password you entered is incorrect." })
           break;
-        case "Found":
+        case 200:
           // success, we can move forward
           this.setState({ error: "" });
 

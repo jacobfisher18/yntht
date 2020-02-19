@@ -15,7 +15,7 @@ router.get('/search', (req, res) => {
     const searchTerm = req.query.q;
 
     if (!searchTerm) {
-      res.status(400).send('You need to provide a search term as the q parameter');
+      res.status(400).send('No search term provided');
     } else {
       const requestUrl = `${spotifySearchUrl}?q=${searchTerm}&type=${searchTypes}&limit=${searchResponseLimit}`
 
@@ -28,7 +28,7 @@ router.get('/search', (req, res) => {
       })
         .then(response => response.json())
         .then(myJson => {
-          res.send(myJson);
+          res.status(200).send(myJson);
         })
         .catch(err => {
           console.log(err);
