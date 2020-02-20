@@ -8,7 +8,7 @@ import ErrorPage from '../pages/ErrorPage.js';
 import Search from '../components/Search.js';
 import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient.js';
-import { getMy3ForUser } from '../api/my3Client.js';
+import { getMy3ForUser } from '../api/songsClient.js';
 import { PAGES } from '../utilities/constants.js';
 import './Home.css';
 

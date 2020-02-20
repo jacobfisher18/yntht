@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
 import ErrorText from '../components/ErrorText';
-import { putMy3ForUser } from '../api/my3Client';
+import { putMy3ForUser } from '../api/songsClient';
 import { getArtist } from '../utilities/helpers';
 import '../global.css';
 import './SearchResults.css';
