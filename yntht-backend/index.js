@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const path = require("path");
 const bodyParser = require('body-parser');
-const { connectToDB } = require('./utilities/dbConnection')
+const { connectToDB } = require('./utilities/dbConnection');
+const usersRoutes = require('./routes/users');
 
 const port = 5000
 
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({
 
 // import routes
 app.use(require('./routes/spotify'));
-app.use(require('./routes/users'));
+app.use(usersRoutes);
 app.use(require('./routes/my3'));
 
 // health check
@@ -40,6 +41,8 @@ app.listen(port, () => {
   connectToDB().then(threadID => {
     console.log(`connected to DB with threat ID: ${threadID}`)
   }).catch(err => {
-    console.log(`error connecting to DB: ${err}`)
+    console.log(`error connecting to DB: ${err}`);
+    // To-Do: if we couldn't connect to the db, we can't do anything
+    // We should block all api paths because they otherwise will cause a fatal error when trying to connect to the db
   });
 })

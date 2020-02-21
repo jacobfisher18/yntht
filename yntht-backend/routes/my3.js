@@ -4,9 +4,10 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
+const { checkDBIsConnected } = require('../utilities/dbConnection');
 
 // get my3 for a given user ID
-router.get('/api/my3/:userID', (req, res) => {
+router.get('/api/my3/:userID', checkDBIsConnected, (req, res) => {
 
   const userID = req.params.userID;
 
@@ -22,7 +23,7 @@ router.get('/api/my3/:userID', (req, res) => {
 })
 
 // update a song in my3 for a user
-router.put('/api/my3/:userID', (req, res) => {
+router.put('/api/my3/:userID', checkDBIsConnected, (req, res) => {
 
   const userID = req.params.userID;
 
@@ -46,7 +47,7 @@ router.put('/api/my3/:userID', (req, res) => {
 })
 
 // reset my3 to blank for a user
-router.put('/api/my3/:userID/reset', (req, res) => {
+router.put('/api/my3/:userID/reset', checkDBIsConnected, (req, res) => {
 
   const userID = req.params.userID;
 

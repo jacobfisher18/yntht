@@ -8,7 +8,7 @@ const searchTypes = "album,track,artist";
 const searchResponseLimit = 30;
 
 // Search spotify api
-router.get('/api/search', (req, res) => {
+router.get('/spotify/search', (req, res) => {
 
   getSpotifyToken().then(spotifyToken => {
 

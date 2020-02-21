@@ -18,4 +18,14 @@ const connectToDB = () => new Promise((resolve, reject) => {
   });
 })
 
-module.exports = { connectToDB }
+const checkDBIsConnected = (req, res, next) => {
+  if (connection.state === "disconnected") {
+    console.log('Request attempted while db was disconnected');
+    res.status(500).send("Error");
+  } else {
+    // db is connected, we can proceed
+    next();
+  }
+}
+
+module.exports = { connectToDB, checkDBIsConnected }

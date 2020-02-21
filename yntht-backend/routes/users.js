@@ -3,9 +3,10 @@ const mysql = require('mysql')
 const router = express.Router()
 const crypto = require('crypto');
 const { initMy3 } = require('../utilities/my3');
+const { checkDBIsConnected } = require('../utilities/dbConnection');
 
 // get all users
-router.get('/api/users', (req, res) => {
+router.get('/api/users', checkDBIsConnected, (req, res) => {
 
   connection.query('SELECT * FROM users', (error, results, fields) => {
     if (error) {
@@ -19,7 +20,7 @@ router.get('/api/users', (req, res) => {
 })
 
 // add a new user
-router.post('/api/user', (req, res) => {
+router.post('/api/user', checkDBIsConnected, (req, res) => {
 
   const { username, password } = req.body;
 
@@ -79,7 +80,7 @@ router.post('/api/user', (req, res) => {
 })
 
 // authenticate a user
-router.post('/api/user/auth', (req, res) => {
+router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
 
   const { username, password } = req.body;
 
@@ -100,6 +101,7 @@ router.post('/api/user/auth', (req, res) => {
   const query = `SELECT * FROM users WHERE username=${mysql.escape(username)}`;
 
   connection.query(query, (error, results, fields) => {
+
     if (error) {
       console.log(error);
       res.status(500).send("Error");
@@ -132,7 +134,7 @@ router.post('/api/user/auth', (req, res) => {
 })
 
 // delete a user
-router.delete('/api/user/:userID', (req, res) => {
+router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
 
   const userID = req.params.userID;
 
