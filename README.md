@@ -90,10 +90,13 @@
 #### Infrastructure To-Do's:
 - Map the yntht.net domain to the EC2 instances public IP address
 - Get a production database up and running
+- Right now during a deployment the app goes down for a second, look into that; I think pm2 updates when the build directory is deleted and then there's no frontend to serve
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
 - Automate deployments with CircleCI
 
+
 #### Future Code Improvements:
+- Remove MySQL credentials from git
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
 - Go through and make sure everwhere asyncronous has some sort of loading component (i.e. login button)
