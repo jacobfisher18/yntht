@@ -15,7 +15,7 @@
 - The AWS security group manages what ports are accessible, so accessing a port requires adding it in the outbound rules for the security group attached to the server
 - The app is kept running on EC2 via pm2
 - The EC2 instance has node installed on it
-- For now it's reachable at http://54.197.207.141:5000/
+- For now it's reachable at its IP that can be found in AWS
 
 #### The Domain
 - I bought yntht.net from Google Domains for $12 https://domains.google.com/m/registrar/yntht.net
@@ -23,7 +23,7 @@
 #### Deployments
 - Locate the default.pem file and cd to its directory to SSH into the server
   ```
-  ssh -i "default.pem" ubuntu@54.197.207.141
+  ssh -i "default.pem" ubuntu@[SERVER_IP]
   ```
 - Go to the repo and clean up the old build
   ```
@@ -59,7 +59,7 @@
 - Terraform apply to make the EC2 instance, notice the key_name it's attached to
 - Navigate to the pem file and ssh into the instance
   ```
-  ssh -i "default.pem" ubuntu@ec2-3-87-14-203.compute-1.amazonaws.com
+  ssh -i "default.pem" ubuntu@[SERVER_IP]
   ```
 - Install node 10
   ```
@@ -88,7 +88,7 @@
 ## Upcoming
 
 #### Infrastructure To-Do's:
-- Map the yntht.net domain to the `54.197.207.141` IP address
+- Map the yntht.net domain to the EC2 instances public IP address
 - Get a production database up and running
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
 - Automate deployments with CircleCI
