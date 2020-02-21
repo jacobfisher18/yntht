@@ -29,10 +29,10 @@ app.get('/api/health', (req, res) => {
   res.send({ status: "App is up and running" });
 })
 
-// serve the built frontend
-app.get('/', (req, res) => {
+// all routes not yet handled should be served by the built frontend
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+})
 
 // listen on specified port
 app.listen(port, () => {
