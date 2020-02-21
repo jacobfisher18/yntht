@@ -51,8 +51,36 @@
   pm2 reload yntht
   ```
 
-#### Tips
-- Set up the app with pm2
+#### Set up EC2 Instance
+- Load aws credentials locally, using a key and secret from an IAM user with admin access
+  ```
+  aws configure
+  ```
+- Terraform apply to make the EC2 instance, notice the key_name it's attached to
+- Navigate to the pem file and ssh into the instance
+  ```
+  ssh -i "default.pem" ubuntu@ec2-3-87-14-203.compute-1.amazonaws.com
+  ```
+- Install node 10
+  ```
+  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  ```
+- Install pm2
+  ```
+  sudo npm install -g pm2
+  ```
+- Make a working directory
+  ```
+  mkdir workspace/
+  cd workspace/
+  ```
+- Clone the repo
+  ```
+  git clone https://github.com/jacobfisher18/yntht.git
+  ```
+- Build the app as outlined in the Deployments section
+- Start up the app with pm2
   ```
   pm2 start index.js --name yntht
   ```
