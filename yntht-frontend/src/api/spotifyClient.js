@@ -1,5 +1,5 @@
 export const spotifySearchRequest = (searchTerm) => new Promise((resolve, reject) => {
-  fetch(`/search?q=${encodeURIComponent(searchTerm)}`)
+  fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`)
     .then(response => response.json())
     .then((myJson) => {
       resolve(myJson);

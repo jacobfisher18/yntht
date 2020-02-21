@@ -24,7 +24,7 @@ app.use(require('./routes/users'));
 app.use(require('./routes/my3'));
 
 // health check
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.send({ status: "App is up and running" });
 })
 

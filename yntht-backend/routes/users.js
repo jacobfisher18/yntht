@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const { initMy3 } = require('../utilities/my3');
 
 // get all users
-router.get('/users', (req, res) => {
+router.get('/api/users', (req, res) => {
 
   connection.query('SELECT * FROM users', (error, results, fields) => {
     if (error) {
@@ -19,7 +19,7 @@ router.get('/users', (req, res) => {
 })
 
 // add a new user
-router.post('/user', (req, res) => {
+router.post('/api/user', (req, res) => {
 
   const { username, password } = req.body;
 
@@ -79,7 +79,7 @@ router.post('/user', (req, res) => {
 })
 
 // authenticate a user
-router.post('/user/auth', (req, res) => {
+router.post('/api/user/auth', (req, res) => {
 
   const { username, password } = req.body;
 
@@ -129,7 +129,7 @@ router.post('/user/auth', (req, res) => {
 })
 
 // delete a user
-router.delete('/user/:userID', (req, res) => {
+router.delete('/api/user/:userID', (req, res) => {
 
   const userID = req.params.userID;
 

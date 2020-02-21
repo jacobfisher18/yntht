@@ -6,7 +6,7 @@ const mysql = require('mysql')
 const router = express.Router()
 
 // get my3 for a given user ID
-router.get('/my3/:userID', (req, res) => {
+router.get('/api/my3/:userID', (req, res) => {
 
   const userID = req.params.userID;
 
@@ -22,7 +22,7 @@ router.get('/my3/:userID', (req, res) => {
 })
 
 // update a song in my3 for a user
-router.put('/my3/:userID', (req, res) => {
+router.put('/api/my3/:userID', (req, res) => {
 
   const userID = req.params.userID;
 
@@ -46,7 +46,7 @@ router.put('/my3/:userID', (req, res) => {
 })
 
 // reset my3 to blank for a user
-router.put('/my3/:userID/reset', (req, res) => {
+router.put('/api/my3/:userID/reset', (req, res) => {
 
   const userID = req.params.userID;
 

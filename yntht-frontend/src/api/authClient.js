@@ -1,5 +1,5 @@
 export const authUser = (username, password) => new Promise((resolve, reject) => {
-  fetch(`/user/auth`, {
+  fetch(`/api/user/auth`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -25,7 +25,7 @@ export const authUser = (username, password) => new Promise((resolve, reject) =>
 })
 
 export const createUser = (username, password) => new Promise((resolve, reject) => {
-  fetch(`/user`, {
+  fetch(`/api/user`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'

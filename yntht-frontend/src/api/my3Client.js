@@ -1,5 +1,5 @@
 export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
-  fetch(`/my3/${userID}`)
+  fetch(`/api/my3/${userID}`)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -16,7 +16,7 @@ export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
 })
 
 export const putMy3ForUser = (userID, title, artist, img, item_index) => new Promise((resolve, reject) => {
-  fetch(`/my3/${userID}`, {
+  fetch(`/api/my3/${userID}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json'
