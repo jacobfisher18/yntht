@@ -11,6 +11,12 @@
 # production
 */build
 
+# pem
+default.pem
+
+# terraform
+terraform/.terraform/*
+
 # misc
 .DS_Store
 .env.local
