@@ -9,7 +9,7 @@ router.get('/api/users', (req, res) => {
 
   connection.query('SELECT * FROM users', (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       console.log('Users: ', results);
@@ -50,13 +50,13 @@ router.post('/api/user', (req, res) => {
   // Insert the user into the DB
   connection.query(query, (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       // Get the ID we just generated
       connection.query('SELECT @@IDENTITY', (error, results, fields) => {
         if (error) {
-          console.log(error.sqlMessage || err.code);
+          console.log(error.sqlMessage || error.code);
           res.status(500).send('MYSQL error');
         } else {
           const userID = results[0]['@@IDENTITY'];
@@ -100,7 +100,10 @@ router.post('/api/user/auth', (req, res) => {
   const query = `SELECT * FROM users WHERE username=${mysql.escape(username)}`;
 
   connection.query(query, (error, results, fields) => {
-    if (error) throw error;
+    if (error) {
+      console.log(error);
+      res.status(500).send("Error");
+    }
 
     if (results.length < 1) {
       // there's no user with that username
@@ -137,7 +140,7 @@ router.delete('/api/user/:userID', (req, res) => {
 
   connection.query(query, (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       console.log("Number of records deleted: " + results.affectedRows);

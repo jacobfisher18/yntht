@@ -12,7 +12,7 @@ router.get('/api/my3/:userID', (req, res) => {
 
   connection.query(`SELECT * FROM my3 WHERE user_id='${userID}'`, (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       console.log('Users: ', results);
@@ -36,7 +36,7 @@ router.put('/api/my3/:userID', (req, res) => {
 
   connection.query(query, (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       console.log('Results: ', results);
@@ -58,7 +58,7 @@ router.put('/api/my3/:userID/reset', (req, res) => {
 
   connection.query(query, (error, results, fields) => {
     if (error) {
-      console.log(error.sqlMessage || err.code);
+      console.log(error.sqlMessage || error.code);
       res.status(500).send('MYSQL error');
     } else {
       console.log('Results: ', results);
