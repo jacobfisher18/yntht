@@ -88,7 +88,8 @@
 ## Upcoming
 
 #### Infrastructure To-Do's:
-- Map the yntht.net domain to the EC2 instances public IP address
+- Get all of http, https, and www working for the domain
+- Set up environment variables and use them for the port
 - Get a production database up and running
 - Right now during a deployment the app goes down for a second, look into that; I think pm2 updates when the build directory is deleted and then there's no frontend to serve
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
