@@ -23,32 +23,35 @@ class Login extends React.Component {
     const { username, password } = this.state;
 
     authUser(username, password).then(result => {
-      // handle all the cases
-      switch (result.status) {
-        case 401:
-          this.setState({ error: "That username was not found." })
-          break;
-        case 500:
-          this.setState({ error: "An error has occurred." })
-          break;
-        case 403:
-          this.setState({ error: "The password you entered is incorrect." })
-          break;
-        case 200:
-          // success, we can move forward
-          this.setState({ error: "" });
+      console.log(result);
+      // success, we can move forward
+      this.setState({ error: "" });
 
-          setUserCookies(result.user_id, result.username);
+      setUserCookies(result.user_id, result.username);
 
-          // redirect to app
-          this.props.history.push("/");
-          break;
-        default:
-          this.setState({ error: "An error has occurred." })
-      }
+      // redirect to app
+      this.props.history.push("/");
+
     }).catch(err => {
-      console.log(err);
-      this.setState({ error: "An error has occurred." })
+      if (!err.status) {
+        console.log(err);
+        this.setState({ error: "An error has occurred." })
+      } else {
+        switch (err.status) {
+          case 401:
+            this.setState({ error: "That username was not found." })
+            break;
+          case 500:
+            this.setState({ error: "An error has occurred." })
+            break;
+          case 403:
+            this.setState({ error: "The password you entered is incorrect." })
+            break;
+          default:
+            this.setState({ error: "An error has occurred." })
+        }
+      }
+      
     })
   }
 
