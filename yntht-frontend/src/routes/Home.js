@@ -89,18 +89,12 @@ class App extends React.Component {
     })
   }
 
-  addSongToMy3(index, newSong) {
+  // works for adding a new song (since empty items already exist), or replacing a song
+  // it's the caller's responsibility to only call this with the lowest empty index if putting a new song
+  putSongInMy3(index, newSong) {
     this.setState(prevState => {
       return {
         my3: prevState.my3.map(currSong => currSong.item_index === index ? { ...newSong, item_index: index } : currSong),
-      };
-    })
-  }
-
-  replaceSongInMy3(index, newSong) {
-    this.setState(prevState => {
-      return {
-        my3: prevState.my3.map(currSong => currSong.item_index === index ? { ...newSong, item_index: index} : currSong),
       };
     })
   }
@@ -147,8 +141,7 @@ class App extends React.Component {
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
             my3={this.state.my3}
-            replaceSongInMy3={(index, newSong) => this.replaceSongInMy3(index, newSong)}
-            addSongToMy3={(index, newSong) => this.addSongToMy3(index, newSong)}
+            putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}
           />
         )

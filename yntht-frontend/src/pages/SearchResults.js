@@ -111,7 +111,7 @@ class SearchResults extends React.Component {
                 };
 
                 putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
-                  this.props.addSongToMy3(lowestEmptyIndex, newSong);
+                  this.props.putSongInMy3(lowestEmptyIndex, newSong);
                   this.props.notify('Info', 'Song added to My3');
                 }).catch(err => {
                   console.log(err);
@@ -163,7 +163,7 @@ class SearchResults extends React.Component {
                           const newSong = this.state.selectedSong;
 
                           putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(() => {
-                            this.props.replaceSongInMy3(song.item_index, this.state.selectedSong);
+                            this.props.putSongInMy3(song.item_index, this.state.selectedSong);
                             this.setState({ isModalOpen: false });
                             this.props.notify('Info', 'Song replaced in My3');
                           }).catch(err => {
