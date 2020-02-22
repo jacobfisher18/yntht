@@ -12,11 +12,10 @@
 #### AWS
 - Other than the EC2 instance, some setup was needed manually in AWS to configure an IAM role, security group, a pem file, etc.
 - The AWS security group manages what ports are accessible, so accessing a port requires adding it in the outbound rules for the security group attached to the server
-- The app is kept running on EC2 via pm2
-- The EC2 instance has node installed on it
+- The app is kept running on EC2 via pm2, and is run via node, which is installed on the instance
 
 # Database
-- The database is configured in AWS RDS. There are a dev and a prod version of the database.
+- The database is configured in AWS RDS. There are a dev and a prod version.
 
 #### Nginx
 - The server uses Nginx as a reverse proxy. Configuration was done manually while ssh'ed into the machine.
@@ -68,19 +67,20 @@
 ## Upcoming
 
 #### Infrastructure To-Do's:
-- Get all of http, https, www, and apex domain working
-- Get a production database up and running
-- Automate the Node, pm2, and Nginx setup
+- Get TLS working and the site on https
+- Automate and/or containerize the Node, pm2, and Nginx setup
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
-- Automate deployments with CircleCI
+- CI/CD with CircleCI
 
-#### Future Code Improvements:
-- Remove MySQL credentials from git
+#### Future Improvements:
+- Block/redirect routes like /login if the user is already logged in
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
 - Go through and make sure everwhere asyncronous has some sort of loading component (i.e. login button)
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Favicon
+- Write tests
+- Some sort of logging and monitoring
 
 #### Future Features:
 - Thumbs up and thumbs down songs
