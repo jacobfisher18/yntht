@@ -92,7 +92,7 @@ class App extends React.Component {
   addSongToMy3(index, newSong) {
     this.setState(prevState => {
       return {
-        my3: prevState.my3.map(currSong => currSong.item_index === index ? newSong : currSong),
+        my3: prevState.my3.map(currSong => currSong.item_index === index ? { ...newSong, item_index: index } : currSong),
       };
     })
   }
@@ -147,7 +147,7 @@ class App extends React.Component {
             spotifySearchResults={this.state.spotifySearchResults}
             spotifySearchIsLoading={this.state.spotifySearchIsLoading}
             my3={this.state.my3}
-            replaceSongInMy3={(oldSong, newSong) => this.replaceSongInMy3(oldSong, newSong)}
+            replaceSongInMy3={(index, newSong) => this.replaceSongInMy3(index, newSong)}
             addSongToMy3={(index, newSong) => this.addSongToMy3(index, newSong)}
             notify={this.notify}
           />
