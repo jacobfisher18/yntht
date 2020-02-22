@@ -23,7 +23,6 @@ class Login extends React.Component {
     const { username, password } = this.state;
 
     authUser(username, password).then(result => {
-      console.log(result);
       // success, we can move forward
       this.setState({ error: "" });
 
