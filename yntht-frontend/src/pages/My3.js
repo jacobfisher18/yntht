@@ -13,7 +13,7 @@ class My3 extends React.Component {
       .map(song => {
         return (
           <SongView
-            key={`${song.title}-${song.artist}`}
+            key={`${song.title}-${song.artist}-${song.item_index}`}
             size="M"
             title={song.title}
             artist={song.artist}
