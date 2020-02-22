@@ -5,7 +5,7 @@ import Login from './routes/Login';
 import Signup from './routes/Signup';
 import Welcome from './routes/Welcome';
 import Notfound from './routes/Notfound';
-import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 const routing = (
   <BrowserRouter>
