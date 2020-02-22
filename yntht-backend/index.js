@@ -2,10 +2,19 @@ const express = require('express')
 const app = express()
 const path = require("path");
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 const { connectToDB } = require('./utilities/dbConnection');
 const usersRoutes = require('./routes/users');
 
-const port = 5000
+// load in environment variables, and abort if we don't have them
+const result = dotenv.config();
+
+if (result.error) {
+  console.log('Error: Environment variables are missing');
+  throw result.error;
+}
+
+const port = 5000;
 
 // db connection
 let connection;

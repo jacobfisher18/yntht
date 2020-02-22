@@ -15,6 +15,9 @@
 - The app is kept running on EC2 via pm2
 - The EC2 instance has node installed on it
 
+# Database
+- The database is configured in AWS RDS. There are a dev and a prod version of the database.
+
 #### Nginx
 - The server uses Nginx as a reverse proxy. Configuration was done manually while ssh'ed into the machine.
 

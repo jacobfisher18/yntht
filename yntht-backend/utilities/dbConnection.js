@@ -3,10 +3,10 @@ const mysql = require('mysql');
 const connectToDB = () => new Promise((resolve, reject) => {
 
   connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: '@GrandGoldBike8',
-    database: 'yntht_db'
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS
   });
 
   connection.connect((err) => {
