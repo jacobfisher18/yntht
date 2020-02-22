@@ -27,6 +27,9 @@
 #### Deployments
 - The deploy.sh script will ssh into the server, build, and deploy the latest master branch.
 
+# Environment Variables
+- The backend relies on a .env file that is gitignored, and it will throw an exception without it. SSH into the server to work with the file in production.
+
 #### Set up EC2 Instance
 - Load aws credentials locally, using a key and secret from an IAM user with admin access
   ```

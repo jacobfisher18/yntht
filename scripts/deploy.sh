@@ -16,6 +16,11 @@ cd workspace/yntht/
 git reset --hard master
 git pull
 
+/bin/echo -e "\e[36m*******************************\e[0m"
+/bin/echo -e "\e[36mDeploying the following commit:\e[0m"
+git log -1 --pretty=%B
+/bin/echo -e "\e[36m*******************************\e[0m"
+
 /bin/echo -e "\e[36mInstall dependencies, build frontend, and move it to the backend directory\e[0m"
 cd yntht-frontend
 npm install
