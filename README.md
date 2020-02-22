@@ -74,7 +74,6 @@
 
 #### Known Bugs:
 - Hover affect on images sets opacity much lower than expected (i.e. info button and album covers)
-- Login cookie is scoped for www vs. apex domain, it should be shared
 
 #### Future Improvements:
 - Ability to delete a user

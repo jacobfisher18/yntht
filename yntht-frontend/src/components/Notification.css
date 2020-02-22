@@ -6,7 +6,7 @@ body {
   position: fixed;
   z-index: 100;
   right: 25px;
-  top: 25px;
+  bottom: 25px;
   border-radius: 5px;
   background-color: #FCFCFC;
   color: #333333;
