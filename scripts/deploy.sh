@@ -13,6 +13,7 @@ ssh -i "default.pem" ubuntu@3.87.14.203 << 'ENDSSH'
 
 /bin/echo -e "\e[36mPull the newest code from origin master\e[0m"
 cd workspace/yntht/
+git reset --hard master
 git pull
 
 /bin/echo -e "\e[36mInstall dependencies, build frontend, and move it to the backend directory\e[0m"
