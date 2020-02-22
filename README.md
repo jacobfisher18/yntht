@@ -17,39 +17,14 @@
 - The EC2 instance has node installed on it
 - For now it's reachable at its IP that can be found in AWS
 
+#### Nginx
+- The server uses Nginx as a reverse proxy. Configuration was done manually while ssh'ed into the machine.
+
 #### The Domain
 - I bought yntht.net from Google Domains for $12 https://domains.google.com/m/registrar/yntht.net
 
 #### Deployments
-- Locate the default.pem file and cd to its directory to SSH into the server
-  ```
-  ssh -i "default.pem" ubuntu@[SERVER_IP]
-  ```
-- Go to the repo and clean up the old build
-  ```
-  cd workspace/yntht/
-  rm -rf yntht-backend/build/
-  ```
-- Pull the newest code from origin master
-  ```
-  git pull
-  ```
-- Install dependencies, build frontend, and move it to the backend directory
-  ```
-  cd yntht-frontend
-  npm install
-  npm run build
-  mv build ../yntht-backend/
-  ```
-- Install backend dependencies
-  ```
-  cd ../yntht-backend
-  npm install
-  ```
-- Reload the app with 0 downtime with pm2
-  ```
-  pm2 reload yntht
-  ```
+- The deploy.sh script will ssh into the server and deploy the latest master
 
 #### Set up EC2 Instance
 - Load aws credentials locally, using a key and secret from an IAM user with admin access
@@ -88,13 +63,12 @@
 ## Upcoming
 
 #### Infrastructure To-Do's:
-- Get all of http, https, and www working for the domain
-- Set up environment variables and use them for the port
+- Get all of http, https, www, and apex domain working
 - Get a production database up and running
+- Automate the Nginx configuration
 - Right now during a deployment the app goes down for a second, look into that; I think pm2 updates when the build directory is deleted and then there's no frontend to serve
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
 - Automate deployments with CircleCI
-
 
 #### Future Code Improvements:
 - Remove MySQL credentials from git
