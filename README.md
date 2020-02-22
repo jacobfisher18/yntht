@@ -62,17 +62,25 @@
   ```
   pm2 start index.js --name yntht
   ```
-- Configure Nginx
+- Configure Nginx and setup TLS with certbot
 
 ## Upcoming
 
 #### Infrastructure To-Do's:
-- Get TLS working and the site on https
 - Automate and/or containerize the Node, pm2, and Nginx setup
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
 - CI/CD with CircleCI
+- Logging and monitoring
+
+#### Known Bugs:
+- Hover affect on images sets opacity much lower than expected (i.e. info button and album covers)
+- Login cookie is scoped for www vs. apex domain, it should be shared
 
 #### Future Improvements:
+- Ability to delete a user
+- Normalize CSS
+- Make search button clickable
+- Make it responsive and mobile friendly
 - Block/redirect routes like /login if the user is already logged in
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
@@ -80,7 +88,6 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Favicon
 - Write tests
-- Some sort of logging and monitoring
 
 #### Future Features:
 - Thumbs up and thumbs down songs
