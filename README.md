@@ -7,15 +7,13 @@
 - This project uses Terraform 0.12 to create a t2.micro EC2 instance in the us-east-1 region
 - The Terraform state is checked into source control for now
 - To work with Terraform, cd into the /terraform directory and run commands from there
-- `terraform destroy` to destroy the machine
+- `terraform destroy` destroys the machine, but note that the IP is hard coded in a lot of places and will be lost, as well as Node, pm2, and Nginx installations
 
 #### AWS
 - Other than the EC2 instance, some setup was needed manually in AWS to configure an IAM role, security group, a pem file, etc.
-- I also set up an AWS alert for if I'm gonna spend more than $5 in a month
 - The AWS security group manages what ports are accessible, so accessing a port requires adding it in the outbound rules for the security group attached to the server
 - The app is kept running on EC2 via pm2
 - The EC2 instance has node installed on it
-- For now it's reachable at its IP that can be found in AWS
 
 #### Nginx
 - The server uses Nginx as a reverse proxy. Configuration was done manually while ssh'ed into the machine.
@@ -24,14 +22,14 @@
 - I bought yntht.net from Google Domains for $12 https://domains.google.com/m/registrar/yntht.net
 
 #### Deployments
-- The deploy.sh script will ssh into the server and deploy the latest master
+- The deploy.sh script will ssh into the server, build, and deploy the latest master branch.
 
 #### Set up EC2 Instance
 - Load aws credentials locally, using a key and secret from an IAM user with admin access
   ```
   aws configure
   ```
-- Terraform apply to make the EC2 instance, notice the key_name it's attached to
+- Terraform apply to make the EC2 instance; note the key_name attached to it
 - Navigate to the pem file and ssh into the instance
   ```
   ssh -i "default.pem" ubuntu@[SERVER_IP]
@@ -59,14 +57,14 @@
   ```
   pm2 start index.js --name yntht
   ```
+- Configure Nginx
 
 ## Upcoming
 
 #### Infrastructure To-Do's:
 - Get all of http, https, www, and apex domain working
 - Get a production database up and running
-- Automate the Nginx configuration
-- Right now during a deployment the app goes down for a second, look into that; I think pm2 updates when the build directory is deleted and then there's no frontend to serve
+- Automate the Node, pm2, and Nginx setup
 - Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
 - Automate deployments with CircleCI
 
