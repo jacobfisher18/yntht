@@ -14,6 +14,12 @@ export const getArtist = (artists) => {
 // set cookies for logged in user
 export const setUserCookies = (userID, username) => {
   const cookies = new Cookies();
-  cookies.set('user_id', userID, { path: '/' });
-  cookies.set('username', username, { path: '/' });
+  cookies.set('user_id', userID, {
+    path: '/',
+    domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+  });
+  cookies.set('username', username, {
+    path: '/',
+    domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+  });
 }
