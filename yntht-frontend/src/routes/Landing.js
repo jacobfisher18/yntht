@@ -16,7 +16,7 @@ class Landing extends React.Component {
     return (
       <div className="Landing">
         <h1 className="LandingTitle">
-          You Need to Hear This <span className="Italic">(Beta 1.0)</span>
+          You Need to Hear This <span className="Italic">(Beta)</span>
         </h1>
         <h2 className="LandingSubTitle">
           Share and discover music you love
