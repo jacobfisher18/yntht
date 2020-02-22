@@ -19,7 +19,7 @@ class Landing extends React.Component {
           You Need to Hear This <span className="Italic">(Beta)</span>
         </h1>
         <h2 className="LandingSubTitle">
-          Share and discover music you love
+          Share and discover the music you love
         </h2>
         <div className="LoginSignupContainer">
           <div
