@@ -21,8 +21,14 @@ class Profile extends React.Component {
 
   logout() {
     const cookies = new Cookies();
-    cookies.remove('user_id', { path: '/' });
-    cookies.remove('username', { path: '/' });
+    cookies.remove('user_id', {
+      path: '/',
+      domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+    });
+    cookies.remove('username', {
+      path: '/',
+      domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+    });
 
     // force window reload to redirect to Landing
     window.location.reload();
