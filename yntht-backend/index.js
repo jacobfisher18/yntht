@@ -4,7 +4,9 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { connectToDB } = require('./utilities/dbConnection');
+const spotifyRoutes = require('./routes/spotify');
 const usersRoutes = require('./routes/users');
+const my3Routes = require('./routes/my3');
 
 // load in environment variables, and abort if we don't have them
 const result = dotenv.config();
@@ -29,9 +31,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 // import routes
-app.use(require('./routes/spotify'));
+app.use(spotifyRoutes);
 app.use(usersRoutes);
-app.use(require('./routes/my3'));
+app.use(my3Routes);
 
 // health check
 app.get('/api/health', (req, res) => {

@@ -70,7 +70,6 @@
 - Dockerize the app and use ECR, automate/containerize the Node, pm2, and Nginx setup
 - CI/CD
 - Logging and monitoring
-- Ability to delete a user
 - Make it responsive and mobile friendly
 - Block/redirect routes like /login if the user is already logged in
 - Go through and make sure everwhere asyncronous has some sort of loading component (i.e. login button)
@@ -82,6 +81,8 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### Features:
+- Ability to delete a user's own account
+- Search for users, view their page, follow them
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow
