@@ -70,9 +70,9 @@
 - Dockerize the app and use ECR, automate/containerize the Node, pm2, and Nginx setup
 - CI/CD
 - Logging and monitoring
-- Make it responsive and mobile friendly
+- Make it responsive, mobile friendly, and looking good on all browsers
 - Block/redirect routes like /login if the user is already logged in
-- Go through and make sure everwhere asyncronous has some sort of loading component (i.e. login button)
+- Make sure everwhere asyncronous has some sort of loading component (i.e. login button)
 - Write tests
 
 #### Code Quality / Cleanup:
