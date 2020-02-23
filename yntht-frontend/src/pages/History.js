@@ -3,12 +3,11 @@ import '../global.css';
 import './History.css';
 
 class History extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-    }
+    };
   }
 
   setBackgroundColor() {
@@ -24,9 +23,10 @@ class History extends React.Component {
           className="PageTitle"
           style={{ color: this.props.highlightColor }}
         >
-          History</h1>
+          History
+        </h1>
       </div>
-    )
+    );
   }
 }
 

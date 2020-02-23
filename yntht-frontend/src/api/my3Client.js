@@ -1,10 +1,10 @@
 export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
   fetch(`/api/my3/${userID}`)
-    .then(response => response.json()) // response must be in json or this will error
-    .then(myJson => {
+    .then((response) => response.json()) // response must be in json or this will error
+    .then((myJson) => {
       resolve(myJson);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('Error with fetch request: ', err);
       reject();
     });
@@ -20,14 +20,14 @@ export const putMy3ForUser = (userID, title, artist, img, item_index) => new Pro
       artist,
       img,
       item_index,
-    })
+    }),
   })
-    .then(response => response.json()) // response must be in json or this will error
-    .then(myJson => {
+    .then((response) => response.json()) // response must be in json or this will error
+    .then((myJson) => {
       resolve(myJson);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('Error with fetch request: ', err);
       reject();
     });
-})
+});

@@ -6,26 +6,24 @@ import '../global.css';
 import './My3.css';
 
 class My3 extends React.Component {
-
   renderSongs() {
     return this.props.songs
-      .filter(song => song.title && song.artist && song.img)
-      .map(song => {
-        return (
-          <SongView
-            key={`${song.title}-${song.artist}-${song.item_index}`}
-            size="M"
-            title={song.title}
-            artist={song.artist}
-            img={song.img}
-          />
-        )
-      })
+      .filter((song) => song.title && song.artist && song.img)
+      .map((song) => (
+        <SongView
+          key={`${song.title}-${song.artist}-${song.item_index}`}
+          size="M"
+          title={song.title}
+          artist={song.artist}
+          img={song.img}
+        />
+      ));
   }
 
   setBackgroundColor() {
     document.body.style.backgroundColor = this.props.bgColor;
   }
+
   render() {
     this.setBackgroundColor();
 
@@ -49,14 +47,16 @@ class My3 extends React.Component {
 
         </h1>
         {
-          this.props.loading ?
-            <Loader
-              loading={this.props.loading}
-            /> :
-            this.renderSongs()
+          this.props.loading
+            ? (
+              <Loader
+                loading={this.props.loading}
+              />
+            )
+            : this.renderSongs()
         }
       </div>
-    )
+    );
   }
 }
 

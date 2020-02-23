@@ -13,7 +13,6 @@ import { PAGES } from '../utilities/constants.js';
 import './Home.css';
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -29,25 +28,25 @@ class App extends React.Component {
           title: null,
           artist: null,
           img: null,
-          item_index: 0
+          item_index: 0,
         },
         {
           title: null,
           artist: null,
           img: null,
-          item_index: 1
+          item_index: 1,
         },
         {
           title: null,
           artist: null,
           img: null,
-          item_index: 2
-        }
+          item_index: 2,
+        },
       ],
       notificationText: '',
       notificationType: '',
-      displayNotification: false
-    }
+      displayNotification: false,
+    };
 
     this.notify = this.notify.bind(this);
   }
@@ -55,7 +54,7 @@ class App extends React.Component {
   componentDidMount() {
     this.setState({ my3IsLoading: true });
 
-    getMy3ForUser(this.props.userID).then(result => {
+    getMy3ForUser(this.props.userID).then((result) => {
       if (result.error) {
         this.setState({ my3IsLoading: false, showErrorPage: true });
         return;
@@ -64,15 +63,13 @@ class App extends React.Component {
       // success
       this.setState({
         my3IsLoading: false,
-        my3: result.data.sort((a, b) => a.item_index < b.item_index).map(item => {
-          return {
-            title: item.title,
-            artist: item.artist,
-            img: item.img,
-            item_index: item.item_index
-          }
-        })
-      })
+        my3: result.data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
+          title: item.title,
+          artist: item.artist,
+          img: item.img,
+          item_index: item.item_index,
+        })),
+      });
     }).catch(() => {
       this.setState({ my3IsLoading: false, showErrorPage: true });
     });
@@ -83,26 +80,23 @@ class App extends React.Component {
   }
 
   renderMenu() {
-    return Object.keys(PAGES).filter(key => PAGES[key].presentInMenu).map(key => {
-      return (
-        <div
-          key={key}
-          className={this.state.activeTab === PAGES[key].name ? "Black" : ""}
-          onClick={() => this.selectTab(PAGES[key].name)}>
-          {PAGES[key].name}
-        </div>
-      )
-    })
+    return Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
+      <div
+        key={key}
+        className={this.state.activeTab === PAGES[key].name ? 'Black' : ''}
+        onClick={() => this.selectTab(PAGES[key].name)}
+      >
+        {PAGES[key].name}
+      </div>
+    ));
   }
 
   // works for adding a new song (since empty items already exist), or replacing a song
   // it's the caller's responsibility to only call this with the lowest empty index if putting a new song
   putSongInMy3(index, newSong) {
-    this.setState(prevState => {
-      return {
-        my3: prevState.my3.map(currSong => currSong.item_index === index ? { ...newSong, item_index: index } : currSong),
-      };
-    })
+    this.setState((prevState) => ({
+      my3: prevState.my3.map((currSong) => (currSong.item_index === index ? { ...newSong, item_index: index } : currSong)),
+    }));
   }
 
   renderTab() {
@@ -113,7 +107,7 @@ class App extends React.Component {
             bgColor={PAGES.FEED.bgColor}
             highlightColor={PAGES.FEED.highlightColor}
           />
-        )
+        );
       case PAGES.MY3.name:
         return (
           <My3
@@ -122,21 +116,21 @@ class App extends React.Component {
             songs={this.state.my3}
             loading={this.state.my3IsLoading}
           />
-        )
+        );
       case PAGES.HISTORY.name:
         return (
           <History
             bgColor={PAGES.HISTORY.bgColor}
             highlightColor={PAGES.HISTORY.highlightColor}
           />
-        )
+        );
       case PAGES.PROFILE.name:
         return (
           <Profile
             bgColor={PAGES.PROFILE.bgColor}
             highlightColor={PAGES.PROFILE.highlightColor}
           />
-        )
+        );
       case PAGES.SEARCH_RESULTS.name:
         return (
           <SearchResults
@@ -150,9 +144,9 @@ class App extends React.Component {
             putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}
           />
-        )
+        );
       default:
-        return <p>Error</p>
+        return <p>Error</p>;
     }
   }
 
@@ -163,7 +157,7 @@ class App extends React.Component {
       spotifySearchIsLoading: true,
     });
 
-    spotifySearchRequest(searchTerm).then(res => {
+    spotifySearchRequest(searchTerm).then((res) => {
       if (res.error) {
         this.setState({ showErrorPage: true });
         return;
@@ -171,9 +165,9 @@ class App extends React.Component {
 
       this.setState({
         spotifySearchResults: res,
-        searchedTerm: searchTerm
-      })
-    }).catch(err => {
+        searchedTerm: searchTerm,
+      });
+    }).catch((err) => {
       this.setState({ showErrorPage: true });
     }).finally(() => {
       this.setState({ spotifySearchIsLoading: false });
@@ -188,13 +182,13 @@ class App extends React.Component {
         displayNotification: true,
         notificationType: type,
         notificationText: message,
-      })
+      });
 
       setTimeout(() => {
         this.setState({
           displayNotification: false,
           // don't reset type or text, because they are needed during the transition
-        })
+        });
       }, 3000);
     }
   }
@@ -206,26 +200,30 @@ class App extends React.Component {
           displayNotification={this.state.displayNotification}
           notificationType={this.state.notificationType}
           notificationText={this.state.notificationText}
-          close={() => { this.setState({ displayNotification: false })}}
+          close={() => { this.setState({ displayNotification: false }); }}
         />
         {
-          this.state.showErrorPage ?
-            <ErrorPage
-              type={'OOPS'}
-            /> :
-            <div className="MainContentContainer">
-              <div className="HeaderContainer">
-                <Search
-                  onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
-                />
-                <div className="NavMenu">
-                  {this.renderMenu()}
+          this.state.showErrorPage
+            ? (
+              <ErrorPage
+                type="OOPS"
+              />
+            )
+            : (
+              <div className="MainContentContainer">
+                <div className="HeaderContainer">
+                  <Search
+                    onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
+                  />
+                  <div className="NavMenu">
+                    {this.renderMenu()}
+                  </div>
+                </div>
+                <div className="PageContainer">
+                  {this.renderTab()}
                 </div>
               </div>
-              <div className="PageContainer">
-                {this.renderTab()}
-              </div>
-            </div>
+            )
         }
       </div>
     );

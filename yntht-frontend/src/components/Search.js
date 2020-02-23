@@ -4,7 +4,6 @@ import '../global.css';
 import './Search.css';
 
 class Search extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -43,7 +42,7 @@ class Search extends React.Component {
           placeholder=" Search for a user, song, or artist..."
         />
       </form>
-    )
+    );
   }
 }
 

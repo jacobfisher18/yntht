@@ -11,11 +11,13 @@ class Notification extends React.Component {
         className={
           `Notification 
           ${this.props.displayNotification ? 'Show' : 'Hide'} 
-          ${this.props.notificationType}`}>
+          ${this.props.notificationType}`
+}
+      >
         <img
           className="IconImg"
-          src={this.props.notificationType === "Info" ? checkImg :
-            this.props.notificationType === "Error" ? crossImg : ''}
+          src={this.props.notificationType === 'Info' ? checkImg
+            : this.props.notificationType === 'Error' ? crossImg : ''}
           alt="Icon"
         />
         <p>{this.props.notificationText}</p>
@@ -26,7 +28,7 @@ class Notification extends React.Component {
           onClick={this.props.close}
         />
       </div>
-    )
+    );
   }
 }
 

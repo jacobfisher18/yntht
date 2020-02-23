@@ -5,23 +5,21 @@ import Landing from './Landing';
 import '../normalize.css';
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
     const cookies = new Cookies();
 
     this.state = {
-      userID: cookies.get('user_id')
-    }
+      userID: cookies.get('user_id'),
+    };
   }
 
   render() {
     if (this.state.userID) {
-      return <Home userID={this.state.userID}/>;
-    } else {
-      return <Landing />;
+      return <Home userID={this.state.userID} />;
     }
+    return <Landing />;
   }
 }
 

@@ -6,10 +6,10 @@ class Notfound extends React.Component {
     return (
       <div>
         <ErrorPage
-          type='NOT_FOUND'
+          type="NOT_FOUND"
         />
       </div>
-    )
+    );
   }
 }
 

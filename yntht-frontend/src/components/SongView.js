@@ -4,13 +4,12 @@ import '../global.css';
 import './SongView.css';
 
 class SongView extends React.Component {
-
   render() {
     return (
       <div
         className={`SongContainer SongContainer-${this.props.size}`}
         onClick={this.props.onClick}
-        >
+      >
         <div className={`SongImgContainer SongImgContainer-${this.props.size}`}>
           <img className={`SongImg SongImg-${this.props.size}`} src={this.props.img} alt={this.props.title} />
           <img className={`SongImgPlus SongImgPlus-${this.props.size}`} src={Plus} alt="Plus" />
@@ -24,7 +23,7 @@ class SongView extends React.Component {
           </p>
         </div>
       </div>
-    )
+    );
   }
 }
 

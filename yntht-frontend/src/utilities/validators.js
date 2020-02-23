@@ -8,7 +8,7 @@ export const validateUsername = (username) => {
   }
 
   return ''; // If it's fine return an empty string (false)
-}
+};
 
 export const validatePassword = (password) => {
   if (password.length > 40) {
@@ -20,7 +20,7 @@ export const validatePassword = (password) => {
   }
 
   return ''; // If it's fine return an empty string (false)
-}
+};
 
 export const passwordMismatch = (password, confirmPassword) => {
   if (password !== confirmPassword) {
@@ -28,4 +28,4 @@ export const passwordMismatch = (password, confirmPassword) => {
   }
 
   return ''; // If it's fine return an empty string (false)
-}
+};

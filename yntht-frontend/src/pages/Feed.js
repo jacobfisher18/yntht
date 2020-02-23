@@ -3,12 +3,11 @@ import '../global.css';
 import './Feed.css';
 
 class Feed extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-    }
+    };
   }
 
   setBackgroundColor() {
@@ -24,9 +23,10 @@ class Feed extends React.Component {
           className="PageTitle"
           style={{ color: this.props.highlightColor }}
         >
-          Feed</h1>
+          Feed
+        </h1>
       </div>
-    )
+    );
   }
 }
 

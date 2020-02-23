@@ -1,12 +1,11 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { ERROR_PAGES } from '../utilities/constants.js';
 import './ErrorPage.css';
 
 class ErrorPage extends React.Component {
-
   setBackgroundColor() {
-    const bgColor = "#24316E";
+    const bgColor = '#24316E';
     document.body.style.backgroundColor = bgColor;
   }
 
@@ -26,12 +25,12 @@ class ErrorPage extends React.Component {
         </h3>
         <div
           className="GoToHomepageButton"
-          onClick={() => { this.props.history.push("/"); window.location.reload() }}
+          onClick={() => { this.props.history.push('/'); window.location.reload(); }}
         >
           GO TO HOMEPAGE
         </div>
       </div>
-    )
+    );
   }
 }
 

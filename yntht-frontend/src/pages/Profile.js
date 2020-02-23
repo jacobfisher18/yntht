@@ -1,13 +1,12 @@
 import React from 'react';
 import Cookies from 'universal-cookie';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
 import '../global.css';
 import './Profile.css';
 
 class Profile extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -17,8 +16,8 @@ class Profile extends React.Component {
       user_id: cookies.get('user_id'), // maybe these should be props?
       username: cookies.get('username'), // maybe these should be props?
       isModalOpen: false,
-      deleteAccountError: ''
-    }
+      deleteAccountError: '',
+    };
 
     this.logout = this.logout.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
@@ -32,11 +31,11 @@ class Profile extends React.Component {
     const cookies = new Cookies();
     cookies.remove('user_id', {
       path: '/',
-      domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+      domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
     });
     cookies.remove('username', {
       path: '/',
-      domain: process.env.NODE_ENV === "production" ? '.yntht.net' : 'localhost'
+      domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
     });
 
     // force window reload to redirect to Landing
@@ -44,7 +43,7 @@ class Profile extends React.Component {
   }
 
   deleteAccount() {
-    deleteUser(this.state.user_id).then(res => {
+    deleteUser(this.state.user_id).then((res) => {
       if (res.error) {
         this.setState({ deleteAccountError: 'There was an error deleting your account.' });
         return;
@@ -53,7 +52,7 @@ class Profile extends React.Component {
       this.logout();
     }).catch(() => {
       this.setState({ deleteAccountError: 'There was an error deleting your account.' });
-    })
+    });
   }
 
   render() {
@@ -68,27 +67,32 @@ class Profile extends React.Component {
           isModalOpen={this.state.isModalOpen}
           error={this.state.deleteAccountError}
           confirmAction={this.deleteAccount}
-          closeAction={() => { this.setState({ isModalOpen: false }) }}
+          closeAction={() => { this.setState({ isModalOpen: false }); }}
         />
         <h1
           className="PageTitle"
           style={{ color: this.props.highlightColor }}
         >
-          Profile</h1>
-        <h2 className="HelloNameTitle">Hello, {this.state.username}</h2>
+          Profile
+        </h1>
+        <h2 className="HelloNameTitle">
+          Hello,
+          {this.state.username}
+        </h2>
         <div
           className="LogoutButton"
-          onClick={this.logout}>
+          onClick={this.logout}
+        >
           Logout
         </div>
         <div
           className="DeleteAccountButton"
-          onClick={() => { this.setState({ isModalOpen: true }) }}
+          onClick={() => { this.setState({ isModalOpen: true }); }}
         >
           Delete Account
         </div>
       </div>
-    )
+    );
   }
 }
 

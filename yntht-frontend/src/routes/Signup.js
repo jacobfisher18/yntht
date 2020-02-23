@@ -1,13 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { createUser } from '../api/usersClient';
-import { withRouter } from "react-router-dom";
 import { setUserCookies } from '../utilities/helpers';
 import { validateUsername, validatePassword, passwordMismatch } from '../utilities/validators';
 import '../global.css';
 import './LoginSignup.css';
 
 class Signup extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -15,8 +14,8 @@ class Signup extends React.Component {
       username: '',
       password: '',
       confirmPassword: '',
-      error: ''
-    }
+      error: '',
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -27,23 +26,23 @@ class Signup extends React.Component {
     const inputErrors = [
       validateUsername(username),
       validatePassword(password),
-      passwordMismatch(password, confirmPassword)
+      passwordMismatch(password, confirmPassword),
     ];
 
-    if (inputErrors.some(err => err !== '')) { 
+    if (inputErrors.some((err) => err !== '')) {
       this.setState({ error: inputErrors.join(' ') });
       return;
     }
 
-    createUser(username, password).then(result => {
+    createUser(username, password).then((result) => {
       if (result.error) {
         this.setState({ error: result.error }); // the actual error sent from the backend
       } else {
         setUserCookies(result.user_id, result.username);
-        this.props.history.push("/welcome");
+        this.props.history.push('/welcome');
       }
     }).catch(() => { // an error with the actual request
-      this.setState({ error: "An error has occurred." });
+      this.setState({ error: 'An error has occurred.' });
     });
   }
 
@@ -53,32 +52,32 @@ class Signup extends React.Component {
         <h1 className="LoginSignupTitle">
           Create a YNTHT account
         </h1>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="FormContainer">
             {
-              this.state.error &&
-              <p className="ErrorMessage">{this.state.error}</p>
+              this.state.error
+              && <p className="ErrorMessage">{this.state.error}</p>
             }
             <p className="InputTitle UsernameTitle">Username</p>
             <input
               className="FormInput UsernameInput"
               type="text"
               value={this.state.username}
-              onChange={e => this.setState({ username: e.target.value })}
+              onChange={(e) => this.setState({ username: e.target.value })}
             />
             <p className="InputTitle PasswordTitle">Password</p>
             <input
               className="FormInput PasswordInput"
               type="password"
               value={this.state.password}
-              onChange={e => this.setState({ password: e.target.value })}
+              onChange={(e) => this.setState({ password: e.target.value })}
             />
             <p className="InputTitle PasswordTitle">Confirm Password</p>
             <input
               className="FormInput PasswordInput"
               type="password"
               value={this.state.confirmPassword}
-              onChange={e => this.setState({ confirmPassword: e.target.value })}
+              onChange={(e) => this.setState({ confirmPassword: e.target.value })}
             />
             <input
               type="submit"
@@ -89,7 +88,7 @@ class Signup extends React.Component {
           </div>
         </form>
       </div>
-    )
+    );
   }
 }
 
