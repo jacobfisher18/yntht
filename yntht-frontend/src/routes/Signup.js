@@ -1,7 +1,8 @@
 import React from 'react';
-import { createUser } from '../api/authClient';
+import { createUser } from '../api/usersClient';
 import { withRouter } from "react-router-dom";
 import { setUserCookies } from '../utilities/helpers';
+import { validateUsername, validatePassword, passwordMismatch } from '../utilities/validators';
 import '../global.css';
 import './LoginSignup.css';
 
@@ -21,21 +22,29 @@ class Signup extends React.Component {
   }
 
   handleSubmit() {
-    const { username, password } = this.state;
-    // TODO: input validation (i.e. do passwords match?)
+    const { username, password, confirmPassword } = this.state;
+
+    const inputErrors = [
+      validateUsername(username),
+      validatePassword(password),
+      passwordMismatch(password, confirmPassword)
+    ];
+
+    if (inputErrors.some(err => err !== '')) { 
+      this.setState({ error: inputErrors.join(' ') });
+      return;
+    }
 
     createUser(username, password).then(result => {
-      if (result.status === "Created") {
-        setUserCookies(result.user_id, result.username);
-
-        this.props.history.push("/welcome");
+      if (result.error) {
+        this.setState({ error: result.error }); // the actual error sent from the backend
       } else {
-        this.setState({ error: "An error has occurred." })
+        setUserCookies(result.user_id, result.username);
+        this.props.history.push("/welcome");
       }
-    }).catch(err => {
-      console.log(err);
-      this.setState({ error: "An error has occurred." })
-    })
+    }).catch(() => { // an error with the actual request
+      this.setState({ error: "An error has occurred." });
+    });
   }
 
   render() {

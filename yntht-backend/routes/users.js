@@ -1,83 +1,99 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
-const crypto = require('crypto');
 const { initMy3 } = require('../utilities/my3');
+const { encryptPassword } = require('../utilities/encrypt');
 const { checkDBIsConnected } = require('../utilities/dbConnection');
 
 // get all users
 router.get('/api/users', checkDBIsConnected, (req, res) => {
 
-  connection.query('SELECT * FROM users', (error, results, fields) => {
+  const query = `
+    SELECT * FROM users
+  `;
+
+  connection.query(query, (error, results) => {
     if (error) {
       console.log(error.sqlMessage || error.code);
-      res.status(500).send('MYSQL error');
-    } else {
-      console.log('Users: ', results);
-      res.status(200).send(results);
+      res.status(500).send({ error: 'Database error.' });
+      return;
     }
+
+    res.status(200).send({ data: results });
   });
-})
+});
 
 // add a new user
 router.post('/api/user', checkDBIsConnected, (req, res) => {
 
+  // username and password should have been validated already on the front end
   const { username, password } = req.body;
-
-  // TODO: validate username and password
-  //    validate username and password (correct length, format, etc.)
-  //    make sure the username doesn't exist yet and handle that error on frontend
 
   if (!username || !password) {
     console.log('Username or password not provided');
-    res.status(400).send('Username or password not provided');
+    res.status(400).send({ error: 'Username or password not provided.' });
     return;
   }
 
-  // encrypt password
-  const secret = 'abc123'
-  var mykey = crypto.createCipher('aes-128-cbc', secret);
-  var mystr = mykey.update(password, 'utf8', 'hex')
-  mystr += mykey.final('hex');
+  const checkUsernameQuery = `
+    SELECT * FROM users WHERE username=${mysql.escape(username)}
+  `;
 
-  const hashedPassword = mystr;
-
-  const query = `
-    INSERT INTO
-    users (username, password)
-    VALUES (${mysql.escape(username)}, '${hashedPassword}')
-    `
-
-  // Insert the user into the DB
-  connection.query(query, (error, results, fields) => {
+  connection.query(checkUsernameQuery, (error, results) => {
     if (error) {
       console.log(error.sqlMessage || error.code);
-      res.status(500).send('MYSQL error');
-    } else {
+      res.status(500).send({ error: 'Database error.' });
+      return;
+    }
+
+    if (results.length > 0) {
+      console.log('A user with that username already exists.');
+      res.status(400).send({ error: 'A user with that username already exists.' });
+      return;
+    }
+
+    const insertUserQuery = `
+      INSERT INTO
+      users (username, password)
+      VALUES (${mysql.escape(username)}, '${encryptPassword(password)}')
+    `;
+
+    // Insert the user into the DB
+    connection.query(insertUserQuery, (error, results) => {
+      if (error) {
+        console.log(error.sqlMessage || error.code);
+        res.status(500).send({ error: 'Database error.' });
+        return;
+      }
+
+      const getIDQuery = `
+        SELECT @@IDENTITY
+      `;
+
       // Get the ID we just generated
-      connection.query('SELECT @@IDENTITY', (error, results, fields) => {
+      connection.query(getIDQuery, (error, results) => {
         if (error) {
           console.log(error.sqlMessage || error.code);
-          res.status(500).send('MYSQL error');
-        } else {
-          const userID = results[0]['@@IDENTITY'];
-
-          // Create my3 slots in the db for the user
-          initMy3(userID).then(() => {
-            res.status(200).send({
-              status: "Created",
-              user_id: userID,
-              username
-            })
-          }).catch(err => {
-            console.log(err);
-            res.status(500).send('Error initializing My3');
-          })
+          res.status(500).send({ error: 'Database error.' });
+          return;
         }
+
+        const userID = results[0]['@@IDENTITY'];
+
+        // Create my3 slots in the db for the user
+        initMy3(userID).then(() => {
+          res.status(200).send({
+            user_id: userID,
+            username
+          })
+        }).catch(err => {
+          console.log(err);
+          res.status(500).send({ error: 'Error initializing My3.' });
+        });
       });
-    }
+    });
   });
-})
+});
 
 // authenticate a user
 router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
@@ -85,20 +101,15 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    console.log('Please supply a username and a password')
-    res.status(400).send('Username or password was not provided');
+    console.log('Username or password not provided');
+    // res.status(400).send({ error: 'Username or password not provided.' });
+    res.status(400).send("Error"); // temp
     return;
   }
 
-  // encrypt password
-  const secret = 'abc123'
-  var mykey = crypto.createCipher('aes-128-cbc', secret);
-  var mystr = mykey.update(password, 'utf8', 'hex')
-  mystr += mykey.final('hex');
-
-  const hashedPassword = mystr;
-
-  const query = `SELECT * FROM users WHERE username=${mysql.escape(username)}`;
+  const query = `
+    SELECT * FROM users WHERE username=${mysql.escape(username)}
+  `;
 
   connection.query(query, (error, results, fields) => {
 
@@ -118,7 +129,7 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
       const foundUser = results[0];
 
       // check if password was right
-      if (foundUser.password !== hashedPassword) {
+      if (foundUser.password !== encryptPassword(password)) {
         res.status(403).send("Incorrect Password");
       } else {
         // user and password were found

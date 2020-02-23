@@ -53,7 +53,6 @@ app.listen(port, () => {
     console.log(`connected to DB with threat ID: ${threadID}`)
   }).catch(err => {
     console.log(`error connecting to DB: ${err}`);
-    // TODO: if we couldn't connect to the db, we can't do anything
-    // We should block all api paths because they otherwise will cause a fatal error when trying to connect to the db
+    // now routes that connect to the db just need to use checkDBIsConnected middleware
   });
 })

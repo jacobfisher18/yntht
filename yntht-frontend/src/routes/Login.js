@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 import { setUserCookies } from '../utilities/helpers';
-import { authUser } from '../api/authClient';
+import { authUser } from '../api/usersClient';
 import '../global.css';
 import './LoginSignup.css';
 
