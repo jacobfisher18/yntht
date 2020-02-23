@@ -7,8 +7,12 @@
 .Search img {
   height: 20px;
   position: absolute;
-  margin-top: 25px;
-  margin-left: 15px;
+  margin-left: 20px;
+  align-self: center;
+}
+
+.Search img:hover {
+  cursor: pointer;
 }
 
 .Search input {
@@ -24,6 +28,7 @@
   font-size: var(--font-s);
   border-radius: 3px;
   margin: 10px 0px;
+  line-height: 25px;
 }
 
 .Search input:focus {

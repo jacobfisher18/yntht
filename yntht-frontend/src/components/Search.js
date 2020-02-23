@@ -23,13 +23,19 @@ class Search extends React.Component {
       this.props.onSubmit(this.state.searchTerm);
     }
 
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
   }
 
   render() {
     return (
       <form className="Search" onSubmit={this.handleSubmit}>
-        <img src={SearchImg} alt="Search"/>
+        <img
+          src={SearchImg}
+          alt="Search"
+          onClick={this.handleSubmit}
+        />
         <input
           type="text"
           value={this.state.searchTerm}
