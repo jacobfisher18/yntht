@@ -77,6 +77,7 @@
 
 #### Code Quality / Cleanup:
 - Linting
+- Prop types
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow

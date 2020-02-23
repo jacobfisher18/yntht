@@ -4,32 +4,30 @@ import crossImg from '../images/close_red.png';
 import exitImg from '../images/close_grey.png';
 import './Notification.css';
 
-class Notification extends React.Component {
-  render() {
-    return (
-      <div
-        className={
-          `Notification 
-          ${this.props.displayNotification ? 'Show' : 'Hide'} 
-          ${this.props.notificationType}`
-}
-      >
-        <img
-          className="IconImg"
-          src={this.props.notificationType === 'Info' ? checkImg
-            : this.props.notificationType === 'Error' ? crossImg : ''}
-          alt="Icon"
-        />
-        <p>{this.props.notificationText}</p>
-        <img
-          className="ExitImg"
-          src={exitImg}
-          alt="Exit"
-          onClick={this.props.close}
-        />
-      </div>
-    );
-  }
-}
+const Notification = ({
+  displayNotification, notificationType, notificationText, close,
+}) => (
+  <div
+    className={
+      `Notification 
+          ${displayNotification ? 'Show' : 'Hide'} 
+          ${notificationType}`
+    }
+  >
+    <img
+      className="IconImg"
+      src={notificationType === 'Info' ? checkImg
+        : notificationType === 'Error' ? crossImg : ''}
+      alt="Icon"
+    />
+    <p>{notificationText}</p>
+    <img
+      className="ExitImg"
+      src={exitImg}
+      alt="Exit"
+      onClick={close}
+    />
+  </div>
+);
 
 export default Notification;

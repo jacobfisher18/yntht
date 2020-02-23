@@ -18,8 +18,11 @@ class Search extends React.Component {
   }
 
   handleSubmit(e) {
-    if (this.state.searchTerm) {
-      this.props.onSubmit(this.state.searchTerm);
+    const { searchTerm } = this.state;
+    const { onSubmit } = this.props;
+
+    if (searchTerm) {
+      onSubmit(searchTerm);
     }
 
     if (e) {
@@ -28,6 +31,7 @@ class Search extends React.Component {
   }
 
   render() {
+    const { searchTerm } = this.state;
     return (
       <form className="Search" onSubmit={this.handleSubmit}>
         <img
@@ -37,7 +41,7 @@ class Search extends React.Component {
         />
         <input
           type="text"
-          value={this.state.searchTerm}
+          value={searchTerm}
           onChange={this.handleChange}
           placeholder=" Search for a user, song, or artist..."
         />

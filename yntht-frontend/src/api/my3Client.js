@@ -10,7 +10,7 @@ export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
     });
 });
 
-export const putMy3ForUser = (userID, title, artist, img, item_index) => new Promise((resolve, reject) => {
+export const putMy3ForUser = (userID, title, artist, img, itemIndex) => new Promise((resolve, reject) => {
   fetch(`/api/my3/${userID}`, {
     method: 'PUT',
     headers: { 'Content-type': 'application/json' },
@@ -19,7 +19,7 @@ export const putMy3ForUser = (userID, title, artist, img, item_index) => new Pro
       title,
       artist,
       img,
-      item_index,
+      item_index: itemIndex,
     }),
   })
     .then((response) => response.json()) // response must be in json or this will error
