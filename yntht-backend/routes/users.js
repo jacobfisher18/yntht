@@ -102,8 +102,7 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
 
   if (!username || !password) {
     console.log('Username or password not provided');
-    // res.status(400).send({ error: 'Username or password not provided.' });
-    res.status(400).send("Error"); // temp
+    res.status(400).send({ error: 'Username or password not provided.' });
     return;
   }
 
@@ -114,53 +113,66 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
   connection.query(query, (error, results, fields) => {
 
     if (error) {
-      console.log(error);
-      res.status(500).send("Error");
+      console.log(error.sqlMessage || error.code);
+      res.status(500).send({ error: 'Database error.' });
+      return;
     }
 
     if (results.length < 1) {
-      // there's no user with that username
-      res.status(401).send("Username Not Found");
-    } else if (results.length > 1) {
-      // there are multiple users with that username in the db, this is an issue
-      console.log(`Error: Multiple users with username ${username}`);
-      res.status(500).send("Error");
-    } else {
-      const foundUser = results[0];
-
-      // check if password was right
-      if (foundUser.password !== encryptPassword(password)) {
-        res.status(403).send("Incorrect Password");
-      } else {
-        // user and password were found
-        res.status(200).send({
-          status: "Found",
-          user_id: foundUser.id,
-          username: foundUser.username
-        })
-      }
+      console.log('Username not found.');
+      res.status(401).send({ error: 'Username not found.' });
+      return;
     }
-  });
 
-})
+    if (results.length > 1) {
+      console.log('Multiple users with that username exist.');
+      res.status(401).send({ error: 'Multiple users with that username exist. This is an error and should be reported.' });
+      return;
+    }
+
+    const foundUser = results[0];
+
+    // check if password was right
+    if (foundUser.password !== encryptPassword(password)) {
+      console.log('Incorrect Password.');
+      res.status(403).send({ error: 'Incorrect password.' });
+      return;
+    }
+
+    // user and password were found
+    res.status(200).send({
+      user_id: foundUser.id,
+      username: foundUser.username
+    });
+  });
+});
 
 // delete a user
 router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
 
   const userID = req.params.userID;
 
-  const query = `DELETE FROM users WHERE id = "${userID}"`
+  const query = `
+    DELETE FROM users WHERE id = "${userID}"
+  `;
 
-  connection.query(query, (error, results, fields) => {
+  connection.query(query, (error, results) => {
     if (error) {
       console.log(error.sqlMessage || error.code);
-      res.status(500).send('MYSQL error');
-    } else {
-      console.log("Number of records deleted: " + results.affectedRows);
-      res.status(200).send('Records succesfully deleted');
+      res.status(500).send({ error: 'Database error.' });
+      return;
     }
-  });
 
-})
+    if (results.affectedRows < 1) {
+      console.log('Nothing was deleted');
+      res.status(500).send({ error: 'Nothing was deleted.' });
+      return;
+    }
+
+    // We need to also delete my3 for that user
+
+    res.status(200).send({ message: 'User succesfully deleted' });
+  });
+});
 
 module.exports = router;

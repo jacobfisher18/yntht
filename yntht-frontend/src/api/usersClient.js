@@ -1,26 +1,19 @@
 export const authUser = (username, password) => new Promise((resolve, reject) => {
   fetch(`/api/user/auth`, {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
+    headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({
       username,
       password
     })
   })
-    .then(response => {
-      if (!response.ok) {
-        reject(response);
-      } else {
-        return response.json();
-      }
-    })
+    .then(response => response.json()) // response must be in json or this will error
     .then(myJson => {
-      resolve(myJson)
+      resolve(myJson);
     })
     .catch(err => {
-      reject(err);
+      console.log('Error with fetch request: ', err);
+      reject();
     });
 });
 
