@@ -1,5 +1,5 @@
 // TODO: for all backend routes, standardize what we return for success or error
-// We either return 200 response with some data, 200 without data, or an error code
+// We should always send a response code and a json object with some data
 // On the front end, all requests should then look the same and handle errors the same
 const express = require('express')
 const mysql = require('mysql')

@@ -66,29 +66,22 @@
 
 ## Upcoming
 
-#### Infrastructure To-Do's:
-- Automate and/or containerize the Node, pm2, and Nginx setup
-- Dockerize the app and use ECR as outlined here: https://www.reddit.com/r/devops/comments/81fgmi/terraform_docker_ecr_ecs/
-- CI/CD with CircleCI
+#### Improvements:
+- Dockerize the app and use ECR, automate/containerize the Node, pm2, and Nginx setup
+- CI/CD
 - Logging and monitoring
-
-#### Known Bugs:
-- Hover affect on images sets opacity much lower than expected (i.e. info button and album covers)
-
-#### Future Improvements:
 - Ability to delete a user
-- Normalize CSS
-- Make search button clickable
 - Make it responsive and mobile friendly
 - Block/redirect routes like /login if the user is already logged in
-- Clean up all references to colors, constants, hard coded values, etc.
-- Abstract CSS stuff into variables for consistency
 - Go through and make sure everwhere asyncronous has some sort of loading component (i.e. login button)
-- Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
-- Favicon
 - Write tests
 
-#### Future Features:
+#### Code Quality / Cleanup:
+- Clean up all references to colors, constants, hard coded values, etc.
+- Abstract CSS stuff into variables for consistency
+- Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
+
+#### Features:
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow
