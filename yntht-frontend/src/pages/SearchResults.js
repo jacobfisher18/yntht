@@ -141,27 +141,26 @@ class SearchResults extends React.Component {
           onAfterOpen={() => { }}
           onRequestClose={() => { }}
           style={modalStyles}
-          contentLabel="Example Modal"
-          overlayClassName="ModalOverlay"
+          overlayClassName="ReplaceSongModalOverlay"
           ariaHideApp={false}
         >
-          <div className="ModalContentContainer">
-            <div className="ModalHeaderContainer">
+          <div className="ReplaceSongModalContentContainer">
+            <div className="ReplaceSongModalHeaderContainer">
               <img
                 src={CloseImg}
                 alt="close"
-                className="CloseModal"
+                className="ReplaceSongCloseModal"
                 onClick={() => this.setState({ isModalOpen: false })}
               />
-              <h2 className="ModalTitle">Chose a song to replace</h2>
+              <h2 className="ReplaceSongModalTitle">Chose a song to replace</h2>
             </div>
-            <div className="ModalSongsContainer">
+            <div className="ReplaceSongModalSongsContainer">
               {
                 this.props.my3.map(song => {
                   return (
                     <div
                       key={`${song.title}-${song.artist}-${song.item_index}`}
-                      className="ModalSongContainer">
+                      className="ReplaceSongModalSongContainer">
                       <div
                         className="ReplaceButton"
                         onClick={() => {

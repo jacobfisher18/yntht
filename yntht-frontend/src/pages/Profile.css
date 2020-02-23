@@ -11,3 +11,22 @@
   background-color: #FFFFFF;
   color: #91DBCD;
 }
+
+.DeleteAccountButton {
+  margin-top: 20px;
+  width: 100px;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.DeleteAccountButton:hover {
+  cursor: pointer;
+  background-color: #FFFFFF;
+  color: #91DBCD;
+}
+
+.HelloNameTitle {
+  color: #FFFFFF;
+}
