@@ -61,10 +61,6 @@
   top: calc(50% - 10px - 3px); /* IDK why it's off by 3px */
 }
 
-.SongContainer-S:hover .SongImg{
-  opacity: 90%;
-}
-
 .SongContainer-S:hover .SongImgPlus{
   display: inline-block;
 }

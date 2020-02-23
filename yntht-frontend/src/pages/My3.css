@@ -3,10 +3,6 @@
   margin-left: 20px;
 }
 
-.InfoButton:hover {
-  opacity: 90%;
-}
-
 .Tooltip {
   position: relative;
   display: inline-block;
