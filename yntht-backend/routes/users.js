@@ -1,13 +1,13 @@
-const express = require('express')
-const mysql = require('mysql')
-const router = express.Router()
+const express = require('express');
+const mysql = require('mysql');
+
+const router = express.Router();
 const { initMy3, deleteMy3 } = require('../utilities/my3');
 const { encryptPassword } = require('../utilities/encrypt');
 const { checkDBIsConnected } = require('../utilities/dbConnection');
 
 // get all users
 router.get('/api/users', checkDBIsConnected, (req, res) => {
-
   const query = `
     SELECT * FROM users
   `;
@@ -25,7 +25,6 @@ router.get('/api/users', checkDBIsConnected, (req, res) => {
 
 // add a new user
 router.post('/api/user', checkDBIsConnected, (req, res) => {
-
   // username and password should have been validated already on the front end
   const { username, password } = req.body;
 
@@ -59,7 +58,7 @@ router.post('/api/user', checkDBIsConnected, (req, res) => {
     `;
 
     // Insert the user into the DB
-    connection.query(insertUserQuery, (error, results) => {
+    connection.query(insertUserQuery, (error) => {
       if (error) {
         console.log(error.sqlMessage || error.code);
         res.status(500).send({ error: 'Database error.' });
@@ -84,9 +83,9 @@ router.post('/api/user', checkDBIsConnected, (req, res) => {
         initMy3(userID).then(() => {
           res.status(200).send({
             user_id: userID,
-            username
-          })
-        }).catch(err => {
+            username,
+          });
+        }).catch((err) => {
           console.log(err);
           res.status(500).send({ error: 'Error initializing My3.' });
         });
@@ -97,7 +96,6 @@ router.post('/api/user', checkDBIsConnected, (req, res) => {
 
 // authenticate a user
 router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
-
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -111,7 +109,6 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
   `;
 
   connection.query(query, (error, results) => {
-
     if (error) {
       console.log(error.sqlMessage || error.code);
       res.status(500).send({ error: 'Database error.' });
@@ -142,15 +139,14 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
     // user and password were found
     res.status(200).send({
       user_id: foundUser.id,
-      username: foundUser.username
+      username: foundUser.username,
     });
   });
 });
 
 // delete a user
 router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
-
-  const userID = req.params.userID;
+  const { userID } = req.params;
 
   const query = `
     DELETE FROM users WHERE id = "${userID}"

@@ -1,6 +1,7 @@
-const express = require('express')
-const app = express()
-const path = require("path");
+const express = require('express');
+
+const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { connectToDB } = require('./utilities/dbConnection');
@@ -18,16 +19,13 @@ if (result.error) {
 
 const port = 5000;
 
-// db connection
-let connection;
-
 // use static files from /build
 app.use(express.static(path.join(__dirname, 'build')));
 
 // get request body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 
 // import routes
@@ -37,22 +35,22 @@ app.use(my3Routes);
 
 // health check
 app.get('/api/health', (req, res) => {
-  res.send({ status: "App is up and running" });
-})
+  res.send({ status: 'App is up and running' });
+});
 
 // all routes not yet handled should be served by the built frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
+});
 
 // listen on specified port
 app.listen(port, () => {
-  console.log(`App listening on port ${port}!`)
+  console.log(`App listening on port ${port}!`);
 
-  connectToDB().then(threadID => {
-    console.log(`connected to DB with threat ID: ${threadID}`)
-  }).catch(err => {
+  connectToDB().then((threadID) => {
+    console.log(`connected to DB with threat ID: ${threadID}`);
+  }).catch((err) => {
     console.log(`error connecting to DB: ${err}`);
     // now routes that connect to the db just need to use checkDBIsConnected middleware
   });
-})
+});

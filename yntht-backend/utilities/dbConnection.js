@@ -1,12 +1,11 @@
 const mysql = require('mysql');
 
 const connectToDB = () => new Promise((resolve, reject) => {
-
   connection = mysql.createConnection({
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: process.env.DB_PASS
+    password: process.env.DB_PASS,
   });
 
   connection.connect((err) => {
@@ -16,16 +15,16 @@ const connectToDB = () => new Promise((resolve, reject) => {
       resolve(connection.threadId);
     }
   });
-})
+});
 
 const checkDBIsConnected = (req, res, next) => {
-  if (connection.state === "disconnected") {
+  if (connection.state === 'disconnected') {
     console.log('Request attempted while db was disconnected');
-    res.status(500).send("Error");
+    res.status(500).send('Error');
   } else {
     // db is connected, we can proceed
     next();
   }
-}
+};
 
-module.exports = { connectToDB, checkDBIsConnected }
+module.exports = { connectToDB, checkDBIsConnected };
