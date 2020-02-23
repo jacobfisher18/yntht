@@ -28,7 +28,6 @@ router.get('/spotify/search', (req, res) => {
     })
       .then(response => response.json())
       .then(myJson => {
-        console.log('myJson', myJson); // temp for development
         res.status(200).send(myJson);
       })
       .catch(err => {

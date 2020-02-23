@@ -1,7 +1,7 @@
 const express = require('express')
 const mysql = require('mysql')
 const router = express.Router()
-const { initMy3 } = require('../utilities/my3');
+const { initMy3, deleteMy3 } = require('../utilities/my3');
 const { encryptPassword } = require('../utilities/encrypt');
 const { checkDBIsConnected } = require('../utilities/dbConnection');
 
@@ -169,9 +169,16 @@ router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    // We need to also delete my3 for that user
+    console.log('User was deleted from the db');
 
-    res.status(200).send({ message: 'User succesfully deleted' });
+    // Clear my3 in the db for that user
+    deleteMy3(userID).then(() => {
+      console.log('My3 was deleted from the db');
+      res.status(200).send({ message: 'User succesfully deleted' });
+    }).catch(() => {
+      console.log('Error deleting my3');
+      res.status(500).send({ error: 'Error deleting My3.' });
+    });
   });
 });
 

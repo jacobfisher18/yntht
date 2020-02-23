@@ -48,29 +48,4 @@ router.put('/api/my3/:userID', checkDBIsConnected, (req, res) => {
   });
 })
 
-// reset my3 to blank for a user
-// TODO
-// 1. the format of this is outdated after the refactor
-// 2. this should be put into a function and called only on the user deletion route
-// router.put('/api/my3/:userID/reset', checkDBIsConnected, (req, res) => {
-
-//   const userID = req.params.userID;
-
-//   const query = `
-//     UPDATE my3
-//     SET title=NULL, artist=NULL, img=NULL
-//     WHERE user_id='${userID}';
-//   `
-
-//   connection.query(query, (error, results) => {
-//     if (error) {
-//       console.log(error.sqlMessage || error.code);
-//       res.status(500).send('MYSQL error');
-//     } else {
-//       console.log('Results: ', results);
-//       res.status(200).send('My3 reset');
-//     }
-//   });
-// })
-
 module.exports = router;
