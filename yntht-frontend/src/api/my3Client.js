@@ -1,26 +1,19 @@
 export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
   fetch(`/api/my3/${userID}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      } else {
-        return response.json();
-      }
-    })
+    .then(response => response.json()) // response must be in json or this will error
     .then(myJson => {
       resolve(myJson);
     })
     .catch(err => {
-      reject(err);
+      console.log('Error with fetch request: ', err);
+      reject();
     });
-})
+});
 
 export const putMy3ForUser = (userID, title, artist, img, item_index) => new Promise((resolve, reject) => {
   fetch(`/api/my3/${userID}`, {
     method: 'PUT',
-    headers: {
-      'Content-type': 'application/json'
-    },
+    headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({
       userID,
       title,
@@ -29,14 +22,12 @@ export const putMy3ForUser = (userID, title, artist, img, item_index) => new Pro
       item_index,
     })
   })
-    .then(response => {
-      if (response.ok) {
-        resolve(response)
-      } else {
-        reject(response.statusText);
-      }
+    .then(response => response.json()) // response must be in json or this will error
+    .then(myJson => {
+      resolve(myJson);
     })
     .catch(err => {
-      reject(err);
+      console.log('Error with fetch request: ', err);
+      reject();
     });
 })

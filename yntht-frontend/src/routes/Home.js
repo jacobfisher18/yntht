@@ -53,11 +53,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ my3IsLoading: true })
-    getMy3ForUser(this.props.userID).then(data => {
+    this.setState({ my3IsLoading: true });
+
+    getMy3ForUser(this.props.userID).then(result => {
+      if (result.error) {
+        this.setState({ my3IsLoading: false, showErrorPage: true });
+        return;
+      }
+
+      // success
       this.setState({
         my3IsLoading: false,
-        my3: data.sort((a, b) => a.item_index < b.item_index).map(item => {
+        my3: result.data.sort((a, b) => a.item_index < b.item_index).map(item => {
           return {
             title: item.title,
             artist: item.artist,
@@ -66,10 +73,9 @@ class App extends React.Component {
           }
         })
       })
-    }).catch(err => {
-      console.log(err);
-      this.setState({ my3IsLoading: false, showErrorPage: true })
-    })
+    }).catch(() => {
+      this.setState({ my3IsLoading: false, showErrorPage: true });
+    });
   }
 
   selectTab(tab) {

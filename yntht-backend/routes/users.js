@@ -110,7 +110,7 @@ router.post('/api/user/auth', checkDBIsConnected, (req, res) => {
     SELECT * FROM users WHERE username=${mysql.escape(username)}
   `;
 
-  connection.query(query, (error, results, fields) => {
+  connection.query(query, (error, results) => {
 
     if (error) {
       console.log(error.sqlMessage || error.code);

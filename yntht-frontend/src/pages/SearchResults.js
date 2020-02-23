@@ -110,11 +110,16 @@ class SearchResults extends React.Component {
                   img: track.album.images[0].url,
                 };
 
-                putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(res => {
+                putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then(result => {
+                  if (result.error) {
+                    this.props.notify('Error', 'Error adding song to My3');
+                    return;
+                  }
+
+                  // Success
                   this.props.putSongInMy3(lowestEmptyIndex, newSong);
                   this.props.notify('Info', 'Song added to My3');
                 }).catch(err => {
-                  console.log(err);
                   this.props.notify('Error', 'Error adding song to My3');
                 })
               }
@@ -162,7 +167,14 @@ class SearchResults extends React.Component {
                         onClick={() => {
                           const newSong = this.state.selectedSong;
 
-                          putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(() => {
+                          putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then(result => {
+                            if (result.error) {
+                              this.props.notify('Error', 'Error replacing song in My3');
+                              this.setState({ isModalOpen: false });
+                              return;
+                            }
+
+                            // Success
                             this.props.putSongInMy3(song.item_index, this.state.selectedSong);
                             this.setState({ isModalOpen: false });
                             this.props.notify('Info', 'Song replaced in My3');
