@@ -1,13 +1,16 @@
 import React from 'react';
 import InfoImg from '../images/info.png';
-import SongView from '../components/SongView.js';
+import SongView from '../components/SongView';
 import Loader from '../components/Loader';
+import { setBackgroundColor } from '../utilities/helpers';
 import '../global.css';
 import './My3.css';
 
 class My3 extends React.Component {
   renderSongs() {
-    return this.props.songs
+    const { songs } = this.props;
+
+    return songs
       .filter((song) => song.title && song.artist && song.img)
       .map((song) => (
         <SongView
@@ -20,18 +23,16 @@ class My3 extends React.Component {
       ));
   }
 
-  setBackgroundColor() {
-    document.body.style.backgroundColor = this.props.bgColor;
-  }
-
   render() {
-    this.setBackgroundColor();
+    const { bgColor, highlightColor } = this.props;
+
+    setBackgroundColor(bgColor);
 
     return (
       <div className="My3">
         <h1
           className="PageTitle"
-          style={{ color: this.props.highlightColor }}
+          style={{ color: highlightColor }}
         >
           My 3
           <div className="Tooltip">

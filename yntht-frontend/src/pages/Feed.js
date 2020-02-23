@@ -1,4 +1,5 @@
 import React from 'react';
+import { setBackgroundColor } from '../utilities/helpers';
 import '../global.css';
 import './Feed.css';
 
@@ -10,18 +11,16 @@ class Feed extends React.Component {
     };
   }
 
-  setBackgroundColor() {
-    document.body.style.backgroundColor = this.props.bgColor;
-  }
-
   render() {
-    this.setBackgroundColor();
+    const { bgColor, highlightColor } = this.props;
+
+    setBackgroundColor(bgColor);
 
     return (
       <div className="Feed">
         <h1
           className="PageTitle"
-          style={{ color: this.props.highlightColor }}
+          style={{ color: highlightColor }}
         >
           Feed
         </h1>

@@ -5,7 +5,8 @@ import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
 import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
-import { getArtist } from '../utilities/helpers';
+import { getArtist, setBackgroundColor } from '../utilities/helpers';
+
 import '../global.css';
 import './SearchResults.css';
 
@@ -33,10 +34,6 @@ class SearchResults extends React.Component {
       isModalOpen: false,
       selectedSong: '',
     };
-  }
-
-  setBackgroundColor() {
-    document.body.style.backgroundColor = this.props.bgColor;
   }
 
   onlyUnique(value, index, self) {
@@ -127,7 +124,9 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    this.setBackgroundColor();
+    const { bgColor } = this.props;
+
+    setBackgroundColor(bgColor);
 
     return (
       <div className="SearchResults">

@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
+import { setBackgroundColor } from '../utilities/helpers';
 import '../global.css';
 import './Profile.css';
 
@@ -21,10 +22,6 @@ class Profile extends React.Component {
 
     this.logout = this.logout.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
-  }
-
-  setBackgroundColor() {
-    document.body.style.backgroundColor = this.props.bgColor;
   }
 
   logout() {
@@ -56,7 +53,9 @@ class Profile extends React.Component {
   }
 
   render() {
-    this.setBackgroundColor();
+    const { bgColor, highlightColor } = this.props;
+
+    setBackgroundColor(bgColor);
 
     return (
       <div className="Profile">
@@ -71,7 +70,7 @@ class Profile extends React.Component {
         />
         <h1
           className="PageTitle"
-          style={{ color: this.props.highlightColor }}
+          style={{ color: highlightColor }}
         >
           Profile
         </h1>
