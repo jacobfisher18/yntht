@@ -158,16 +158,20 @@ class App extends React.Component {
     });
 
     spotifySearchRequest(searchTerm).then(res => {
+      if (res.error) {
+        this.setState({ showErrorPage: true });
+        return;
+      }
+
       this.setState({
         spotifySearchResults: res,
         searchedTerm: searchTerm
       })
     }).catch(err => {
-      console.log(err);
       this.setState({ showErrorPage: true });
     }).finally(() => {
       this.setState({ spotifySearchIsLoading: false });
-    })
+    });
   }
 
   notify(type, message) {
