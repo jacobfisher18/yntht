@@ -8,6 +8,7 @@ import ErrorPage from '../pages/ErrorPage';
 import Search from '../components/Search';
 import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient';
+import { searchUsers } from '../api/usersClient';
 import { getMy3ForUser } from '../api/my3Client';
 import { PAGES } from '../utilities/constants';
 import './Home.css';
@@ -20,7 +21,8 @@ class App extends React.Component {
       activeTab: PAGES.MY3.name,
       showErrorPage: false,
       spotifySearchResults: {},
-      spotifySearchIsLoading: false,
+      usersSearchResults: [],
+      searchIsLoading: false,
       my3IsLoading: false,
       searchedTerm: '', // just for passing to SearchResults
       my3: [
@@ -93,23 +95,27 @@ class App extends React.Component {
     this.selectTab(PAGES.SEARCH_RESULTS.name);
 
     this.setState({
-      spotifySearchIsLoading: true,
+      searchIsLoading: true,
     });
 
-    spotifySearchRequest(searchTerm).then((res) => {
-      if (res.error) {
+    Promise.all([spotifySearchRequest(searchTerm), searchUsers(searchTerm)]).then((values) => {
+      const spotifySearchResults = values[0];
+      const usersSearchResults = values[1];
+
+      if (spotifySearchResults.error || usersSearchResults.error) {
         this.setState({ showErrorPage: true });
         return;
       }
 
       this.setState({
-        spotifySearchResults: res,
+        spotifySearchResults,
+        usersSearchResults: usersSearchResults.data,
         searchedTerm: searchTerm,
       });
     }).catch(() => {
       this.setState({ showErrorPage: true });
     }).finally(() => {
-      this.setState({ spotifySearchIsLoading: false });
+      this.setState({ searchIsLoading: false });
     });
   }
 
@@ -143,7 +149,8 @@ class App extends React.Component {
       my3IsLoading,
       searchedTerm,
       spotifySearchResults,
-      spotifySearchIsLoading,
+      usersSearchResults,
+      searchIsLoading,
     } = this.state;
 
     switch (activeTab) {
@@ -185,7 +192,8 @@ class App extends React.Component {
             searchedTerm={searchedTerm}
             userID={userID}
             spotifySearchResults={spotifySearchResults}
-            spotifySearchIsLoading={spotifySearchIsLoading}
+            usersSearchResults={usersSearchResults}
+            searchIsLoading={searchIsLoading}
             my3={my3}
             putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}

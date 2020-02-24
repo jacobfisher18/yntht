@@ -38,7 +38,28 @@ class SearchResults extends React.Component {
     };
   }
 
-  renderResults() {
+  renderUsersResults() {
+    const { usersSearchResults, searchedTerm } = this.props;
+
+    if (usersSearchResults.length === 0) {
+      return (
+        <ErrorText
+          text={`Your search for "${searchedTerm}" did not return any users.`}
+        />
+      );
+    }
+
+    return usersSearchResults.map(user => {
+      return (
+        <div>
+          {user.username}
+          {/* TODO: build out this component */}
+        </div>
+      )
+    })
+  }
+
+  renderSpotifyResults() {
     const {
       spotifySearchResults,
       searchedTerm,
@@ -61,7 +82,7 @@ class SearchResults extends React.Component {
     if (spotifySearchResults.tracks.items.length === 0) {
       return (
         <ErrorText
-          text={`Your search for "${searchedTerm}" returned zero results. Please try another search.`}
+          text={`Your search for "${searchedTerm}" did not return any songs.`}
         />
       );
     }
@@ -132,7 +153,7 @@ class SearchResults extends React.Component {
       notify,
       putSongInMy3,
       highlightColor,
-      spotifySearchIsLoading,
+      searchIsLoading,
       loading,
     } = this.props;
     const { isModalOpen, selectedSong } = this.state;
@@ -198,22 +219,33 @@ class SearchResults extends React.Component {
             </div>
           </div>
         </Modal>
-        <h1
-          className="PageTitle"
-          style={{ color: highlightColor }}
-        >
-          Songs
-        </h1>
         {
-          spotifySearchIsLoading
+          searchIsLoading
             ? (
               <Loader
                 loading={loading}
               />
             )
             : (
-              <div className="SearchResultsContainer">
-                {this.renderResults()}
+              <div>
+                <h1
+                  className="PageTitle"
+                  style={{ color: highlightColor }}
+                >
+                  Users
+                </h1>
+                <div className="SearchResultsContainer">
+                  {this.renderUsersResults()}
+                </div>
+                <h1
+                  className="PageTitle"
+                  style={{ color: highlightColor }}
+                >
+                  Songs
+                </h1>
+                <div className="SearchResultsContainer">
+                  {this.renderSpotifyResults()}
+                </div>
               </div>
             )
         }
