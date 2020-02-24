@@ -1,15 +1,15 @@
 import React from 'react';
-import Feed from '../pages/Feed.js';
-import My3 from '../pages/My3.js';
-import History from '../pages/History.js';
-import Profile from '../pages/Profile.js';
-import SearchResults from '../pages/SearchResults.js';
-import ErrorPage from '../pages/ErrorPage.js';
-import Search from '../components/Search.js';
+import Feed from '../pages/Feed';
+import My3 from '../pages/My3';
+import History from '../pages/History';
+import Profile from '../pages/Profile';
+import SearchResults from '../pages/SearchResults';
+import ErrorPage from '../pages/ErrorPage';
+import Search from '../components/Search';
 import Notification from '../components/Notification';
-import { spotifySearchRequest } from '../api/spotifyClient.js';
-import { getMy3ForUser } from '../api/my3Client.js';
-import { PAGES } from '../utilities/constants.js';
+import { spotifySearchRequest } from '../api/spotifyClient';
+import { getMy3ForUser } from '../api/my3Client';
+import { PAGES } from '../utilities/constants';
 import './Home.css';
 
 class App extends React.Component {
@@ -52,9 +52,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const { userID } = this.props;
+
     this.setState({ my3IsLoading: true });
 
-    getMy3ForUser(this.props.userID).then((result) => {
+    getMy3ForUser(userID).then((result) => {
       if (result.error) {
         this.setState({ my3IsLoading: false, showErrorPage: true });
         return;
@@ -79,18 +81,6 @@ class App extends React.Component {
     this.setState({ activeTab: tab });
   }
 
-  renderMenu() {
-    return Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
-      <div
-        key={key}
-        className={this.state.activeTab === PAGES[key].name ? 'Black' : ''}
-        onClick={() => this.selectTab(PAGES[key].name)}
-      >
-        {PAGES[key].name}
-      </div>
-    ));
-  }
-
   // works for adding a new song (since empty items already exist), or replacing a song
   // it's the caller's responsibility to only call this with the lowest empty index if putting a new song
   putSongInMy3(index, newSong) {
@@ -99,8 +89,64 @@ class App extends React.Component {
     }));
   }
 
+  handleSearchSubmit(searchTerm) {
+    this.selectTab(PAGES.SEARCH_RESULTS.name);
+
+    this.setState({
+      spotifySearchIsLoading: true,
+    });
+
+    spotifySearchRequest(searchTerm).then((res) => {
+      if (res.error) {
+        this.setState({ showErrorPage: true });
+        return;
+      }
+
+      this.setState({
+        spotifySearchResults: res,
+        searchedTerm: searchTerm,
+      });
+    }).catch(() => {
+      this.setState({ showErrorPage: true });
+    }).finally(() => {
+      this.setState({ spotifySearchIsLoading: false });
+    });
+  }
+
+  notify(type, message) {
+    const { displayNotification } = this.state;
+
+    if (displayNotification) {
+      console.log(`Notification already displayed. New message: ${message}`);
+    } else {
+      this.setState({
+        displayNotification: true,
+        notificationType: type,
+        notificationText: message,
+      });
+
+      setTimeout(() => {
+        this.setState({
+          displayNotification: false,
+          // don't reset type or text, because they are needed during the transition
+        });
+      }, 3000);
+    }
+  }
+
   renderTab() {
-    switch (this.state.activeTab) {
+    const { userID } = this.props;
+
+    const {
+      activeTab,
+      my3,
+      my3IsLoading,
+      searchedTerm,
+      spotifySearchResults,
+      spotifySearchIsLoading,
+    } = this.state;
+
+    switch (activeTab) {
       case PAGES.FEED.name:
         return (
           <Feed
@@ -113,8 +159,8 @@ class App extends React.Component {
           <My3
             bgColor={PAGES.MY3.bgColor}
             highlightColor={PAGES.MY3.highlightColor}
-            songs={this.state.my3}
-            loading={this.state.my3IsLoading}
+            songs={my3}
+            loading={my3IsLoading}
           />
         );
       case PAGES.HISTORY.name:
@@ -136,11 +182,11 @@ class App extends React.Component {
           <SearchResults
             bgColor={PAGES.SEARCH_RESULTS.bgColor}
             highlightColor={PAGES.SEARCH_RESULTS.highlightColor}
-            searchedTerm={this.state.searchedTerm}
-            userID={this.props.userID}
-            spotifySearchResults={this.state.spotifySearchResults}
-            spotifySearchIsLoading={this.state.spotifySearchIsLoading}
-            my3={this.state.my3}
+            searchedTerm={searchedTerm}
+            userID={userID}
+            spotifySearchResults={spotifySearchResults}
+            spotifySearchIsLoading={spotifySearchIsLoading}
+            my3={my3}
             putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}
           />
@@ -150,60 +196,38 @@ class App extends React.Component {
     }
   }
 
-  handleSearchSubmit(searchTerm) {
-    this.selectTab(PAGES.SEARCH_RESULTS.name);
+  renderMenu() {
+    const { activeTab } = this.state;
 
-    this.setState({
-      spotifySearchIsLoading: true,
-    });
-
-    spotifySearchRequest(searchTerm).then((res) => {
-      if (res.error) {
-        this.setState({ showErrorPage: true });
-        return;
-      }
-
-      this.setState({
-        spotifySearchResults: res,
-        searchedTerm: searchTerm,
-      });
-    }).catch((err) => {
-      this.setState({ showErrorPage: true });
-    }).finally(() => {
-      this.setState({ spotifySearchIsLoading: false });
-    });
-  }
-
-  notify(type, message) {
-    if (this.state.displayNotification) {
-      console.log(`Notification already displayed. New message: ${message}`);
-    } else {
-      this.setState({
-        displayNotification: true,
-        notificationType: type,
-        notificationText: message,
-      });
-
-      setTimeout(() => {
-        this.setState({
-          displayNotification: false,
-          // don't reset type or text, because they are needed during the transition
-        });
-      }, 3000);
-    }
+    return Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
+      <div
+        key={key}
+        className={activeTab === PAGES[key].name ? 'Black' : ''}
+        onClick={() => this.selectTab(PAGES[key].name)}
+      >
+        {PAGES[key].name}
+      </div>
+    ));
   }
 
   render() {
+    const {
+      displayNotification,
+      notificationType,
+      notificationText,
+      showErrorPage,
+    } = this.state;
+
     return (
       <div className="App">
         <Notification
-          displayNotification={this.state.displayNotification}
-          notificationType={this.state.notificationType}
-          notificationText={this.state.notificationText}
+          displayNotification={displayNotification}
+          notificationType={notificationType}
+          notificationText={notificationText}
           close={() => { this.setState({ displayNotification: false }); }}
         />
         {
-          this.state.showErrorPage
+          showErrorPage
             ? (
               <ErrorPage
                 type="OOPS"

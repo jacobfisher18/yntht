@@ -12,6 +12,8 @@ class Landing extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
+
     return (
       <div className="Landing">
         <h1 className="LandingTitle">
@@ -25,13 +27,13 @@ class Landing extends React.Component {
         <div className="LoginSignupContainer">
           <div
             className="Button LoginButton"
-            onClick={() => { this.props.history.push('/login'); }}
+            onClick={() => { history.push('/login'); }}
           >
             Login
           </div>
           <div
             className="Button SignupButton"
-            onClick={() => { this.props.history.push('/signup'); }}
+            onClick={() => { history.push('/signup'); }}
           >
             Signup
           </div>

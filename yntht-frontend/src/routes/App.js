@@ -16,8 +16,10 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.userID) {
-      return <Home userID={this.state.userID} />;
+    const { userID } = this.state;
+
+    if (userID) {
+      return <Home userID={userID} />;
     }
     return <Landing />;
   }

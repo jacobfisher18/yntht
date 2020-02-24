@@ -19,6 +19,7 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
+    const { history } = this.props;
     const { username, password } = this.state;
 
     authUser(username, password).then((result) => {
@@ -28,7 +29,7 @@ class Login extends React.Component {
         // success
         this.setState({ error: '' });
         setUserCookies(result.user_id, result.username);
-        this.props.history.push('/'); // redirect to app
+        history.push('/'); // redirect to app
       }
     }).catch(() => { // an error with the actual request
       this.setState({ error: 'An error has occurred.' });
@@ -36,6 +37,9 @@ class Login extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
+    const { error, username, password } = this.state;
+
     return (
       <div className="Login">
         <h1 className="LoginSignupTitle">
@@ -44,21 +48,21 @@ class Login extends React.Component {
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="FormContainer">
             {
-              this.state.error
-              && <p className="ErrorMessage">{this.state.error}</p>
+              error
+              && <p className="ErrorMessage">{error}</p>
             }
             <p className="InputTitle UsernameTitle">Username</p>
             <input
               className="FormInput UsernameInput"
               type="text"
-              value={this.state.username}
+              value={username}
               onChange={(e) => this.setState({ username: e.target.value })}
             />
             <p className="InputTitle PasswordTitle">Password</p>
             <input
               className="FormInput PasswordInput"
               type="password"
-              value={this.state.password}
+              value={password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
             <input
@@ -73,7 +77,7 @@ class Login extends React.Component {
             {' '}
             <span
               className="CreateAnAccountLink"
-              onClick={() => { this.props.history.push('/signup'); }}
+              onClick={() => { history.push('/signup'); }}
             >
               Create an account.
             </span>

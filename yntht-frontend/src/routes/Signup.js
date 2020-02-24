@@ -21,6 +21,7 @@ class Signup extends React.Component {
   }
 
   handleSubmit() {
+    const { history } = this.props;
     const { username, password, confirmPassword } = this.state;
 
     const inputErrors = [
@@ -39,7 +40,7 @@ class Signup extends React.Component {
         this.setState({ error: result.error }); // the actual error sent from the backend
       } else {
         setUserCookies(result.user_id, result.username);
-        this.props.history.push('/welcome');
+        history.push('/welcome');
       }
     }).catch(() => { // an error with the actual request
       this.setState({ error: 'An error has occurred.' });
@@ -47,6 +48,13 @@ class Signup extends React.Component {
   }
 
   render() {
+    const {
+      error,
+      username,
+      password,
+      confirmPassword,
+    } = this.state;
+
     return (
       <div className="Signup">
         <h1 className="LoginSignupTitle">
@@ -55,28 +63,28 @@ class Signup extends React.Component {
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="FormContainer">
             {
-              this.state.error
-              && <p className="ErrorMessage">{this.state.error}</p>
+              error
+              && <p className="ErrorMessage">{error}</p>
             }
             <p className="InputTitle UsernameTitle">Username</p>
             <input
               className="FormInput UsernameInput"
               type="text"
-              value={this.state.username}
+              value={username}
               onChange={(e) => this.setState({ username: e.target.value })}
             />
             <p className="InputTitle PasswordTitle">Password</p>
             <input
               className="FormInput PasswordInput"
               type="password"
-              value={this.state.password}
+              value={password}
               onChange={(e) => this.setState({ password: e.target.value })}
             />
             <p className="InputTitle PasswordTitle">Confirm Password</p>
             <input
               className="FormInput PasswordInput"
               type="password"
-              value={this.state.confirmPassword}
+              value={confirmPassword}
               onChange={(e) => this.setState({ confirmPassword: e.target.value })}
             />
             <input
