@@ -3,3 +3,20 @@
   font-family: 'Brandon Black';
   color: var(--main-text-color);
 }
+
+/* We might run into issues if not webkit */
+.OneLine {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.TwoLines {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -44,4 +44,9 @@ const ERROR_PAGES = {
   },
 };
 
-module.exports = { PAGES, ERROR_PAGES };
+const AVATAR_COLORS = [
+  '#0B6450',
+  '#222222',
+];
+
+module.exports = { PAGES, ERROR_PAGES, AVATAR_COLORS };

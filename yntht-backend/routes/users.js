@@ -28,7 +28,7 @@ router.get('/api/users/:searchTerm', checkDBIsConnected, (req, res) => {
   const { searchTerm } = req.params;
 
   const query = `
-    SELECT id, username FROM users where SOUNDEX(username) = SOUNDEX('${searchTerm}')
+    SELECT id, username FROM users where SOUNDEX(username) = SOUNDEX('${searchTerm}') LIMIT 15
   `;
 
   connection.query(query, (error, results) => {

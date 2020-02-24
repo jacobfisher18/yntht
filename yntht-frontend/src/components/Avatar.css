@@ -1,0 +1,18 @@
+.Avatar {
+  background-color: red;
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AvatarText {
+  font-family: 'Brandon Black';
+  color: #FFFFFF;
+  font-size: 50px;
+  line-height: 60px;
+  margin: 0px;
+  margin-top: 5px; /* Not sure why it's a little high without this */
+}

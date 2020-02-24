@@ -12,13 +12,12 @@ const SongView = ({
   >
     <div className={`SongImgContainer SongImgContainer-${size}`}>
       <img className={`SongImg SongImg-${size}`} src={img} alt={title} />
-      <img className={`SongImgPlus SongImgPlus-${size}`} src={Plus} alt="Plus" />
     </div>
     <div className={`SongDetailsContainer SongDetailsContainer-${size}`}>
-      <p className={`SongDetailsTitle SongDetailsTitle-${size}`}>
+      <p className={`SongDetailsTitle SongDetailsTitle-${size} OneLine`}>
         {title}
       </p>
-      <p className={`SongDetailsArtist SongDetailsArtist-${size}`}>
+        <p className={`SongDetailsArtist SongDetailsArtist-${size} TwoLines`}>
         {artist}
       </p>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import UserView from '../components/UserView';
 import SongView from '../components/SongView';
 import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
@@ -51,10 +52,11 @@ class SearchResults extends React.Component {
 
     return usersSearchResults.map(user => {
       return (
-        <div>
-          {user.username}
-          {/* TODO: build out this component */}
-        </div>
+        <UserView
+          username={user.username}
+          followers={0}
+          onClick={() => {}}
+        />
       )
     })
   }
@@ -232,7 +234,7 @@ class SearchResults extends React.Component {
                   className="PageTitle"
                   style={{ color: highlightColor }}
                 >
-                  Users
+                  Profiles
                 </h1>
                 <div className="SearchResultsContainer">
                   {this.renderUsersResults()}

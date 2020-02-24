@@ -1,0 +1,38 @@
+.UserViewContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+  width: 200px;
+  margin-right: 20px;
+  border-radius: 5px;
+  align-items: center;
+  padding-left: 10px;
+  padding: 10px;
+}
+
+.UserViewUserDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.UserViewUsername {
+  color: var(--main-text-color);
+  font-family: 'Brandon Bold';
+  margin: 0px;
+  font-size: var(--font-s);
+  max-height: 60px;
+}
+
+.UserViewFollowers {
+  color: var(--main-text-color);
+  font-size: var(--font-xs);
+  font-family: 'Brandon Regular';
+  margin: 0px;
+  margin-top: 5px;
+}
+
+.UserViewContainer:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}
