@@ -82,7 +82,9 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### Features:
+- Figure out how to handle the nav menu with the user profile pages -- if it's global state we might need Redux
 - Search for users, view their page, follow them
+- User pages should be viewable if you're not logged in, and there should be a create account button
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow

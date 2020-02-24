@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { withRouter } from 'react-router-dom';
 import UserView from '../components/UserView';
 import SongView from '../components/SongView';
 import Loader from '../components/Loader';
@@ -40,25 +41,25 @@ class SearchResults extends React.Component {
   }
 
   renderUsersResults() {
-    const { usersSearchResults, searchedTerm } = this.props;
+    const { usersSearchResults, searchedTerm, history } = this.props;
 
     if (usersSearchResults.length === 0) {
       return (
         <ErrorText
-          text={`Your search for "${searchedTerm}" did not return any users.`}
+          text={`Your search for "${searchedTerm}" did not return any profiles.`}
         />
       );
     }
 
-    return usersSearchResults.map(user => {
-      return (
+    return usersSearchResults.map((user) => (
+      <div key={user.id}>
         <UserView
           username={user.username}
           followers={0}
-          onClick={() => {}}
+          onClick={() => { history.push(`user/${user.id}`); }}
         />
-      )
-    })
+      </div>
+    ));
   }
 
   renderSpotifyResults() {
@@ -256,4 +257,4 @@ class SearchResults extends React.Component {
   }
 }
 
-export default SearchResults;
+export default withRouter(SearchResults);

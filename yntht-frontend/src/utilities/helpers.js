@@ -1,4 +1,5 @@
 import Cookies from 'universal-cookie';
+import { AVATAR_COLORS } from './constants';
 
 // returns a comma separated list of artists given an artists array
 export const getArtist = (artists) => {
@@ -51,3 +52,11 @@ export const onlyUnique = (value, index, self) => {
 };
 
 export const songIsNull = (song) => (!song.title || !song.artist || !song.img);
+
+export const getColorFromString = (str) => {
+  const sumString = str.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+
+  const index = sumString % AVATAR_COLORS.length;
+
+  return AVATAR_COLORS[index];
+};

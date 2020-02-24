@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ERROR_PAGES } from '../utilities/constants';
 import { setBackgroundColor } from '../utilities/helpers';
 
@@ -32,4 +32,4 @@ const ErrorPage = ({ type }) => {
   );
 };
 
-export default withRouter(ErrorPage);
+export default ErrorPage;

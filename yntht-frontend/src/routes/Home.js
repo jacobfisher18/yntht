@@ -13,7 +13,7 @@ import { getMy3ForUser } from '../api/my3Client';
 import { PAGES } from '../utilities/constants';
 import './Home.css';
 
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -262,4 +262,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Home;

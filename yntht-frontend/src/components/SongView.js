@@ -1,5 +1,4 @@
 import React from 'react';
-import Plus from '../images/plus.png';
 import '../global.css';
 import './SongView.css';
 
@@ -17,7 +16,7 @@ const SongView = ({
       <p className={`SongDetailsTitle SongDetailsTitle-${size} OneLine`}>
         {title}
       </p>
-        <p className={`SongDetailsArtist SongDetailsArtist-${size} TwoLines`}>
+      <p className={`SongDetailsArtist SongDetailsArtist-${size} TwoLines`}>
         {artist}
       </p>
     </div>

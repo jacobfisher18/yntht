@@ -6,6 +6,7 @@ import Login from './routes/Login';
 import Signup from './routes/Signup';
 import Welcome from './routes/Welcome';
 import Notfound from './routes/Notfound';
+import UserProfile from './routes/UserProfile';
 
 const routing = (
   <BrowserRouter>
@@ -27,6 +28,10 @@ const routing = (
         <Route
           path="/welcome"
           component={Welcome}
+        />
+        <Route
+          path="/user/:id"
+          component={UserProfile}
         />
         <Route
           component={Notfound}
