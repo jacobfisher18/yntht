@@ -24,7 +24,7 @@ class My3 extends React.Component {
   }
 
   render() {
-    const { bgColor, highlightColor } = this.props;
+    const { bgColor, highlightColor, loading } = this.props;
 
     setBackgroundColor(bgColor);
 
@@ -48,10 +48,10 @@ class My3 extends React.Component {
 
         </h1>
         {
-          this.props.loading
+          loading
             ? (
               <Loader
-                loading={this.props.loading}
+                loading={loading}
               />
             )
             : this.renderSongs()

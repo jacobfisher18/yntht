@@ -1,11 +1,13 @@
 import React from 'react';
 import Modal from 'react-modal';
-import SongView from '../components/SongView.js';
+import SongView from '../components/SongView';
 import Loader from '../components/Loader';
 import CloseImg from '../images/close.png';
 import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
-import { getArtist, setBackgroundColor } from '../utilities/helpers';
+import {
+  getArtist, setBackgroundColor, onlyUnique, songIsNull,
+} from '../utilities/helpers';
 
 import '../global.css';
 import './SearchResults.css';
@@ -36,20 +38,19 @@ class SearchResults extends React.Component {
     };
   }
 
-  onlyUnique(value, index, self) {
-    const matchingItems = self.filter((obj) => obj.name === value.name && getArtist(obj.artists) === getArtist(value.artists));
-
-    return !(matchingItems.length >= 2 && matchingItems[0].id !== value.id);
-  }
-
-  songIsNull(song) {
-    return (!song.title || !song.artist || !song.img);
-  }
-
   renderResults() {
-    if (!this.props.spotifySearchResults
-      || !this.props.spotifySearchResults.tracks
-      || !this.props.spotifySearchResults.tracks.items) {
+    const {
+      spotifySearchResults,
+      searchedTerm,
+      my3,
+      userID,
+      notify,
+      putSongInMy3,
+    } = this.props;
+
+    if (!spotifySearchResults
+      || !spotifySearchResults.tracks
+      || !spotifySearchResults.tracks.items) {
       return (
         <ErrorText
           text="Something went wrong, please try refreshing the page."
@@ -57,16 +58,16 @@ class SearchResults extends React.Component {
       );
     }
 
-    if (this.props.spotifySearchResults.tracks.items.length === 0) {
+    if (spotifySearchResults.tracks.items.length === 0) {
       return (
         <ErrorText
-          text={`Your search for "${this.props.searchedTerm}" returned zero results. Please try another search.`}
+          text={`Your search for "${searchedTerm}" returned zero results. Please try another search.`}
         />
       );
     }
 
     return (
-      this.props.spotifySearchResults.tracks.items.filter(this.onlyUnique).map((track) => (
+      spotifySearchResults.tracks.items.filter(onlyUnique).map((track) => (
         <SongView
           key={track.id}
           size="S"
@@ -77,13 +78,13 @@ class SearchResults extends React.Component {
             let isFull = true;
             let lowestEmptyIndex = 0;
 
-            if (this.songIsNull(this.props.my3[0])) {
+            if (songIsNull(my3[0])) {
               isFull = false;
               lowestEmptyIndex = 0;
-            } else if (this.songIsNull(this.props.my3[1])) {
+            } else if (songIsNull(my3[1])) {
               isFull = false;
               lowestEmptyIndex = 1;
-            } else if (this.songIsNull(this.props.my3[2])) {
+            } else if (songIsNull(my3[2])) {
               isFull = false;
               lowestEmptyIndex = 2;
             }
@@ -104,17 +105,17 @@ class SearchResults extends React.Component {
                 img: track.album.images[0].url,
               };
 
-              putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then((result) => {
+              putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then((result) => {
                 if (result.error) {
-                  this.props.notify('Error', 'Error adding song to My3');
+                  notify('Error', 'Error adding song to My3');
                   return;
                 }
 
                 // Success
-                this.props.putSongInMy3(lowestEmptyIndex, newSong);
-                this.props.notify('Info', 'Song added to My3');
-              }).catch((err) => {
-                this.props.notify('Error', 'Error adding song to My3');
+                putSongInMy3(lowestEmptyIndex, newSong);
+                notify('Info', 'Song added to My3');
+              }).catch(() => {
+                notify('Error', 'Error adding song to My3');
               });
             }
           }}
@@ -124,14 +125,24 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    const { bgColor } = this.props;
+    const {
+      bgColor,
+      my3,
+      userID,
+      notify,
+      putSongInMy3,
+      highlightColor,
+      spotifySearchIsLoading,
+      loading,
+    } = this.props;
+    const { isModalOpen, selectedSong } = this.state;
 
     setBackgroundColor(bgColor);
 
     return (
       <div className="SearchResults">
         <Modal
-          isOpen={this.state.isModalOpen}
+          isOpen={isModalOpen}
           onAfterOpen={() => { }}
           onRequestClose={() => { }}
           style={modalStyles}
@@ -150,7 +161,7 @@ class SearchResults extends React.Component {
             </div>
             <div className="ReplaceSongModalSongsContainer">
               {
-                this.props.my3.map((song) => (
+                my3.map((song) => (
                   <div
                     key={`${song.title}-${song.artist}-${song.item_index}`}
                     className="ReplaceSongModalSongContainer"
@@ -158,22 +169,22 @@ class SearchResults extends React.Component {
                     <div
                       className="ReplaceButton"
                       onClick={() => {
-                        const newSong = this.state.selectedSong;
+                        const newSong = selectedSong;
 
-                        putMy3ForUser(this.props.userID, newSong.title, newSong.artist, newSong.img, song.item_index).then((result) => {
+                        putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, song.item_index).then((result) => {
                           if (result.error) {
-                            this.props.notify('Error', 'Error replacing song in My3');
+                            notify('Error', 'Error replacing song in My3');
                             this.setState({ isModalOpen: false });
                             return;
                           }
 
                           // Success
-                          this.props.putSongInMy3(song.item_index, this.state.selectedSong);
+                          putSongInMy3(song.item_index, selectedSong);
                           this.setState({ isModalOpen: false });
-                          this.props.notify('Info', 'Song replaced in My3');
+                          notify('Info', 'Song replaced in My3');
                         }).catch((err) => {
                           console.log(err);
-                          this.props.notify('Error', 'Error replacing song in My3');
+                          notify('Error', 'Error replacing song in My3');
                           this.setState({ isModalOpen: false });
                         });
                       }}
@@ -189,15 +200,15 @@ class SearchResults extends React.Component {
         </Modal>
         <h1
           className="PageTitle"
-          style={{ color: this.props.highlightColor }}
+          style={{ color: highlightColor }}
         >
           Songs
         </h1>
         {
-          this.props.spotifySearchIsLoading
+          spotifySearchIsLoading
             ? (
               <Loader
-                loading={this.props.loading}
+                loading={loading}
               />
             )
             : (

@@ -28,3 +28,26 @@ export const setUserCookies = (userID, username) => {
 export const setBackgroundColor = (color) => {
   document.body.style.backgroundColor = color;
 };
+
+export const logout = () => {
+  const cookies = new Cookies();
+  cookies.remove('user_id', {
+    path: '/',
+    domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
+  });
+  cookies.remove('username', {
+    path: '/',
+    domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
+  });
+
+  // force window reload to redirect to Landing
+  window.location.reload();
+};
+
+export const onlyUnique = (value, index, self) => {
+  const matchingItems = self.filter((obj) => obj.name === value.name && getArtist(obj.artists) === getArtist(value.artists));
+
+  return !(matchingItems.length >= 2 && matchingItems[0].id !== value.id);
+};
+
+export const songIsNull = (song) => (!song.title || !song.artist || !song.img);

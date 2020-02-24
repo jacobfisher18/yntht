@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
-import { setBackgroundColor } from '../utilities/helpers';
+import { setBackgroundColor, logout } from '../utilities/helpers';
 import '../global.css';
 import './Profile.css';
 
@@ -14,39 +14,25 @@ class Profile extends React.Component {
     const cookies = new Cookies();
 
     this.state = {
-      user_id: cookies.get('user_id'), // maybe these should be props?
+      userID: cookies.get('user_id'), // maybe these should be props?
       username: cookies.get('username'), // maybe these should be props?
       isModalOpen: false,
       deleteAccountError: '',
     };
 
-    this.logout = this.logout.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
   }
 
-  logout() {
-    const cookies = new Cookies();
-    cookies.remove('user_id', {
-      path: '/',
-      domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
-    });
-    cookies.remove('username', {
-      path: '/',
-      domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
-    });
-
-    // force window reload to redirect to Landing
-    window.location.reload();
-  }
-
   deleteAccount() {
-    deleteUser(this.state.user_id).then((res) => {
+    const { userID } = this.state;
+
+    deleteUser(userID).then((res) => {
       if (res.error) {
         this.setState({ deleteAccountError: 'There was an error deleting your account.' });
         return;
       }
 
-      this.logout();
+      logout();
     }).catch(() => {
       this.setState({ deleteAccountError: 'There was an error deleting your account.' });
     });
@@ -54,6 +40,7 @@ class Profile extends React.Component {
 
   render() {
     const { bgColor, highlightColor } = this.props;
+    const { isModalOpen, deleteAccountError, username } = this.state;
 
     setBackgroundColor(bgColor);
 
@@ -63,8 +50,8 @@ class Profile extends React.Component {
           title="Delete Account?"
           subtitle="Are you sure you want to delete your account forever?"
           actionText="Delete"
-          isModalOpen={this.state.isModalOpen}
-          error={this.state.deleteAccountError}
+          isModalOpen={isModalOpen}
+          error={deleteAccountError}
           confirmAction={this.deleteAccount}
           closeAction={() => { this.setState({ isModalOpen: false }); }}
         />
@@ -76,11 +63,11 @@ class Profile extends React.Component {
         </h1>
         <h2 className="HelloNameTitle">
           Hello,
-          {this.state.username}
+          {` ${username}`}
         </h2>
         <div
           className="LogoutButton"
-          onClick={this.logout}
+          onClick={logout}
         >
           Logout
         </div>
