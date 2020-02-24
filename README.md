@@ -76,7 +76,6 @@
 - Write tests
 
 #### Code Quality / Cleanup:
-- Linting
 - Prop types
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
