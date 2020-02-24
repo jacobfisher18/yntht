@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import ProtectedRoute from './routes/ProtectedRoute';
 import App from './routes/App';
 import Login from './routes/Login';
 import Signup from './routes/Signup';
@@ -17,17 +18,20 @@ const routing = (
           path="/"
           component={App}
         />
-        <Route
+        <ProtectedRoute
           path="/login"
           component={Login}
+          type={'NO_AUTHED'}
         />
-        <Route
+        <ProtectedRoute
           path="/signup"
           component={Signup}
+          type={'NO_AUTHED'}
         />
-        <Route
+        <ProtectedRoute
           path="/welcome"
           component={Welcome}
+          type={'AUTHED_ONLY'}
         />
         <Route
           path="/user/:id"
