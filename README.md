@@ -82,7 +82,6 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### Features:
-- Ability to delete a user's own account
 - Search for users, view their page, follow them
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone

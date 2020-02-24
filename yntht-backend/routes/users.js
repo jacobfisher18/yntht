@@ -23,6 +23,25 @@ router.get('/api/users', checkDBIsConnected, (req, res) => {
   });
 });
 
+// search through users for a given term
+router.get('/api/users/:searchTerm', checkDBIsConnected, (req, res) => {
+  const { searchTerm } = req.params;
+
+  const query = `
+    SELECT * FROM users where SOUNDEX(username) = SOUNDEX('${searchTerm}')
+  `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.log(error.sqlMessage || error.code);
+      res.status(500).send({ error: 'Database error.' });
+      return;
+    }
+
+    res.status(200).send({ data: results });
+  });
+});
+
 // add a new user
 router.post('/api/user', checkDBIsConnected, (req, res) => {
   // username and password should have been validated already on the front end
