@@ -32,5 +32,6 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-nested-ternary': 'off',
     'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };

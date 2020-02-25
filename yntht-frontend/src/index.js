@@ -21,17 +21,17 @@ const routing = (
         <ProtectedRoute
           path="/login"
           component={Login}
-          type={'NO_AUTHED'}
+          type="NO_AUTHED"
         />
         <ProtectedRoute
           path="/signup"
           component={Signup}
-          type={'NO_AUTHED'}
+          type="NO_AUTHED"
         />
         <ProtectedRoute
           path="/welcome"
           component={Welcome}
-          type={'AUTHED_ONLY'}
+          type="AUTHED_ONLY"
         />
         <Route
           path="/user/:id"

@@ -11,38 +11,37 @@ const ProtectedRoute = ({ component: Component, type, ...rest }) => {
     return (
       <Route
         {...rest}
-        render={props =>
-          !isAuthed ? (
-            <Component {...props} />
-          ) : (<Redirect
-            to={{ pathname: "/" }}
-          />)
-        }
+        render={(props) => (!isAuthed ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: '/' }}
+          />
+        ))}
       />
-    )
+    );
     // Only accessible if you are logged in
-  } else if (type === 'AUTHED_ONLY') {
+  } if (type === 'AUTHED_ONLY') {
     return (
       <Route
         {...rest}
-        render={props =>
-          isAuthed ? (
-            <Component {...props} />
-          ) : (<Redirect
-            to={{ pathname: "/" }}
-          />)
-        }
+        render={(props) => (isAuthed ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: '/' }}
+          />
+        ))}
       />
-    )
+    );
     // Just a normal route
-  } else {
-    return (
-      <Route
-        {...rest}
-        render={props => <Component {...props} />}
-      />
-    )
   }
+  return (
+    <Route
+      {...rest}
+      render={(props) => <Component {...props} />}
+    />
+  );
 };
 
 export default ProtectedRoute;

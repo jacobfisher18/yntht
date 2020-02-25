@@ -61,3 +61,15 @@ export const searchUsers = (searchTerm) => new Promise((resolve, reject) => {
       reject();
     });
 });
+
+export const getUser = (userID) => new Promise((resolve, reject) => {
+  fetch(`/api/user/${userID}`)
+    .then((response) => response.json()) // response must be in json or this will error
+    .then((myJson) => {
+      resolve(myJson);
+    })
+    .catch((err) => {
+      console.log('Error with fetch request: ', err);
+      reject();
+    });
+});

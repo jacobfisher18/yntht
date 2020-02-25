@@ -3,11 +3,64 @@
   margin: 0px;
   padding: 0px;
   border: 0px;
+  color: #FFFFFF;
 }
 
 .MainContentContainer {
-  padding-top: 30px;
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.HomeButton {
+  position: absolute;
+  top: 50px;
+  right: 80px;
+  border: 2px solid #FFFFFF;
+  padding: 8px 15px;
+  font-family: 'Brandon Black';
+  font-size: 18px;
+}
+
+.HomeButton:hover {
+  cursor: pointer;
+}
+
+.Their3Title {
+  color: #FCFF2B;
+  font-size: 50px;
+  font-family: 'Brandon Black';
+  margin: 20px 0px;
+}
+
+.UserProfileInfoText {
+  font-family: 'Brandon Bold';
+  font-size: 15px;
+  margin: 10px 0px;
+}
+
+.UserProfileUsername {
+  font-family: 'Brandon Black';
+  font-size: 50px;
+  margin: 0px;
+}
+
+.UserProfileFollowButton {
+  margin: 20px 0px;
+  border: 2px solid #FFFFFF;
+  border-radius: 100px;
+  width: 80px;
+  padding: 7px 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Brandon Bold';
+}
+
+.UserProfileFollowButton:hover {
+  cursor: not-allowed;
+  background-color: #FFFFFF;
+  color: #24316E;
 }

@@ -23,6 +23,34 @@ router.get('/api/users', checkDBIsConnected, (req, res) => {
   });
 });
 
+// get a user given their ID
+router.get('/api/user/:userID', checkDBIsConnected, (req, res) => {
+  const { userID } = req.params;
+
+  const query = `
+    SELECT username FROM users WHERE id = "${userID}"
+  `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.log(error.sqlMessage || error.code);
+      res.status(500).send({ error: 'Database error.' });
+      return;
+    }
+
+    if (results.length < 1) {
+      console.log('No user found for that ID');
+      res.status(404).send({ error: 'No user found for that ID.' });
+      return;
+    }
+
+    res.status(200).send({ data: { username: results[0].username } });
+  });
+});
+
+module.exports = router;
+
+
 // search through users for a given term
 router.get('/api/users/:searchTerm', checkDBIsConnected, (req, res) => {
   const { searchTerm } = req.params;

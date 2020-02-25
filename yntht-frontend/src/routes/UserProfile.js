@@ -2,8 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { setBackgroundColor } from '../utilities/helpers';
 import { getMy3ForUser } from '../api/my3Client';
+import { getUser } from '../api/usersClient';
 import Loader from '../components/Loader';
 import SongView from '../components/SongView';
+import ErrorText from '../components/ErrorText';
 import '../global.css';
 import './UserProfile.css';
 
@@ -13,32 +15,44 @@ class UserProfile extends React.Component {
 
     this.state = {
       loading: false,
-      error: false, // TODO: figure out how to deal with an error on this page
+      error: false,
       songs: [],
+      username: '',
     };
   }
 
   componentDidMount() {
     const { id } = this.props.match.params; // eslint-disable-line
 
-    // TODO: get username (and maybe followers and such) first, populate that into state
-    // If there's no user with this ID, send a 404 page
-
-    getMy3ForUser(id).then((result) => {
-      if (result.error) {
+    getUser(id).then((userResult) => {
+      if (userResult.error) {
         this.setState({ loading: false, error: true });
         return;
       }
 
       // success
       this.setState({
-        loading: false,
-        songs: result.data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
-          title: item.title,
-          artist: item.artist,
-          img: item.img,
-          item_index: item.item_index,
-        })),
+        username: userResult.data.username,
+      });
+
+      getMy3ForUser(id).then((result) => {
+        if (result.error) {
+          this.setState({ loading: false, error: true });
+          return;
+        }
+
+        // success
+        this.setState({
+          loading: false,
+          songs: result.data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
+            title: item.title,
+            artist: item.artist,
+            img: item.img,
+            item_index: item.item_index,
+          })),
+        });
+      }).catch(() => {
+        this.setState({ loading: false, error: true });
       });
     }).catch(() => {
       this.setState({ loading: false, error: true });
@@ -63,29 +77,47 @@ class UserProfile extends React.Component {
 
   render() {
     const bgColor = '#24316E';
-    const highlightColor = '#FCFF2B';
     setBackgroundColor(bgColor);
 
-    const { loading } = this.state;
+    const { loading, error, username } = this.state;
+    const { history } = this.props;
 
     return (
       <div className="UserProfile">
         <div className="MainContentContainer">
           <div className="PageContainer">
-            <h1
-              className="PageTitle"
-              style={{ color: highlightColor }}
-            >
-              Songs
-            </h1>
             {
-              loading
-                ? (
-                  <Loader
-                    loading={loading}
-                  />
-                )
-                : this.renderSongs()
+              error ? <ErrorText text="Error loading this user profile." />
+                : loading
+                  ? (
+                    <Loader
+                      loading={loading}
+                    />
+                  )
+                  : (
+                    <div>
+                      <div
+                        className="HomeButton"
+                        onClick={() => { history.push('/'); }}
+                      >
+                        YNTHT
+                      </div>
+                      <div className="UserProfileHeaderContainer">
+                        <p className="UserProfileInfoText">
+                          USER • 0 FOLLOWERS • 0 FOLLOWING
+                        </p>
+                        <p className="UserProfileUsername">{username}</p>
+                        <div className="UserProfileFollowButton">FOLLOW</div>
+                        {/* TODO: disable the follow button if user is not logged in */}
+                      </div>
+                      <h1
+                        className="Their3Title"
+                      >
+                        Their 3
+                      </h1>
+                      {this.renderSongs()}
+                    </div>
+                  )
             }
           </div>
         </div>
