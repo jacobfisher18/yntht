@@ -81,9 +81,9 @@ router.get('/api/following/:userID', checkDBIsConnected, (req, res) => {
 
 // add a new follower to the db
 router.post('/api/follower', checkDBIsConnected, (req, res) => {
-  const { follower_id, following_id } = req.body;
+  const { follower_id: followerID, following_id: followingID } = req.body;
 
-  if (!follower_id || !following_id) {
+  if (!followerID || !followingID) {
     console.log('Follower or following not provided.');
     res.status(400).send({ error: 'Follower or following not provided.' });
     return;
@@ -91,7 +91,7 @@ router.post('/api/follower', checkDBIsConnected, (req, res) => {
 
   const query = `
         INSERT INTO followers (follower_id, following_id ) VALUES
-        (${follower_id}, ${following_id});
+        (${followerID}, ${followingID});
       `;
 
   connection.query(query, (error) => {
@@ -108,9 +108,9 @@ router.post('/api/follower', checkDBIsConnected, (req, res) => {
 
 // remove a follower from the db
 router.delete('/api/follower', checkDBIsConnected, (req, res) => {
-  const { follower_id, following_id } = req.body;
+  const { follower_id: followerID, following_id: followingID } = req.body;
 
-  if (!follower_id || !following_id) {
+  if (!followerID || !followingID) {
     console.log('Follower or following not provided.');
     res.status(400).send({ error: 'Follower or following not provided.' });
     return;
@@ -118,8 +118,8 @@ router.delete('/api/follower', checkDBIsConnected, (req, res) => {
 
   const query = `
         DELETE FROM followers WHERE
-        follower_id = ${follower_id} AND
-        following_id = ${following_id};
+        follower_id = ${followerID} AND
+        following_id = ${followingID};
       `;
 
   connection.query(query, (error) => {

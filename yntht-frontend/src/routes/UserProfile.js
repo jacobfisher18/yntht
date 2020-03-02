@@ -19,6 +19,7 @@ class UserProfile extends React.Component {
       userIsLoading: false,
       followIsLoading: false,
       isFollowing: false,
+      isSelf: false,
       followerCount: 0,
       followingCount: 0,
       error: '',
@@ -32,7 +33,9 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params; // eslint-disable-line
+    let { id: string_id } = this.props.match.params; // eslint-disable-line
+    const id = Number(string_id);
+    const currentID = getCurrentUserID();
 
     this.setState({ userIsLoading: true });
 
@@ -70,7 +73,8 @@ class UserProfile extends React.Component {
         username: results[0].data.username,
         followerCount: results[1].data.length,
         followingCount: results[2].data.length,
-        isFollowing: results[1].data.some((item) => item.id === getCurrentUserID()),
+        isFollowing: results[1].data.some((item) => item.id === currentID),
+        isSelf: id === currentID,
         songs: results[3].data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
           title: item.title,
           artist: item.artist,
@@ -120,9 +124,9 @@ class UserProfile extends React.Component {
   }
 
   renderFollowButton() {
-    const { followIsLoading, isFollowing } = this.state;
+    const { followIsLoading, isFollowing, isSelf } = this.state;
 
-    if (!isLoggedIn()) {
+    if (!isLoggedIn() || isSelf) {
       return (
         <div />
       );
