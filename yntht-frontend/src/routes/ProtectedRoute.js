@@ -1,10 +1,9 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import { Route, Redirect } from 'react-router-dom';
+import { getCurrentUserID } from '../utilities/helpers';
 
 const ProtectedRoute = ({ component: Component, type, ...rest }) => {
-  const cookies = new Cookies();
-  const isAuthed = cookies.get('user_id');
+  const isAuthed = getCurrentUserID();
 
   // Not accessible if you are logged in
   if (type === 'NO_AUTHED') {

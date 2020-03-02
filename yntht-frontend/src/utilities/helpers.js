@@ -1,6 +1,9 @@
 import Cookies from 'universal-cookie';
 import { AVATAR_COLORS } from './constants';
 
+// one time setup to use cookies
+const cookies = new Cookies();
+
 // returns a comma separated list of artists given an artists array
 export const getArtist = (artists) => {
   let separator = '';
@@ -14,7 +17,6 @@ export const getArtist = (artists) => {
 
 // set cookies for logged in user
 export const setUserCookies = (userID, username) => {
-  const cookies = new Cookies();
   cookies.set('user_id', userID, {
     path: '/',
     domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',
@@ -27,22 +29,16 @@ export const setUserCookies = (userID, username) => {
 
 // boolean for if the user is logged in (based on the cookie)
 export const isLoggedIn = () => {
-  const cookies = new Cookies();
-
   return cookies.get('user_id') && cookies.get('username');
 };
 
 // user_id, from cookie
 export const getCurrentUserID = () => {
-  const cookies = new Cookies();
-
   return Number(cookies.get('user_id'));
 };
 
 // user_id, from cookie
 export const getCurrentUsername = () => {
-  const cookies = new Cookies();
-
   return cookies.get('username');
 };
 
@@ -52,7 +48,6 @@ export const setBackgroundColor = (color) => {
 };
 
 export const logout = () => {
-  const cookies = new Cookies();
   cookies.remove('user_id', {
     path: '/',
     domain: process.env.NODE_ENV === 'production' ? '.yntht.net' : 'localhost',

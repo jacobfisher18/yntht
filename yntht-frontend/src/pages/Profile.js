@@ -1,9 +1,8 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
-import { setBackgroundColor, logout } from '../utilities/helpers';
+import { setBackgroundColor, logout, getCurrentUsername, getCurrentUserID } from '../utilities/helpers';
 import '../global.css';
 import './Profile.css';
 
@@ -11,11 +10,9 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    const cookies = new Cookies();
-
     this.state = {
-      userID: cookies.get('user_id'), // maybe these should be props?
-      username: cookies.get('username'), // maybe these should be props?
+      userID: getCurrentUserID(), // maybe these should be props?
+      username: getCurrentUsername(), // maybe these should be props?
       isModalOpen: false,
       deleteAccountError: '',
     };
