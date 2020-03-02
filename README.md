@@ -82,9 +82,10 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### Features:
+- Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
+- If the user has no "My 3", that part of the screen should have instructions to add songs
 - Figure out how to handle the nav menu with the user profile pages -- if it's global state we might need Redux
-- Search for users, view their page, follow them
-- User pages should be viewable if you're not logged in, and there should be a create account button
+- Create account & log in buttons on user profile page if not logged in
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow

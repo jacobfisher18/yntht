@@ -55,7 +55,7 @@ class SearchResults extends React.Component {
       <div key={user.id}>
         <UserView
           username={user.username}
-          followers={0}
+          followers={0} // TODO: actual number of followers
           onClick={() => { history.push(`user/${user.id}`); }}
         />
       </div>
