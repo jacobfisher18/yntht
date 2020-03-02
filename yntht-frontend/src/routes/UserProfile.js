@@ -1,12 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { setBackgroundColor } from '../utilities/helpers';
+import { setBackgroundColor, isLoggedIn, getCurrentUserID } from '../utilities/helpers';
 import { getMy3ForUser } from '../api/my3Client';
 import { getUser } from '../api/usersClient';
 import Loader from '../components/Loader';
 import SongView from '../components/SongView';
 import ErrorText from '../components/ErrorText';
-import { isLoggedIn, getCurrentUserID } from '../utilities/helpers';
+
 import { getFollowers, getFollowing, addFollower } from '../api/followersClient';
 import '../global.css';
 import './UserProfile.css';
@@ -47,19 +47,19 @@ class UserProfile extends React.Component {
       if (results[0].error) {
         this.setState({
           userIsLoading: false,
-          error: 'Error getting user.'
+          error: 'Error getting user.',
         });
         return;
-      } else if (results[1].error || results[2].error) {
+      } if (results[1].error || results[2].error) {
         this.setState({
           userIsLoading: false,
-          error: 'Error getting follower information.'
+          error: 'Error getting follower information.',
         });
         return;
-      } else if (results[3].error) {
+      } if (results[3].error) {
         this.setState({
           userIsLoading: false,
-          error: 'Error getting song information.'
+          error: 'Error getting song information.',
         });
         return;
       }
@@ -70,7 +70,7 @@ class UserProfile extends React.Component {
         username: results[0].data.username,
         followerCount: results[1].data.length,
         followingCount: results[2].data.length,
-        isFollowing: results[1].data.some(item => item.id = getCurrentUserID()),
+        isFollowing: results[1].data.some((item) => item.id === getCurrentUserID()),
         songs: results[3].data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
           title: item.title,
           artist: item.artist,
@@ -78,9 +78,28 @@ class UserProfile extends React.Component {
           item_index: item.item_index,
         })),
       });
-    }).catch(err => {
+    }).catch(() => {
       this.setState({ userIsLoading: false, error: true });
-      return;
+    });
+  }
+
+  followUser() {
+    const { userID } = this.state;
+
+    this.setState({ followIsLoading: true });
+
+    addFollower(getCurrentUserID(), userID).then((result) => {
+      if (result.error) {
+        this.setState({ error: true, followIsLoading: false });
+        return;
+      }
+
+      this.setState({
+        followIsLoading: false,
+        isFollowing: true,
+      });
+    }).catch(() => {
+      this.setState({ error: true, followIsLoading: false });
     });
   }
 
@@ -100,58 +119,48 @@ class UserProfile extends React.Component {
       ));
   }
 
-  followUser() {
-    this.setState({ followIsLoading: true });
-
-    addFollower(getCurrentUserID(), this.state.userID).then((result) => {
-      if (result.error) {
-        this.setState({ error: true, followIsLoading: false });
-        return;
-      }
-
-      this.setState({
-        followIsLoading: false,
-        isFollowing: true
-      });
-    }).catch(() => {
-      this.setState({ error: true, followIsLoading: false });
-    });
-  }
-
   renderFollowButton() {
     const { followIsLoading, isFollowing } = this.state;
 
     if (!isLoggedIn()) {
-      return;
-    } else if (followIsLoading) {
+      return (
+        <div />
+      );
+    }
+
+    if (followIsLoading) {
       return (
         <div className="FollowButton">
           LOADING...
         </div>
-      )
-    } else if (isFollowing) {
+      );
+    }
+
+    if (isFollowing) {
       return (
         <div className="FollowButton FollowButtonFollowing">
           FOLLOWING
         </div>
-      )
-    } else {
-      return (
-        <div
-          className="FollowButton FollowButtonNotFollowing"
-          onClick={this.followUser}
-        >
-          FOLLOW
-        </div>
-      )
+      );
     }
+
+    return (
+      <div
+        className="FollowButton FollowButtonNotFollowing"
+        onClick={this.followUser}
+      >
+        FOLLOW
+      </div>
+    );
   }
 
   render() {
     const bgColor = '#24316E';
     setBackgroundColor(bgColor);
 
-    const { userIsLoading, error, username, followerCount, followingCount } = this.state;
+    const {
+      userIsLoading, error, username, followerCount, followingCount,
+    } = this.state;
     const { history } = this.props;
 
     return (
@@ -176,7 +185,15 @@ class UserProfile extends React.Component {
                       </div>
                       <div className="UserProfileHeaderContainer">
                         <p className="UserProfileInfoText">
-                          USER • {followerCount} FOLLOWERS • {followingCount} FOLLOWING
+                          USER •
+                          {' '}
+                          {followerCount}
+                          {' '}
+                          FOLLOWERS •
+                          {' '}
+                          {followingCount}
+                          {' '}
+                          FOLLOWING
                         </p>
                         <p className="UserProfileUsername">{username}</p>
                         {this.renderFollowButton()}

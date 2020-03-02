@@ -23,7 +23,7 @@ export const getFollowing = (userID) => new Promise((resolve, reject) => {
 });
 
 export const addFollower = (followerID, followingID) => new Promise((resolve, reject) => {
-  fetch(`/api/follower`, {
+  fetch('/api/follower', {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({

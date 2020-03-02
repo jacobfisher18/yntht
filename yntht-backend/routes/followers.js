@@ -23,10 +23,10 @@ router.get('/api/followers/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    const ids = followersResults.map(item => item.follower_id);
+    const ids = followersResults.map((item) => item.follower_id);
 
     const usernamesQuery = `
-    SELECT id, username FROM users WHERE id in (${ ids.join(', ') });
+    SELECT id, username FROM users WHERE id in (${ids.join(', ')});
     `;
 
     connection.query(usernamesQuery, (error, usernamesResults) => {
@@ -61,10 +61,10 @@ router.get('/api/following/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    const ids = followingResults.map(item => item.following_id);
+    const ids = followingResults.map((item) => item.following_id);
 
     const usernamesQuery = `
-    SELECT id, username FROM users WHERE id in (${ ids.join(', ')});
+    SELECT id, username FROM users WHERE id in (${ids.join(', ')});
     `;
 
     connection.query(usernamesQuery, (error, usernamesResults) => {
