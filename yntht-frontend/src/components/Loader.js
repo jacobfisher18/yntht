@@ -6,7 +6,7 @@ class Loader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: false, // TODO: delay the component
+      hidden: false,
     };
   }
 

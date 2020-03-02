@@ -216,6 +216,7 @@ router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
 
     // Clear my3 in the db for that user
     deleteMy3(userID).then(() => {
+      // TODO: delete all followers and following relationships from the DB
       console.log('My3 was deleted from the db');
       res.status(200).send({ message: 'User succesfully deleted' });
     }).catch(() => {
