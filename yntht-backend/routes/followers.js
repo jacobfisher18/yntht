@@ -8,7 +8,7 @@ router.get('/api/followers/:userID', checkDBIsConnected, (req, res) => {
   const { userID } = req.params;
 
   const followersQuery = `
-    SELECT * FROM followers WHERE follower_id='${userID}'
+    SELECT * FROM followers WHERE following_id='${userID}';
   `;
 
   connection.query(followersQuery, (error, followersResults) => {
@@ -18,7 +18,12 @@ router.get('/api/followers/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    const ids = followersResults.map(item => item.following_id);
+    if (followersResults.length < 1) {
+      res.status(200).send({ data: [] });
+      return;
+    }
+
+    const ids = followersResults.map(item => item.follower_id);
 
     const usernamesQuery = `
     SELECT id, username FROM users WHERE id in (${ ids.join(', ') });
@@ -41,7 +46,7 @@ router.get('/api/following/:userID', checkDBIsConnected, (req, res) => {
   const { userID } = req.params;
 
   const followingQuery = `
-    SELECT * FROM followers WHERE following_id='${userID}'
+    SELECT * FROM followers WHERE follower_id='${userID}';
   `;
 
   connection.query(followingQuery, (error, followingResults) => {
@@ -51,7 +56,12 @@ router.get('/api/following/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    const ids = followingResults.map(item => item.follower_id);
+    if (followingResults.length < 1) {
+      res.status(200).send({ data: [] });
+      return;
+    }
+
+    const ids = followingResults.map(item => item.following_id);
 
     const usernamesQuery = `
     SELECT id, username FROM users WHERE id in (${ ids.join(', ')});

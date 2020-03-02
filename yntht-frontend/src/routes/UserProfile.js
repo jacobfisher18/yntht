@@ -6,6 +6,8 @@ import { getUser } from '../api/usersClient';
 import Loader from '../components/Loader';
 import SongView from '../components/SongView';
 import ErrorText from '../components/ErrorText';
+import { isLoggedIn, getCurrentUserID } from '../utilities/helpers';
+import { getFollowers, getFollowing, addFollower } from '../api/followersClient';
 import '../global.css';
 import './UserProfile.css';
 
@@ -14,48 +16,71 @@ class UserProfile extends React.Component {
     super(props);
 
     this.state = {
-      loading: false,
-      error: false,
+      userIsLoading: false,
+      followIsLoading: false,
+      isFollowing: false,
+      followerCount: 0,
+      followingCount: 0,
+      error: '',
       songs: [],
       username: '',
+      userID: 0,
     };
+
+    this.renderFollowButton = this.renderFollowButton.bind(this);
+    this.followUser = this.followUser.bind(this);
   }
 
   componentDidMount() {
     const { id } = this.props.match.params; // eslint-disable-line
 
-    getUser(id).then((userResult) => {
-      if (userResult.error) {
-        this.setState({ loading: false, error: true });
+    this.setState({ userIsLoading: true });
+
+    const promises = [
+      getUser(id),
+      getFollowers(id),
+      getFollowing(id),
+      getMy3ForUser(id),
+    ];
+
+    Promise.all(promises).then((results) => {
+      if (results[0].error) {
+        this.setState({
+          userIsLoading: false,
+          error: 'Error getting user.'
+        });
+        return;
+      } else if (results[1].error || results[2].error) {
+        this.setState({
+          userIsLoading: false,
+          error: 'Error getting follower information.'
+        });
+        return;
+      } else if (results[3].error) {
+        this.setState({
+          userIsLoading: false,
+          error: 'Error getting song information.'
+        });
         return;
       }
 
-      // success
       this.setState({
-        username: userResult.data.username,
+        userIsLoading: false,
+        userID: id,
+        username: results[0].data.username,
+        followerCount: results[1].data.length,
+        followingCount: results[2].data.length,
+        isFollowing: results[1].data.some(item => item.id = getCurrentUserID()),
+        songs: results[3].data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
+          title: item.title,
+          artist: item.artist,
+          img: item.img,
+          item_index: item.item_index,
+        })),
       });
-
-      getMy3ForUser(id).then((result) => {
-        if (result.error) {
-          this.setState({ loading: false, error: true });
-          return;
-        }
-
-        // success
-        this.setState({
-          loading: false,
-          songs: result.data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
-            title: item.title,
-            artist: item.artist,
-            img: item.img,
-            item_index: item.item_index,
-          })),
-        });
-      }).catch(() => {
-        this.setState({ loading: false, error: true });
-      });
-    }).catch(() => {
-      this.setState({ loading: false, error: true });
+    }).catch(err => {
+      this.setState({ userIsLoading: false, error: true });
+      return;
     });
   }
 
@@ -75,11 +100,58 @@ class UserProfile extends React.Component {
       ));
   }
 
+  followUser() {
+    this.setState({ followIsLoading: true });
+
+    addFollower(getCurrentUserID(), this.state.userID).then((result) => {
+      if (result.error) {
+        this.setState({ error: true, followIsLoading: false });
+        return;
+      }
+
+      this.setState({
+        followIsLoading: false,
+        isFollowing: true
+      });
+    }).catch(() => {
+      this.setState({ error: true, followIsLoading: false });
+    });
+  }
+
+  renderFollowButton() {
+    const { followIsLoading, isFollowing } = this.state;
+
+    if (!isLoggedIn()) {
+      return;
+    } else if (followIsLoading) {
+      return (
+        <div className="FollowButton">
+          LOADING...
+        </div>
+      )
+    } else if (isFollowing) {
+      return (
+        <div className="FollowButton FollowButtonFollowing">
+          FOLLOWING
+        </div>
+      )
+    } else {
+      return (
+        <div
+          className="FollowButton FollowButtonNotFollowing"
+          onClick={this.followUser}
+        >
+          FOLLOW
+        </div>
+      )
+    }
+  }
+
   render() {
     const bgColor = '#24316E';
     setBackgroundColor(bgColor);
 
-    const { loading, error, username } = this.state;
+    const { userIsLoading, error, username, followerCount, followingCount } = this.state;
     const { history } = this.props;
 
     return (
@@ -87,11 +159,11 @@ class UserProfile extends React.Component {
         <div className="MainContentContainer">
           <div className="PageContainer">
             {
-              error ? <ErrorText text="Error loading this user profile." />
-                : loading
+              error ? <ErrorText text={error} />
+                : userIsLoading
                   ? (
                     <Loader
-                      loading={loading}
+                      loading={userIsLoading}
                     />
                   )
                   : (
@@ -104,11 +176,10 @@ class UserProfile extends React.Component {
                       </div>
                       <div className="UserProfileHeaderContainer">
                         <p className="UserProfileInfoText">
-                          USER • 0 FOLLOWERS • 0 FOLLOWING
+                          USER • {followerCount} FOLLOWERS • {followingCount} FOLLOWING
                         </p>
                         <p className="UserProfileUsername">{username}</p>
-                        <div className="UserProfileFollowButton">FOLLOW</div>
-                        {/* TODO: disable the follow button if user is not logged in */}
+                        {this.renderFollowButton()}
                       </div>
                       <h1
                         className="Their3Title"

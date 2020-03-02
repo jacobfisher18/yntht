@@ -46,7 +46,7 @@
   margin: 0px;
 }
 
-.UserProfileFollowButton {
+.FollowButton {
   margin: 20px 0px;
   border: 2px solid #FFFFFF;
   border-radius: 100px;
@@ -59,8 +59,17 @@
   font-family: 'Brandon Bold';
 }
 
-.UserProfileFollowButton:hover {
-  cursor: not-allowed;
+.FollowButtonNotFollowing {
+  color: #FFFFFF;
+}
+
+.FollowButtonNotFollowing:hover {
+  cursor: pointer;
+  background-color: #FFFFFF;
+  color: #24316E;
+}
+
+.FollowButtonFollowing {
   background-color: #FFFFFF;
   color: #24316E;
 }
