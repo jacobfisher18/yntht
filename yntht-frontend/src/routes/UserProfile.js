@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { setBackgroundColor, isLoggedIn, getCurrentUserID } from '../utilities/helpers';
 import { getMy3ForUser } from '../api/my3Client';
 import { getUser } from '../api/usersClient';
+import Header from '../components/Header';
 import Loader from '../components/Loader';
 import SongView from '../components/SongView';
 import ErrorText from '../components/ErrorText';
@@ -167,13 +168,14 @@ class UserProfile extends React.Component {
     const {
       userIsLoading, error, username, followerCount, followingCount,
     } = this.state;
-    const { history } = this.props;
 
     return (
       <div className="UserProfile">
+        <Header
+          handleSearchSubmit={() => { }}
+        />
         <div className="UserProfileContentContainer">
-          <div className="PageContainer">
-            {
+          {
               error ? <ErrorText text={error} />
                 : userIsLoading
                   ? (
@@ -183,12 +185,6 @@ class UserProfile extends React.Component {
                   )
                   : (
                     <div>
-                      <div
-                        className="HomeButton"
-                        onClick={() => { history.push('/'); }}
-                      >
-                        YNTHT
-                      </div>
                       <div className="UserProfileHeaderContainer">
                         <p className="UserProfileInfoText">
                           USER •
@@ -213,7 +209,6 @@ class UserProfile extends React.Component {
                     </div>
                   )
             }
-          </div>
         </div>
       </div>
     );

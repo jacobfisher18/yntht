@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 import Feed from '../pages/Feed';
 import My3 from '../pages/My3';
 import History from '../pages/History';
 import Profile from '../pages/Profile';
 import SearchResults from '../pages/SearchResults';
 import ErrorPage from '../pages/ErrorPage';
-import Search from '../components/Search';
 import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient';
 import { searchUsers } from '../api/usersClient';
@@ -52,6 +52,7 @@ class Home extends React.Component {
     };
 
     this.notify = this.notify.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -244,14 +245,9 @@ class Home extends React.Component {
             )
             : (
               <div className="MainContentContainer">
-                <div className="HeaderContainer">
-                  <Search
-                    onSubmit={(searchTerm) => this.handleSearchSubmit(searchTerm)}
-                  />
-                  <div className="NavMenu">
-                    {this.renderMenu()}
-                  </div>
-                </div>
+                <Header
+                  handleSearchSubmit={this.handleSearchSubmit}
+                />
                 <div className="PageContainer">
                   {this.renderTab()}
                 </div>

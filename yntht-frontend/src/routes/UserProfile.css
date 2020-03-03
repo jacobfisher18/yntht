@@ -2,29 +2,18 @@
   display: flex;
   margin: 0px;
   padding: 0px;
+  padding-top: 50px;
   border: 0px;
   color: #FFFFFF;
+  flex-direction: column;
 }
 
 .UserProfileContentContainer {
-  padding-top: 80px;
+  padding: 0px 100px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-.HomeButton {
-  position: absolute;
-  top: 50px;
-  right: 80px;
-  border: 2px solid #FFFFFF;
-  padding: 8px 15px;
-  font-family: 'Brandon Black';
-  font-size: 18px;
-}
-
-.HomeButton:hover {
-  cursor: pointer;
 }
 
 .Their3Title {

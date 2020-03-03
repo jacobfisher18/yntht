@@ -1,0 +1,33 @@
+/* Container */
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+/* Nav Menu */
+.HeaderNavMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 2;
+  margin-right: 50px;
+}
+
+.HeaderNavMenu div {
+  color: var(--main-text-color);
+  font-size: var(--font-s);
+}
+
+.HeaderNavMenu div:hover {
+  cursor: pointer;
+}
+
+/* Element Features */
+.Black {
+  font-family: 'Brandon Black', sans-serif;
+}
