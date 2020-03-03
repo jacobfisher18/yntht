@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Feed from '../pages/Feed';
 import My3 from '../pages/My3';
 import History from '../pages/History';
@@ -11,6 +12,7 @@ import { spotifySearchRequest } from '../api/spotifyClient';
 import { searchUsers } from '../api/usersClient';
 import { getMy3ForUser } from '../api/my3Client';
 import { PAGES } from '../utilities/constants';
+import { setActiveTabAction } from '../redux/actionCreators';
 import './Home.css';
 
 class Home extends React.Component {
@@ -18,7 +20,6 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: PAGES.MY3.name,
       showErrorPage: false,
       spotifySearchResults: {},
       usersSearchResults: [],
@@ -79,10 +80,6 @@ class Home extends React.Component {
     });
   }
 
-  selectTab(tab) {
-    this.setState({ activeTab: tab });
-  }
-
   // works for adding a new song (since empty items already exist), or replacing a song
   // it's the caller's responsibility to only call this with the lowest empty index if putting a new song
   putSongInMy3(index, newSong) {
@@ -92,7 +89,9 @@ class Home extends React.Component {
   }
 
   handleSearchSubmit(searchTerm) {
-    this.selectTab(PAGES.SEARCH_RESULTS.name);
+    const { setActiveTab } = this.props;
+
+    setActiveTab(PAGES.SEARCH_RESULTS.name);
 
     this.setState({
       searchIsLoading: true,
@@ -141,10 +140,12 @@ class Home extends React.Component {
   }
 
   renderTab() {
-    const { userID } = this.props;
+    const {
+      userID,
+      activeTab,
+    } = this.props;
 
     const {
-      activeTab,
       my3,
       my3IsLoading,
       searchedTerm,
@@ -205,13 +206,13 @@ class Home extends React.Component {
   }
 
   renderMenu() {
-    const { activeTab } = this.state;
+    const { activeTab, setActiveTab } = this.props;
 
     return Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
       <div
         key={key}
         className={activeTab === PAGES[key].name ? 'Black' : ''}
-        onClick={() => this.selectTab(PAGES[key].name)}
+        onClick={() => setActiveTab(PAGES[key].name)}
       >
         {PAGES[key].name}
       </div>
@@ -262,4 +263,13 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  activeTab: state.activeTab,
+});
+
+const mapDispatchToProps = { setActiveTab: setActiveTabAction };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);
