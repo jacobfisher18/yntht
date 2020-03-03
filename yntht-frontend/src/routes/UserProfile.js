@@ -171,7 +171,7 @@ class UserProfile extends React.Component {
 
     return (
       <div className="UserProfile">
-        <div className="MainContentContainer">
+        <div className="UserProfileContentContainer">
           <div className="PageContainer">
             {
               error ? <ErrorText text={error} />

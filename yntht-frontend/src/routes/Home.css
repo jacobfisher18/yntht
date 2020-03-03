@@ -51,7 +51,7 @@
 }
 
 .MainContentContainer {
-  padding-top: 30px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -69,8 +69,6 @@
 .NavMenu div {
   color: var(--main-text-color);
   font-size: var(--font-s);
-  /* margin-right: 40px;
-  margin-left: 40px; */
 }
 
 .NavMenu div:hover {
