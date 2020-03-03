@@ -2,7 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
-import { setBackgroundColor, logout, getCurrentUsername, getCurrentUserID } from '../utilities/helpers';
+import {
+  setBackgroundColor, logout, getCurrentUsername, getCurrentUserID,
+} from '../utilities/helpers';
 import '../global.css';
 import './Profile.css';
 

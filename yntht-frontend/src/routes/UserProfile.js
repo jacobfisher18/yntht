@@ -89,7 +89,7 @@ class UserProfile extends React.Component {
 
   // TODO: unfollow a user
   followUser() {
-    const { userID } = this.state;
+    const { userID, followerCount } = this.state;
 
     this.setState({ followIsLoading: true });
 
@@ -102,7 +102,7 @@ class UserProfile extends React.Component {
       this.setState({
         followIsLoading: false,
         isFollowing: true,
-        followerCount: this.state.followerCount + 1,
+        followerCount: followerCount + 1,
       });
     }).catch(() => {
       this.setState({ error: true, followIsLoading: false });

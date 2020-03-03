@@ -28,19 +28,13 @@ export const setUserCookies = (userID, username) => {
 };
 
 // boolean for if the user is logged in (based on the cookie)
-export const isLoggedIn = () => {
-  return cookies.get('user_id') && cookies.get('username');
-};
+export const isLoggedIn = () => cookies.get('user_id') && cookies.get('username');
 
 // user_id, from cookie
-export const getCurrentUserID = () => {
-  return Number(cookies.get('user_id'));
-};
+export const getCurrentUserID = () => Number(cookies.get('user_id'));
 
 // user_id, from cookie
-export const getCurrentUsername = () => {
-  return cookies.get('username');
-};
+export const getCurrentUsername = () => cookies.get('username');
 
 // set the document to the specified background color
 export const setBackgroundColor = (color) => {
