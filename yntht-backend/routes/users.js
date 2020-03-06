@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 
 const router = express.Router();
-const { initMy3, deleteMy3 } = require('../utilities/my3');
+const { initMy3 } = require('../utilities/my3');
 const { encryptPassword } = require('../utilities/encrypt');
 const { checkDBIsConnected } = require('../utilities/dbConnection');
 
@@ -196,33 +196,27 @@ router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
   const { userID } = req.params;
 
   const query = `
-    DELETE FROM users WHERE id = "${userID}"
+    DELETE FROM users WHERE id = "${userID}";
+    DELETE FROM my3 WHERE user_id = "${userID}";
+    DELETE FROM followers WHERE follower_id = "${userID}" OR following_id = "${userID}";
   `;
 
   connection.query(query, (error, results) => {
     if (error) {
       console.log(error.sqlMessage || error.code);
-      res.status(500).send({ error: 'Database error.' });
+      res.status(500).send({ error: 'Database error while deleting user.' });
       return;
     }
 
-    if (results.affectedRows < 1) {
-      console.log('Nothing was deleted');
-      res.status(500).send({ error: 'Nothing was deleted.' });
-      return;
+    if (results[0].affectedRows !== 1) {
+      res.status(500).send({ error: 'No user was deleted.' });
     }
 
-    console.log('User was deleted from the db');
+    if (results[1].affectedRows !== 3) {
+      console.log("Something weird happened with deleting the user's my3.");
+    }
 
-    // Clear my3 in the db for that user
-    deleteMy3(userID).then(() => {
-      // TODO: delete all followers and following relationships from the DB
-      console.log('My3 was deleted from the db');
-      res.status(200).send({ message: 'User succesfully deleted' });
-    }).catch(() => {
-      console.log('Error deleting my3');
-      res.status(500).send({ error: 'Error deleting My3.' });
-    });
+    res.status(200).send({ message: 'User succesfully deleted.' });
   });
 });
 

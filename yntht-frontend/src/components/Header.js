@@ -7,8 +7,7 @@ import { setActiveTabAction } from '../redux/actionCreators';
 import Search from './Search';
 import './Header.css';
 
-// TODO: different behavior if use isn't logged in
-// TODO: if we're not on root path, don't bold the active tab
+// TODO: different behavior if user isn't logged in
 class Header extends React.Component { // eslint-disable-line
   render() {
     const {

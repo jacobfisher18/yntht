@@ -28,21 +28,4 @@ const initMy3 = (userID) => new Promise((resolve, reject) => {
   });
 });
 
-// Delete the 3 rows in the my3 table for the user
-const deleteMy3 = (userID) => new Promise((resolve, reject) => {
-  const query = `
-    DELETE FROM my3 WHERE user_id = "${userID}"
-  `;
-
-  connection.query(query, (error) => {
-    if (error) {
-      console.log(error.sqlMessage || error.code);
-      reject();
-    } else {
-      console.log(`My3 delted for user ${userID}`);
-      resolve();
-    }
-  });
-});
-
-module.exports = { initMy3, deleteMy3 };
+module.exports = { initMy3 };
