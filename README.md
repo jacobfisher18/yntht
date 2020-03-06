@@ -79,6 +79,8 @@
 - Prop types
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
+- Look for places where we can do multiple SQL statements in one query (i.e. initmy3 when user is created)
+- Escape all sql statements
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### Features:
@@ -89,3 +91,5 @@
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow
+- Restrict ability to create tons of accounts, perhaps via email verification
+- Notifications for when you got a new follower, or other events

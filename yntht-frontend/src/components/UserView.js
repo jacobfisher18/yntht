@@ -4,7 +4,7 @@ import '../global.css';
 import './UserView.css';
 
 const UserView = ({
-  username, followers, onClick,
+  username, onClick,
 }) => (
   <div
     className="UserViewContainer"
@@ -17,11 +17,11 @@ const UserView = ({
       <p className="UserViewUsername">
         {username}
       </p>
-      <p className="UserViewFollowers">
-        {followers}
+      {/* <p className="UserViewFollowers">
+        {[PASS_NUMBER_OF_FOLLOWERS_TO_COMPONENT]}
         {' '}
         followers
-      </p>
+      </p> */}
     </div>
   </div>
 );

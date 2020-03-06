@@ -7,8 +7,11 @@ import Header from '../components/Header';
 import Loader from '../components/Loader';
 import SongView from '../components/SongView';
 import ErrorText from '../components/ErrorText';
+import ConfirmModal from '../components/ConfirmModal';
 
-import { getFollowers, getFollowing, addFollower } from '../api/followersClient';
+import {
+  getFollowers, getFollowing, addFollower, removeFollower,
+} from '../api/followersClient';
 import '../global.css';
 import './UserProfile.css';
 
@@ -27,10 +30,12 @@ class UserProfile extends React.Component {
       songs: [],
       username: '',
       userID: 0,
+      unfollowModalVisible: false,
     };
 
     this.renderFollowButton = this.renderFollowButton.bind(this);
     this.followUser = this.followUser.bind(this);
+    this.unfollowUser = this.unfollowUser.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +93,6 @@ class UserProfile extends React.Component {
     });
   }
 
-  // TODO: unfollow a user
   followUser() {
     const { userID, followerCount } = this.state;
 
@@ -107,6 +111,28 @@ class UserProfile extends React.Component {
       });
     }).catch(() => {
       this.setState({ error: true, followIsLoading: false });
+    });
+  }
+
+  unfollowUser() {
+    const { userID, followerCount } = this.state;
+
+    this.setState({ followIsLoading: true });
+
+    removeFollower(getCurrentUserID(), userID).then((result) => {
+      if (result.error) {
+        this.setState({ error: true, followIsLoading: false, unfollowModalVisible: false });
+        return;
+      }
+
+      this.setState({
+        followIsLoading: false,
+        unfollowModalVisible: false,
+        isFollowing: false,
+        followerCount: followerCount - 1,
+      });
+    }).catch(() => {
+      this.setState({ error: true, followIsLoading: false, unfollowModalVisible: false });
     });
   }
 
@@ -138,15 +164,18 @@ class UserProfile extends React.Component {
     if (followIsLoading) {
       return (
         <div className="FollowButton">
-          LOADING...
+          {/* we can add a spinner if we want */}
         </div>
       );
     }
 
     if (isFollowing) {
       return (
-        <div className="FollowButton FollowButtonFollowing">
-          FOLLOWING
+        <div
+          className="FollowButton FollowButtonFollowing"
+          onClick={() => this.setState({ unfollowModalVisible: true })}
+        >
+          UNFOLLOW
         </div>
       );
     }
@@ -166,11 +195,20 @@ class UserProfile extends React.Component {
     setBackgroundColor(bgColor);
 
     const {
-      userIsLoading, error, username, followerCount, followingCount,
+      userIsLoading, error, username, followerCount, followingCount, unfollowModalVisible,
     } = this.state;
 
     return (
       <div className="UserProfile">
+        <ConfirmModal
+          title="Unfollow User"
+          subtitle="Are you sure you want to unfollow this user?"
+          actionText="Unfollow"
+          isModalOpen={unfollowModalVisible}
+          error="" // we can add error handling in the future for this if needed
+          confirmAction={this.unfollowUser}
+          closeAction={() => { this.setState({ unfollowModalVisible: false }); }}
+        />
         <Header
           handleSearchSubmit={() => { }}
         />

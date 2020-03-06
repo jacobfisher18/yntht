@@ -62,3 +62,9 @@
   background-color: #FFFFFF;
   color: #24316E;
 }
+
+.FollowButtonFollowing:hover {
+  cursor: pointer;
+  background-color: #24316E;
+  color: #FFFFFF;
+}

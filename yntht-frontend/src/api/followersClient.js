@@ -40,3 +40,22 @@ export const addFollower = (followerID, followingID) => new Promise((resolve, re
       reject();
     });
 });
+
+export const removeFollower = (followerID, followingID) => new Promise((resolve, reject) => {
+  fetch('/api/follower', {
+    method: 'DELETE',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify({
+      follower_id: followerID,
+      following_id: followingID,
+    }),
+  })
+    .then((response) => response.json()) // response must be in json or this will error
+    .then((myJson) => {
+      resolve(myJson);
+    })
+    .catch((err) => {
+      console.log('Error with fetch request: ', err);
+      reject();
+    });
+});
