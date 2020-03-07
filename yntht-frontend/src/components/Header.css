@@ -2,20 +2,34 @@
 .HeaderContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   align-content: center;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 100px;
+  padding-left: 100px;
+}
+
+.HeaderContainerLoggedIn {
+  justify-content: space-between;
+}
+
+.HeaderContainerLoggedOut {
+  justify-content: space-between;
 }
 
 /* Nav Menu */
 .HeaderNavMenu {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.HeaderNavMenuLoggedIn {
   flex: 2;
-  margin-right: 50px;
+}
+
+.HeaderNavMenuLoggedOut div {
+  margin-left: 50px;
 }
 
 .HeaderNavMenu div {
@@ -24,6 +38,19 @@
 }
 
 .HeaderNavMenu div:hover {
+  cursor: pointer;
+}
+
+.HeaderHomeButton {
+  color: var(--main-text-color);
+  font-size: var(--font-s);
+  font-family: 'Brandon Black', sans-serif;
+  align-self: flex-start;
+  border: 3px solid #FFFFFF;
+  padding: 8px 15px;
+}
+
+.HeaderHomeButton:hover {
   cursor: pointer;
 }
 

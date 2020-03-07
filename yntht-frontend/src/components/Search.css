@@ -1,14 +1,14 @@
 .Search {
   display: flex;
-  flex: 3;
+  flex: 4;
   margin-right: 100px;
 }
 
 .Search img {
   height: 20px;
   position: absolute;
-  margin-left: 20px;
   align-self: center;
+  margin-left: 15px;
 }
 
 .Search img:hover {
@@ -19,7 +19,7 @@
   border: none;
   box-sizing: border-box;
   flex: 1;
-  padding-left: 60px;
+  padding-left: 50px;
   padding-right: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -27,7 +27,6 @@
   color: var(--main-text-color);
   font-size: var(--font-s);
   border-radius: 3px;
-  margin: 10px 0px;
   line-height: 25px;
 }
 

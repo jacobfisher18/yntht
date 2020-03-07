@@ -4,10 +4,10 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { PAGES } from '../utilities/constants';
 import { setActiveTabAction } from '../redux/actionCreators';
+import { isLoggedIn } from '../utilities/helpers';
 import Search from './Search';
 import './Header.css';
 
-// TODO: different behavior if user isn't logged in
 class Header extends React.Component { // eslint-disable-line
   render() {
     const {
@@ -18,33 +18,48 @@ class Header extends React.Component { // eslint-disable-line
       location,
     } = this.props;
 
-    const onRootPath = location.pathname === '/';
+    const loggedIn = isLoggedIn();
 
-    return (
-      <div className="HeaderContainer">
+
+    return loggedIn ? (
+      <div className="HeaderContainer HeaderContainerLoggedIn">
         <Search
           onSubmit={(searchTerm) => handleSearchSubmit(searchTerm)}
         />
-        <div className="HeaderNavMenu">
-          {
-            Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
-              <div
-                key={key}
-                className={activeTab === PAGES[key].name && onRootPath ? 'Black' : ''}
-                onClick={() => {
-                  setActiveTab(PAGES[key].name);
-                  if (!onRootPath) {
-                    history.push('/');
-                  }
-                }}
-              >
-                {PAGES[key].name}
-              </div>
-            ))
-          }
+        <div className="HeaderNavMenu HeaderNavMenuLoggedIn">
+          {Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
+            <div
+              key={key}
+              className={activeTab === PAGES[key].name ? 'Black' : ''}
+              onClick={() => { setActiveTab(PAGES[key].name); }}
+            >
+              {PAGES[key].name}
+            </div>
+          ))}
         </div>
       </div>
-    );
+    ) : (
+        <div className="HeaderContainer HeaderContainerLoggedOut">
+          <div
+            className="HeaderHomeButton"
+            onClick={() => { history.push('/'); }}
+          >
+            YNTHT
+          </div>
+          <div className="HeaderNavMenu HeaderNavMenuLoggedOut">
+            <div
+              onClick={() => { history.push('/login'); }}
+            >
+              Log In
+              </div>
+            <div
+              onClick={() => { history.push('/signup'); }}
+            >
+              Sign Up
+              </div>
+          </div>
+        </div>
+      );
   }
 }
 
