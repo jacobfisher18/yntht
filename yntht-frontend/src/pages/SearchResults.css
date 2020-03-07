@@ -57,7 +57,7 @@
 .ReplaceButton {
   color: #EF4B47;
   border: 1px solid #EF4B47;
-  font-size: 11px;
+  font-size: var(--font-xxs);
   padding: 5px 8px;
   font-family: "Brandon Bold";
   border-radius: 15px;

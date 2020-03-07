@@ -19,13 +19,13 @@
   position: absolute;
   z-index: 1;
   display: inline;
-  font-size: 14px;
+  font-size: var(--font-xs);
   top: 32px;
   left: 55px;
 }
 
 .TooltipText {
-  font-size: 14px;
+  font-size: var(--font-xs);
   font-family: 'Brandon Regular';
 }
 

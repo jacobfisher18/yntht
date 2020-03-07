@@ -20,7 +20,7 @@ body {
 }
 
 .Notification p {
-  font-size: 14px;
+  font-size: var(--font-xs);
   font-family: 'Brandon Med';
   margin: 0px 12px;
 }

@@ -66,30 +66,34 @@
 
 ## Upcoming
 
-#### Improvements:
+#### Code Quality & Configuration:
 - Dockerize the app and use ECR, automate/containerize the Node, pm2, and Nginx setup
 - CI/CD
 - Logging and monitoring
-- Make it responsive, mobile friendly, and looking good on all browsers
-- Block/redirect routes like /login if the user is already logged in
-- Make sure everwhere asyncronous has some sort of loading component (i.e. login button)
-- Write tests
-
-#### Code Quality / Cleanup:
+- Frontend and backend tests; develop some sort of QA regression/smoke test
 - Prop types
+- Make wider use of redux
 - Clean up all references to colors, constants, hard coded values, etc.
 - Abstract CSS stuff into variables for consistency
 - Look for places where we can do multiple SQL statements in one query (i.e. initmy3 when user is created)
 - Escape all sql statements
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
-#### Features:
+#### MVP Features:
+- Search & header navigation from logged in user profile is broken
+- Make it responsive, mobile friendly, and looking good on all browsers
+- Clean up profile page, display followers and following, with links to their pages
+- Ability to post your 3; display all posts on Feed page
+
+#### Later Features:
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
 - If the user has no "My 3", that part of the screen should have instructions to add songs
-- Figure out how to handle the nav menu with the user profile pages -- if it's global state we might need Redux
-- Create account & log in buttons on user profile page if not logged in
 - Thumbs up and thumbs down songs
 - Specifically recommend a song to someone
 - Forgot password flow
+- History page, with all the user's previous postsF
+- Display follower count for the users in search results
+- Make sure everwhere asyncronous has some sort of loading component (i.e. login button)
 - Restrict ability to create tons of accounts, perhaps via email verification
 - Notifications for when you got a new follower, or other events
+- Unify all the different color schemes

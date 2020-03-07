@@ -13,7 +13,7 @@
 }
 
 .ConfirmModalTitle {
-  font-size: 32px;
+  font-size: var(--font-l);
   color: #EC6B54;
   text-align: center;
   margin-top: 20px;
@@ -21,7 +21,7 @@
 }
 
 .ConfirmModalSubtitle {
-  font-size: 18px;
+  font-size: var(--font-s);
   text-align: center;
   width: 400px;
   margin-top: 0px;
@@ -32,7 +32,7 @@
 }
 
 .ConfirmModalError {
-  font-size: 14px;
+  font-size: var(--font-xs);
   color: #EC6B54;
 }
 

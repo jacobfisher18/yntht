@@ -17,7 +17,7 @@ html, body {
 .LandingTitle {
   flex-direction: column;
   font-family: 'Brandon Bold';
-  font-size: 50px;
+  font-size: var(--font-xl);
   margin-bottom: 0px;
 }
 

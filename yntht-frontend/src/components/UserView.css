@@ -24,14 +24,6 @@
   max-height: 60px;
 }
 
-.UserViewFollowers {
-  color: var(--main-text-color);
-  font-size: var(--font-xs);
-  font-family: 'Brandon Regular';
-  margin: 0px;
-  margin-top: 5px;
-}
-
 .UserViewContainer:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);

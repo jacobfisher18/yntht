@@ -11,13 +11,13 @@
 .WelcomeTitle {
   margin-top: 100px;
   margin-bottom: 20px;
-  font-size: 80px;
+  font-size: var(--font-xxl);
   font-family: 'Brandon Black';
 }
 
 .WelcomeSubtitle {
   margin-top: 0;
-  font-size: 20px;
+  font-size: var(--font-m);
   font-family: 'Brandon Med';
 }
 
@@ -26,7 +26,7 @@
   color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: var(--font-xs);
   font-family: 'Brandon Bold';
   text-align: center;
   margin-top: 20px;

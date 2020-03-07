@@ -33,7 +33,7 @@
 /* Overrides for the small version */
 .SongContainer-S { width: 250px; margin-right: 20px; }
 .SongDetailsTitle-S { font-size: var(--font-s); max-height: 60px; }
-.SongDetailsArtist-S { font-size: var(--font-xs); }
+.SongDetailsArtist-S { font-size: var(--font-xxs); }
 .SongImg-S { height: 70px; }
 .SongImgContainer-S { height: 70px; } /* Not sure why this needs to be specified */
 

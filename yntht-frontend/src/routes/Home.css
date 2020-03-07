@@ -1,10 +1,12 @@
 :root {
   --main-text-color: #FFFFFF;
-  --font-xs: 12px;
+  --font-xxs: 12px;
+  --font-xs: 15px;
   --font-s: 18px;
   --font-m: 25px;
   --font-l: 30px;
-  --font-xl: 55px;
+  --font-xl: 50px;
+  --font-xxl: 80px;
 }
 
 @font-face {
