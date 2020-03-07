@@ -6,6 +6,7 @@
   align-content: center;
   padding-right: 100px;
   padding-left: 100px;
+  height: 50px;
 }
 
 .HeaderContainerLoggedIn {
@@ -57,4 +58,10 @@
 /* Element Features */
 .Black {
   font-family: 'Brandon Black', sans-serif;
+}
+
+.spacer {
+  display: flex;
+  flex: 4;
+  margin-right: 100px;
 }

@@ -80,18 +80,19 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 
 #### MVP Features:
-- Search & header navigation from logged in user profile is broken
 - Make it responsive, mobile friendly, and looking good on all browsers
 - Clean up profile page, display followers and following, with links to their pages
 - Ability to post your 3; display all posts on Feed page
 
 #### Later Features:
+- Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
+- Ability to edit your 3 from the My 3 page
 - If the user has no "My 3", that part of the screen should have instructions to add songs
-- Thumbs up and thumbs down songs
+- Thumbs up and thumbs down songs/posts
 - Specifically recommend a song to someone
 - Forgot password flow
-- History page, with all the user's previous postsF
+- History page, with all the user's previous posts
 - Display follower count for the users in search results
 - Make sure everwhere asyncronous has some sort of loading component (i.e. login button)
 - Restrict ability to create tons of accounts, perhaps via email verification

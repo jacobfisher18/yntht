@@ -20,18 +20,21 @@ class Header extends React.Component { // eslint-disable-line
 
     const loggedIn = isLoggedIn();
 
-
     return loggedIn ? (
       <div className="HeaderContainer HeaderContainerLoggedIn">
-        <Search
-          onSubmit={(searchTerm) => handleSearchSubmit(searchTerm)}
-        />
+        {
+          location.pathname === '/' ?
+            <Search
+              onSubmit={(searchTerm) => handleSearchSubmit(searchTerm)}
+            /> :
+            <div className="spacer"/>
+        }
         <div className="HeaderNavMenu HeaderNavMenuLoggedIn">
           {Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
             <div
               key={key}
               className={activeTab === PAGES[key].name ? 'Black' : ''}
-              onClick={() => { setActiveTab(PAGES[key].name); }}
+              onClick={() => { setActiveTab(PAGES[key].name); history.push('/'); }}
             >
               {PAGES[key].name}
             </div>
