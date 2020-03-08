@@ -168,7 +168,7 @@ class SearchResults extends React.Component {
           style={modalStyles}
           overlayClassName="ReplaceSongModalOverlay"
           ariaHideApp={false}
-          shouldCloseOnOverlayClick={true}
+          shouldCloseOnOverlayClick
         >
           <div className="ReplaceSongModalContentContainer">
             <div className="ReplaceSongModalHeaderContainer">

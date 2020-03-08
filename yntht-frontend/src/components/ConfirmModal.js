@@ -28,7 +28,7 @@ const ConfirmModal = ({
     style={modalStyles}
     overlayClassName="ConfirmModalOverlay"
     ariaHideApp={false}
-    shouldCloseOnOverlayClick={true}
+    shouldCloseOnOverlayClick
   >
     <div className="ConfirmModalContentContainer">
       <div className="ConfirmModalHeaderContainer">
