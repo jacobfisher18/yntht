@@ -1,5 +1,6 @@
 .Profile {
   color: var(--main-light);
+  padding-bottom: 100px;
 }
 
 .ProfileHeaderContainer {

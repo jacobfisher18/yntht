@@ -191,7 +191,6 @@ class UserProfile extends React.Component {
   }
 
   render() {
-
     const {
       userIsLoading, error, username, followerCount, followingCount, unfollowModalVisible,
     } = this.state;

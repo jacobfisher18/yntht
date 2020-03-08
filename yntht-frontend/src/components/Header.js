@@ -23,11 +23,13 @@ class Header extends React.Component { // eslint-disable-line
     return loggedIn ? (
       <div className="HeaderContainer HeaderContainerLoggedIn">
         {
-          location.pathname === '/' ?
-            <Search
-              onSubmit={(searchTerm) => handleSearchSubmit(searchTerm)}
-            /> :
-            <div className="spacer"/>
+          location.pathname === '/'
+            ? (
+              <Search
+                onSubmit={(searchTerm) => handleSearchSubmit(searchTerm)}
+              />
+            )
+            : <div className="spacer" />
         }
         <div className="HeaderNavMenu HeaderNavMenuLoggedIn">
           {Object.keys(PAGES).filter((key) => PAGES[key].presentInMenu).map((key) => (
@@ -42,27 +44,27 @@ class Header extends React.Component { // eslint-disable-line
         </div>
       </div>
     ) : (
-        <div className="HeaderContainer HeaderContainerLoggedOut">
+      <div className="HeaderContainer HeaderContainerLoggedOut">
+        <div
+          className="HeaderHomeButton"
+          onClick={() => { history.push('/'); }}
+        >
+          YNTHT
+        </div>
+        <div className="HeaderNavMenu HeaderNavMenuLoggedOut">
           <div
-            className="HeaderHomeButton"
-            onClick={() => { history.push('/'); }}
+            onClick={() => { history.push('/login'); }}
           >
-            YNTHT
+            Log In
           </div>
-          <div className="HeaderNavMenu HeaderNavMenuLoggedOut">
-            <div
-              onClick={() => { history.push('/login'); }}
-            >
-              Log In
-              </div>
-            <div
-              onClick={() => { history.push('/signup'); }}
-            >
-              Sign Up
-              </div>
+          <div
+            onClick={() => { history.push('/signup'); }}
+          >
+            Sign Up
           </div>
         </div>
-      );
+      </div>
+    );
   }
 }
 

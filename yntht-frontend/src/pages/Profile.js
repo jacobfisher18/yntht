@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import Avatar from '../components/Avatar';
+import UserView from '../components/UserView';
+import Loader from '../components/Loader';
 import { deleteUser } from '../api/usersClient';
 import {
   logout, getCurrentUsername, getCurrentUserID,
@@ -40,6 +42,9 @@ class Profile extends React.Component {
 
   render() {
     const { isModalOpen, deleteAccountError, username } = this.state;
+    const {
+      followers, following, history, loading,
+    } = this.props;
 
     return (
       <div className="Profile">
@@ -57,37 +62,63 @@ class Profile extends React.Component {
         >
           Profile
         </h1>
-        <div className="ProfileHeaderContainer">
-          <Avatar username={username} size="L" />
-          <div className="ProfileHeaderDetailsContainer">
-            <div className="ProfileHeaderUsername">{username}</div>
-            <div
-              className="ProfileHeaderLogoutButton"
-              onClick={logout}
-            >
-              Logout
-            </div>
-          </div>
-        </div>
+        {
+          loading
+            ? (
+              <Loader
+                loading={loading}
+              />
+            )
+            : (
+              <div>
+                <div className="ProfileHeaderContainer">
+                  <Avatar username={username} size="L" />
+                  <div className="ProfileHeaderDetailsContainer">
+                    <div className="ProfileHeaderUsername">{username}</div>
+                    <div
+                      className="ProfileHeaderLogoutButton"
+                      onClick={logout}
+                    >
+                      Logout
+                    </div>
+                  </div>
+                </div>
 
-        <div className="ProfileFollowersFollowingContainer">
-          <div className="ProfileListSectionContainer">
-            <div className="ProfileSectionTitle">Followers</div>
-            <div>Insert followers here</div>
-          </div>
-          <div className="ProfileListSectionContainer">
-            <div className="ProfileSectionTitle">Following</div>
-            <div>Insert following here</div>
-          </div>
-        </div>
-        
-        <div className="ProfileSectionTitle">Options</div>
-        <div
-          className="DeleteAccountButton"
-          onClick={() => { this.setState({ isModalOpen: true }); }}
-        >
-          Delete Account
-        </div>
+                <div className="ProfileFollowersFollowingContainer">
+                  <div className="ProfileListSectionContainer">
+                    <div className="ProfileSectionTitle">Followers</div>
+                    {followers.length ? followers.map((item) => (
+                      <div key={item.id}>
+                        <UserView
+                          username={item.username}
+                          onClick={() => { history.push(`user/${item.id}`); }}
+                        />
+                      </div>
+                    )) : <div>Nobody is following you yet.</div>}
+                  </div>
+                  <div className="ProfileListSectionContainer">
+                    <div className="ProfileSectionTitle">Following</div>
+                    {following ? following.map((item) => (
+                      <div key={item.id}>
+                        <UserView
+                          username={item.username}
+                          onClick={() => { history.push(`user/${item.id}`); }}
+                        />
+                      </div>
+                    )) : <div>Nobody is following you yet.</div>}
+                  </div>
+                </div>
+
+                <div className="ProfileSectionTitle">Options</div>
+                <div
+                  className="DeleteAccountButton"
+                  onClick={() => { this.setState({ isModalOpen: true }); }}
+                >
+                  Delete Account
+                </div>
+              </div>
+            )
+        }
       </div>
     );
   }

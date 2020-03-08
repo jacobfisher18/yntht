@@ -11,6 +11,7 @@ import Notification from '../components/Notification';
 import { spotifySearchRequest } from '../api/spotifyClient';
 import { searchUsers } from '../api/usersClient';
 import { getMy3ForUser } from '../api/my3Client';
+import { getFollowers, getFollowing } from '../api/followersClient';
 import { PAGES } from '../utilities/constants';
 import { setActiveTabAction } from '../redux/actionCreators';
 import './Home.css';
@@ -24,7 +25,7 @@ class Home extends React.Component {
       spotifySearchResults: {},
       usersSearchResults: [],
       searchIsLoading: false,
-      my3IsLoading: false,
+      appDataIsLoading: false,
       searchedTerm: '', // just for passing to SearchResults
       my3: [
         {
@@ -46,6 +47,8 @@ class Home extends React.Component {
           item_index: 2,
         },
       ],
+      followers: [],
+      following: [],
       notificationText: '',
       notificationType: '',
       displayNotification: false,
@@ -58,26 +61,34 @@ class Home extends React.Component {
   componentDidMount() {
     const { userID } = this.props;
 
-    this.setState({ my3IsLoading: true });
+    this.setState({ appDataIsLoading: true });
 
-    getMy3ForUser(userID).then((result) => {
-      if (result.error) {
-        this.setState({ my3IsLoading: false, showErrorPage: true });
+    const promises = [
+      getMy3ForUser(userID),
+      getFollowers(userID),
+      getFollowing(userID),
+    ];
+
+    Promise.all(promises).then((results) => {
+      if (results[0].error || results[1].error || results[2].error) {
+        this.setState({ appDataIsLoading: false, showErrorPage: true });
         return;
       }
 
       // success
       this.setState({
-        my3IsLoading: false,
-        my3: result.data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
+        appDataIsLoading: false,
+        my3: results[0].data.sort((a, b) => a.item_index < b.item_index).map((item) => ({
           title: item.title,
           artist: item.artist,
           img: item.img,
           item_index: item.item_index,
         })),
+        followers: results[1].data,
+        following: results[2].data,
       });
     }).catch(() => {
-      this.setState({ my3IsLoading: false, showErrorPage: true });
+      this.setState({ appDataIsLoading: false, showErrorPage: true });
     });
   }
 
@@ -148,11 +159,13 @@ class Home extends React.Component {
 
     const {
       my3,
-      my3IsLoading,
+      appDataIsLoading,
       searchedTerm,
       spotifySearchResults,
       usersSearchResults,
       searchIsLoading,
+      followers,
+      following,
     } = this.state;
 
     switch (activeTab) {
@@ -169,7 +182,7 @@ class Home extends React.Component {
             bgColor={PAGES.MY3.bgColor}
             highlightColor={PAGES.MY3.highlightColor}
             songs={my3}
-            loading={my3IsLoading}
+            loading={appDataIsLoading}
           />
         );
       case PAGES.HISTORY.name:
@@ -184,6 +197,9 @@ class Home extends React.Component {
           <Profile
             bgColor={PAGES.PROFILE.bgColor}
             highlightColor={PAGES.PROFILE.highlightColor}
+            followers={followers}
+            following={following}
+            loading={appDataIsLoading}
           />
         );
       case PAGES.SEARCH_RESULTS.name:
