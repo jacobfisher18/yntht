@@ -1,4 +1,4 @@
 .ErrorText {
   font-family: 'Brandon Regular';
-  color: #FFFFFF;
+  color: var(--main-light);
 }

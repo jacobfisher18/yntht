@@ -11,16 +11,15 @@
 .Tooltip .TooltipTextContainer {
   visibility: hidden;
   background: rgba(0,0,0,0.3);
-  color: #FFFFFF;
+  color: var(--main-light);
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   width: 300px;
   position: absolute;
   z-index: 1;
-  display: inline;
   font-size: var(--font-xs);
-  top: 32px;
+  top: 20px;
   left: 55px;
 }
 

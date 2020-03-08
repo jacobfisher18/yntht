@@ -34,7 +34,7 @@
 }
 
 .HeaderNavMenu div {
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-size: var(--font-s);
 }
 
@@ -43,11 +43,11 @@
 }
 
 .HeaderHomeButton {
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-size: var(--font-s);
   font-family: 'Brandon Black', sans-serif;
   align-self: flex-start;
-  border: 3px solid #FFFFFF;
+  border: 3px solid var(--main-light);
   padding: 8px 15px;
 }
 

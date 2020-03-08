@@ -10,7 +10,7 @@
 
 .AvatarText {
   font-family: 'Brandon Black';
-  color: #FFFFFF;
+  color: var(--main-light);
   font-size: var(--font-xl);
   line-height: 60px;
   margin: 0px;

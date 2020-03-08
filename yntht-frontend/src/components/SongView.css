@@ -12,14 +12,14 @@
 }
 
 .SongDetailsTitle {
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-size: var(--font-m);
   font-family: 'Brandon Bold';
   margin: 0px;
 }
 
 .SongDetailsArtist {
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-size: var(--font-s);
   font-family: 'Brandon Regular';
   margin: 0px;

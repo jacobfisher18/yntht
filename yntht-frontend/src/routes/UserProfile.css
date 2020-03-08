@@ -4,7 +4,7 @@
   padding: 0px;
   padding-top: 50px;
   border: 0px;
-  color: #FFFFFF;
+  color: var(--main-light);
   flex-direction: column;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .Their3Title {
-  color: #FCFF2B;
+  color: var(--main-highlight);
   font-size: var(--font-xl);
   font-family: 'Brandon Black';
   margin: 20px 0px;
@@ -37,7 +37,7 @@
 
 .FollowButton {
   margin: 20px 0px;
-  border: 2px solid #FFFFFF;
+  border: 2px solid var(--main-light);
   border-radius: 100px;
   width: 80px;
   padding: 7px 20px;
@@ -49,22 +49,22 @@
 }
 
 .FollowButtonNotFollowing {
-  color: #FFFFFF;
+  color: var(--main-light);
 }
 
 .FollowButtonNotFollowing:hover {
   cursor: pointer;
-  background-color: #FFFFFF;
-  color: #24316E;
+  background-color: var(--main-light);
+  color: var(--main-dark);
 }
 
 .FollowButtonFollowing {
-  background-color: #FFFFFF;
-  color: #24316E;
+  background-color: var(--main-light);
+  color: var(--main-dark);
 }
 
 .FollowButtonFollowing:hover {
   cursor: pointer;
-  background-color: #24316E;
-  color: #FFFFFF;
+  background-color: var(--main-dark);
+  color: var(--main-light);
 }

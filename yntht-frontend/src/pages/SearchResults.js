@@ -8,7 +8,7 @@ import CloseImg from '../images/close.png';
 import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
 import {
-  getArtist, setBackgroundColor, onlyUnique, songIsNull,
+  getArtist, onlyUnique, songIsNull,
 } from '../utilities/helpers';
 
 import '../global.css';
@@ -149,18 +149,14 @@ class SearchResults extends React.Component {
 
   render() {
     const {
-      bgColor,
       my3,
       userID,
       notify,
       putSongInMy3,
-      highlightColor,
       searchIsLoading,
       loading,
     } = this.props;
     const { isModalOpen, selectedSong } = this.state;
-
-    setBackgroundColor(bgColor);
 
     return (
       <div className="SearchResults">
@@ -232,7 +228,6 @@ class SearchResults extends React.Component {
               <div>
                 <h1
                   className="PageTitle"
-                  style={{ color: highlightColor }}
                 >
                   Profiles
                 </h1>
@@ -241,7 +236,6 @@ class SearchResults extends React.Component {
                 </div>
                 <h1
                   className="PageTitle"
-                  style={{ color: highlightColor }}
                 >
                   Songs
                 </h1>

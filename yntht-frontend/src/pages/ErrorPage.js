@@ -1,15 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ERROR_PAGES } from '../utilities/constants';
-import { setBackgroundColor } from '../utilities/helpers';
 
 import './ErrorPage.css';
 
 const ErrorPage = ({ type }) => {
   const history = useHistory();
-
-  const bgColor = '#24316E';
-  setBackgroundColor(bgColor);
 
   return (
     <div className="ErrorPage">

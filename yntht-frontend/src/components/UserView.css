@@ -17,7 +17,7 @@
 }
 
 .UserViewUsername {
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-family: 'Brandon Bold';
   margin: 0px;
   font-size: var(--font-s);

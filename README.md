@@ -98,3 +98,5 @@
 - Restrict ability to create tons of accounts, perhaps via email verification
 - Notifications for when you got a new follower, or other events
 - Unify all the different color schemes
+- Link to Spotify for songs
+- Play songs via Spotify Player SDK

@@ -11,7 +11,7 @@ html, body {
   flex: 1;
   align-items: center;
   padding-top: 100px;
-  color: #FFFFFF;
+  color: var(--main-light);
 }
 
 .LandingTitle {
@@ -22,7 +22,7 @@ html, body {
 }
 
 .LandingSubTitle {
-  color: #FFFFFF;
+  color: var(--main-light);
   font-family: 'Brandon Regular';
 }
 
@@ -42,17 +42,17 @@ html, body {
 }
 
 .SignupButton {
-  border: 4px solid #FFFFFF;
+  border: 4px solid var(--main-light);
   padding: 7px;
 }
 
 .SignupButton:hover {
-  background-color: #FFFFFF;
+  background-color: var(--main-light);
   color: #D67561;  
 }
 
 .LoginButton:hover {
-  border-bottom: 4px solid #FFFFFF;
+  border-bottom: 4px solid var(--main-light);
   margin-top: 14px; /* Account for added border on hover */
 }
 

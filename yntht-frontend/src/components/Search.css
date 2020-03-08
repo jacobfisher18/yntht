@@ -24,7 +24,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   background: transparent;
-  color: var(--main-text-color);
+  color: var(--main-light);
   font-size: var(--font-s);
   border-radius: 3px;
   line-height: 25px;
@@ -36,6 +36,6 @@
 }
 
 .Search input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: var(--main-text-color);
+  color: var(--main-light);
   opacity: 1; /* Firefox */
 }

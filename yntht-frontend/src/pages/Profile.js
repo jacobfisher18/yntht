@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
 import { deleteUser } from '../api/usersClient';
 import {
-  setBackgroundColor, logout, getCurrentUsername, getCurrentUserID,
+  logout, getCurrentUsername, getCurrentUserID,
 } from '../utilities/helpers';
 import '../global.css';
 import './Profile.css';
@@ -38,10 +38,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { bgColor, highlightColor } = this.props;
     const { isModalOpen, deleteAccountError, username } = this.state;
-
-    setBackgroundColor(bgColor);
 
     return (
       <div className="Profile">
@@ -56,7 +53,6 @@ class Profile extends React.Component {
         />
         <h1
           className="PageTitle"
-          style={{ color: highlightColor }}
         >
           Profile
         </h1>

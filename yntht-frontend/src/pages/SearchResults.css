@@ -10,7 +10,7 @@
 
 .ReplaceSongModalContentContainer {
   min-width: 400px;
-  color: #222;
+  color: var(--main-dark);
 }
 
 .ReplaceSongModalHeaderContainer {
@@ -48,7 +48,7 @@
 }
 
 .ReplaceSongModalTitle {
-  color: #FFFFFF;
+  color: var(--main-light);
   text-align: center;
   margin-top: 0px;
   font-family: "Brandon Regular";
@@ -68,7 +68,7 @@
 .ReplaceButton:hover {
   cursor: pointer;
   background-color: #EF4B47;
-  color: #FFFFFF;
+  color: var(--main-light);
 }
 
 .ReplaceSongModalSongContainer {

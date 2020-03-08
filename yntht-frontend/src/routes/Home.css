@@ -1,5 +1,7 @@
 :root {
-  --main-text-color: #FFFFFF;
+  --main-dark: #222222;
+  --main-light: #FFFFFF;
+  --main-highlight: #FCFF2B;
   --font-xxs: 12px;
   --font-xs: 15px;
   --font-s: 18px;

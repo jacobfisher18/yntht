@@ -23,7 +23,7 @@
 
 .LetsStartButton {
   background: linear-gradient(85deg, #d53369 0%, #daae51 100%);  box-sizing: border-box;
-  color: #FFFFFF;
+  color: var(--main-light);
   padding: 20px;
   border-radius: 5px;
   font-size: var(--font-xs);

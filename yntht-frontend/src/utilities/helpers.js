@@ -36,11 +36,6 @@ export const getCurrentUserID = () => Number(cookies.get('user_id'));
 // user_id, from cookie
 export const getCurrentUsername = () => cookies.get('username');
 
-// set the document to the specified background color
-export const setBackgroundColor = (color) => {
-  document.body.style.backgroundColor = color;
-};
-
 export const logout = () => {
   cookies.remove('user_id', {
     path: '/',

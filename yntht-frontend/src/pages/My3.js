@@ -2,7 +2,6 @@ import React from 'react';
 import InfoImg from '../images/info.png';
 import SongView from '../components/SongView';
 import Loader from '../components/Loader';
-import { setBackgroundColor } from '../utilities/helpers';
 import '../global.css';
 import './My3.css';
 
@@ -24,15 +23,12 @@ class My3 extends React.Component {
   }
 
   render() {
-    const { bgColor, highlightColor, loading } = this.props;
-
-    setBackgroundColor(bgColor);
+    const { loading } = this.props;
 
     return (
       <div className="My3">
         <h1
           className="PageTitle"
-          style={{ color: highlightColor }}
         >
           My 3
           <div className="Tooltip">

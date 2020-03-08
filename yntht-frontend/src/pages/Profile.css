@@ -1,32 +1,32 @@
 .LogoutButton {
   width: 50px;
-  border: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  border: 1px solid var(--main-light);
+  color: var(--main-light);
   padding: 10px 20px;
   border-radius: 5px;
 }
 
 .LogoutButton:hover {
   cursor: pointer;
-  background-color: #FFFFFF;
-  color: #91DBCD;
+  background-color: var(--main-light);
+  color: var(--main-dark);
 }
 
 .DeleteAccountButton {
   margin-top: 20px;
   width: 100px;
-  border: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  border: 1px solid var(--main-light);
+  color: var(--main-light);
   padding: 10px 20px;
   border-radius: 5px;
 }
 
 .DeleteAccountButton:hover {
   cursor: pointer;
-  background-color: #FFFFFF;
-  color: #91DBCD;
+  background-color: var(--main-light);
+  color: var(--main-dark);
 }
 
 .HelloNameTitle {
-  color: #FFFFFF;
+  color: var(--main-light);
 }

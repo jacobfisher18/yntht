@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { setBackgroundColor, isLoggedIn, getCurrentUserID } from '../utilities/helpers';
+import { isLoggedIn, getCurrentUserID } from '../utilities/helpers';
 import { getMy3ForUser } from '../api/my3Client';
 import { getUser } from '../api/usersClient';
 import Header from '../components/Header';
@@ -191,8 +191,6 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const bgColor = '#24316E';
-    setBackgroundColor(bgColor);
 
     const {
       userIsLoading, error, username, followerCount, followingCount, unfollowModalVisible,
