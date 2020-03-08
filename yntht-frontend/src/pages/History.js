@@ -20,7 +20,7 @@ class History extends React.Component {
   }
 
   deleteHistoryItem(itemID) {
-    const { deleteItemFromHistory, fetchActions } = this.props;
+    const { deleteItemFromHistory, refreshData } = this.props;
 
     deleteAction(itemID).then((res) => {
       if (res.error) {
@@ -30,7 +30,7 @@ class History extends React.Component {
 
       this.setState({ isModalOpen: false });
       deleteItemFromHistory(itemID);
-      fetchActions();
+      refreshData();
     }).catch(() => {
       this.setState({ deleteHistoryItemError: 'There was an error deleting this item.' });
     });

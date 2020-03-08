@@ -70,7 +70,7 @@ class SearchResults extends React.Component {
       username,
       notify,
       putSongInMy3,
-      fetchActions,
+      refreshData,
     } = this.props;
 
     if (!spotifySearchResults
@@ -139,7 +139,7 @@ class SearchResults extends React.Component {
                 // Success
                 putSongInMy3(lowestEmptyIndex, newSong);
                 notify('Info', 'Song added to My3');
-                fetchActions();
+                refreshData();
               }).catch(() => {
                 notify('Error', 'Error adding song to My3');
               });
@@ -159,7 +159,7 @@ class SearchResults extends React.Component {
       putSongInMy3,
       searchIsLoading,
       loading,
-      fetchActions,
+      refreshData,
     } = this.props;
     const { isModalOpen, selectedSong } = this.state;
 
@@ -206,7 +206,7 @@ class SearchResults extends React.Component {
                           putSongInMy3(song.item_index, selectedSong);
                           this.setState({ isModalOpen: false });
                           notify('Info', 'Song replaced in My3');
-                          fetchActions();
+                          refreshData();
                         }).catch((err) => {
                           console.log(err);
                           notify('Error', 'Error replacing song in My3');

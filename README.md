@@ -73,13 +73,11 @@
 - Frontend and backend tests; develop some sort of QA regression/smoke test
 - Prop types
 - Make wider use of redux
-- Clean up all references to colors, constants, hard coded values, etc.
-- Abstract CSS stuff into variables for consistency
 - Look for places where we can do multiple SQL statements in one query (i.e. initmy3 when user is created)
 - Escape all sql statements
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Protect the api - api key, rate limiting, etc.
-- Somehow combine frontend api calls so we don't need to do so many requests on page load; we should be able to get all the initial user data at once
+- Combine frontend api calls so we don't need to do so many requests on data fetch; we should be able to get all the user data at once
 
 #### Later Features:
 - Figure out getting Feed and History to be responsive
@@ -89,12 +87,10 @@
 - Thumbs up and thumbs down songs/posts
 - Specifically recommend a song to someone
 - Forgot password flow
-- History page, with all the user's previous posts
 - Display follower count for the users in search results
 - Make sure everwhere asyncronous has some sort of loading component (i.e. login button)
 - Restrict ability to create tons of accounts, perhaps via email verification
 - Notifications for when you got a new follower, or other events
-- Unify all the different color schemes
 - Link to Spotify for songs
 - Play songs via Spotify Player SDK
 

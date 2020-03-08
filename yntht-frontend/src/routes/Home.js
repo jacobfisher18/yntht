@@ -60,10 +60,10 @@ class Home extends React.Component {
     this.notify = this.notify.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.deleteItemFromHistory = this.deleteItemFromHistory.bind(this);
-    this.fetchActions = this.fetchActions.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
-  componentDidMount() {
+  fetchData() {
     const { userID } = this.props;
 
     this.setState({ appDataIsLoading: true });
@@ -105,33 +105,8 @@ class Home extends React.Component {
     });
   }
 
-  // for when changes have been made and we want fresh data for actions
-  fetchActions() {
-    const { userID } = this.props;
-
-    this.setState({ appDataIsLoading: true });
-
-    const promises = [
-      getFeed(userID),
-      getHistory(userID),
-    ];
-
-    Promise.all(promises).then((results) => {
-      if (results[0].error
-        || results[1].error) {
-        this.setState({ appDataIsLoading: false, showErrorPage: true });
-        return;
-      }
-
-      // success
-      this.setState({
-        appDataIsLoading: false,
-        feed: results[0].data,
-        history: results[1].data,
-      });
-    }).catch(() => {
-      this.setState({ appDataIsLoading: false, showErrorPage: true });
-    });
+  componentDidMount() {
+    this.fetchData();
   }
 
   // works for adding a new song (since empty items already exist), or replacing a song
@@ -246,7 +221,7 @@ class Home extends React.Component {
             data={history}
             loading={appDataIsLoading}
             deleteItemFromHistory={this.deleteItemFromHistory}
-            fetchActions={this.fetchActions}
+            refreshData={this.fetchData}
           />
         );
       case PAGES.PROFILE.name:
@@ -257,6 +232,7 @@ class Home extends React.Component {
             followers={followers}
             following={following}
             loading={appDataIsLoading}
+            refreshData={this.fetchData}
           />
         );
       case PAGES.SEARCH_RESULTS.name:
@@ -273,7 +249,7 @@ class Home extends React.Component {
             my3={my3}
             putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}
-            fetchActions={this.fetchActions}
+            refreshData={this.fetchData}
           />
         );
       default:
