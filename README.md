@@ -82,6 +82,12 @@
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers
 - Ability to post your 3; display all posts on Feed page; possibly History page as well
+  - For feed and history, add a message if they're empty prompting the user to do stuff
+  - Add backend routes for getting the feed from the actions table for everyone the user followers
+  - Add Feed page on frontend; consider doing this with Redux
+  - Add backend routes for getting the history from the actions table for only the current user
+  - Add History page on frontend
+  - Delete from actions table when deleting a user account
 
 #### Later Features:
 - Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
@@ -99,3 +105,7 @@
 - Unify all the different color schemes
 - Link to Spotify for songs
 - Play songs via Spotify Player SDK
+
+### Scaling
+- Limit number of items from actions table by most recent; add pagination
+- Limit number of users displayed on Profile page lists; add pagination
