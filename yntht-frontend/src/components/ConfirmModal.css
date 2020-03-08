@@ -14,7 +14,7 @@
 
 .ConfirmModalTitle {
   font-size: var(--font-l);
-  color: #EC6B54;
+  color: var(--dark-red);
   text-align: center;
   margin-top: 20px;
   font-family: "Brandon Med";
@@ -33,7 +33,7 @@
 
 .ConfirmModalError {
   font-size: var(--font-xs);
-  color: #EC6B54;
+  color: var(--light-red);
 }
 
 .ConfirmModalClose {
@@ -85,6 +85,6 @@
 
 .ConfirmModalActionButton {
   background-color: #FFEEEC;
-  color: #E85136;
-  border: 1.5px solid #E85136;
+  color: var(--dark-red);
+  border: 1.5px solid var(--dark-red);
 }

@@ -14,7 +14,7 @@
 }
 
 .ReplaceSongModalHeaderContainer {
-  background-color: #DA6990;
+  background-color: var(--main-highlight);
   display: flex;
   flex-direction: column;
 }
@@ -48,27 +48,27 @@
 }
 
 .ReplaceSongModalTitle {
-  color: var(--main-light);
+  color: var(--main-dark);
   text-align: center;
   margin-top: 0px;
-  font-family: "Brandon Regular";
+  font-family: "Brandon Bold";
 }
 
 .ReplaceButton {
-  color: #EF4B47;
-  border: 1px solid #EF4B47;
+  color: var(--main-dark);
+  border: 1px solid var(--main-dark);;
   font-size: var(--font-xxs);
-  padding: 5px 8px;
+  padding: 8px 15px;
   font-family: "Brandon Bold";
-  border-radius: 15px;
+  border-radius: 100px;
   display: inline-block;
   margin-right: 10px;
 }
 
 .ReplaceButton:hover {
   cursor: pointer;
-  background-color: #EF4B47;
-  color: var(--main-light);
+  background-color: var(--main-dark);;
+  color: var(--main-highlight);
 }
 
 .ReplaceSongModalSongContainer {

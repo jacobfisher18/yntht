@@ -81,7 +81,6 @@
 
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers
-- Clean up profile page, display followers and following, with links to their pages
 - Ability to post your 3; display all posts on Feed page; possibly History page as well
 
 #### Later Features:

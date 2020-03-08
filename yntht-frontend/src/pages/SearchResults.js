@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import UserView from '../components/UserView';
 import SongView from '../components/SongView';
 import Loader from '../components/Loader';
-import CloseImg from '../images/close.png';
+import CloseImg from '../images/close_dark.png';
 import ErrorText from '../components/ErrorText';
 import { putMy3ForUser } from '../api/my3Client';
 import {
