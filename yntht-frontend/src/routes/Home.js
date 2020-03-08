@@ -63,6 +63,10 @@ class Home extends React.Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   fetchData() {
     const { userID } = this.props;
 
@@ -103,10 +107,6 @@ class Home extends React.Component {
     }).catch(() => {
       this.setState({ appDataIsLoading: false, showErrorPage: true });
     });
-  }
-
-  componentDidMount() {
-    this.fetchData();
   }
 
   // works for adding a new song (since empty items already exist), or replacing a song
