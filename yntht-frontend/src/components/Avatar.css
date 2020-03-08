@@ -16,3 +16,15 @@
   margin: 0px;
   margin-top: 5px; /* Not sure why it's a little high without this */
 }
+
+.Avatar-L {
+  height: 90px;
+  width: 90px;
+}
+
+.AvatarText-L {
+  font-size: var(--font-xl);
+  line-height: 60px;
+  margin: 0px;
+  margin-top: 5px; /* Not sure why it's a little high without this */
+}

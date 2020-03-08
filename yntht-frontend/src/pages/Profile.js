@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ConfirmModal from '../components/ConfirmModal';
+import Avatar from '../components/Avatar';
 import { deleteUser } from '../api/usersClient';
 import {
   logout, getCurrentUsername, getCurrentUserID,
@@ -56,16 +57,31 @@ class Profile extends React.Component {
         >
           Profile
         </h1>
-        <h2 className="HelloNameTitle">
-          Hello,
-          {` ${username}`}
-        </h2>
-        <div
-          className="LogoutButton"
-          onClick={logout}
-        >
-          Logout
+        <div className="ProfileHeaderContainer">
+          <Avatar username={username} size="L" />
+          <div className="ProfileHeaderDetailsContainer">
+            <div className="ProfileHeaderUsername">{username}</div>
+            <div
+              className="ProfileHeaderLogoutButton"
+              onClick={logout}
+            >
+              Logout
+            </div>
+          </div>
         </div>
+
+        <div className="ProfileFollowersFollowingContainer">
+          <div className="ProfileListSectionContainer">
+            <div className="ProfileSectionTitle">Followers</div>
+            <div>Insert followers here</div>
+          </div>
+          <div className="ProfileListSectionContainer">
+            <div className="ProfileSectionTitle">Following</div>
+            <div>Insert following here</div>
+          </div>
+        </div>
+        
+        <div className="ProfileSectionTitle">Options</div>
         <div
           className="DeleteAccountButton"
           onClick={() => { this.setState({ isModalOpen: true }); }}

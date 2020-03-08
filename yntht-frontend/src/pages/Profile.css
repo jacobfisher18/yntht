@@ -1,32 +1,69 @@
-.LogoutButton {
-  width: 50px;
-  border: 1px solid var(--main-light);
+.Profile {
   color: var(--main-light);
-  padding: 10px 20px;
-  border-radius: 5px;
 }
 
-.LogoutButton:hover {
+.ProfileHeaderContainer {
+  display: flex;
+  flex: 1;
+}
+
+.ProfileHeaderDetailsContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 20px;
+}
+
+.ProfileHeaderUsername {
+  font-family: 'Brandon Black';
+  font-size: var(--font-l);
+  margin-bottom: 15px;
+}
+
+.ProfileHeaderLogoutButton {
+  border: 2px solid var(--main-light);
+  font-size: var(--font-xxs);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-family: 'Brandon Bold';
+}
+
+.ProfileHeaderLogoutButton:hover {
   cursor: pointer;
   background-color: var(--main-light);
   color: var(--main-dark);
 }
 
+.ProfileSectionTitle {
+  font-family: 'Brandon Bold';
+  font-size: var(--font-m);
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.ProfileFollowersFollowingContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.ProfileListSectionContainer {
+  width: 300px;
+}
+
 .DeleteAccountButton {
   margin-top: 20px;
   width: 100px;
-  border: 1px solid var(--main-light);
-  color: var(--main-light);
+  border: 2px solid var(--main-light);
   padding: 10px 20px;
   border-radius: 5px;
+  font-family: 'Brandon Bold';
 }
 
 .DeleteAccountButton:hover {
   cursor: pointer;
   background-color: var(--main-light);
   color: var(--main-dark);
-}
-
-.HelloNameTitle {
-  color: var(--main-light);
 }
