@@ -78,7 +78,8 @@
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Combine frontend api calls so we don't need to do so many requests on data fetch; we should be able to get all the user data at once
 
-#### Later Features:
+#### Features:
+- Make it work and look good on mobile
 - Figure out getting Feed and History to be responsive
 - Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
