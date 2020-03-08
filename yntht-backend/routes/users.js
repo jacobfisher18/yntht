@@ -199,6 +199,7 @@ router.delete('/api/user/:userID', checkDBIsConnected, (req, res) => {
     DELETE FROM users WHERE id = "${userID}";
     DELETE FROM my3 WHERE user_id = "${userID}";
     DELETE FROM followers WHERE follower_id = "${userID}" OR following_id = "${userID}";
+    DELETE FROM actions WHERE user_id = "${userID}";
   `;
 
   connection.query(query, (error, results) => {

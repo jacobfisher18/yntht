@@ -1,0 +1,43 @@
+.History {
+  color: var(--main-light);
+  padding-bottom: 100px;
+}
+
+.HistoryItemContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'Brandon Regular';
+  font-size: var(--font-s);
+  overflow: hidden; /* This is a temporary solution until the app is adapted for mobile */
+}
+
+.HistoryItemDelete {
+  height: 15px;
+  margin-right: 15px;
+}
+
+.HistoryItemDelete:hover {
+  cursor: pointer;
+}
+
+.HistoryItemTitle {
+  font-family: 'Brandon Bold';
+  white-space: nowrap;
+}
+
+.HistoryItemArtist {
+  font-family: 'Brandon Bold';
+  white-space: nowrap;
+}
+
+.HistoryItemNormalText {
+  white-space: nowrap;
+}
+
+.HistoryItemImg {
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+}

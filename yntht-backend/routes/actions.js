@@ -69,4 +69,28 @@ router.get('/api/feed/:userID', checkDBIsConnected, (req, res) => {
   });
 });
 
+// remove an action from the db
+router.delete('/api/action/:actionID', checkDBIsConnected, (req, res) => {
+  const { actionID } = req.params;
+
+  if (!actionID) {
+    console.log('Action ID not provided.');
+    res.status(400).send({ error: 'You need to provide an action ID.' });
+    return;
+  }
+
+  const query = `DELETE FROM actions WHERE id = ${actionID};`;
+
+  connection.query(query, (error) => {
+    if (error) {
+      console.log(error.sqlMessage || error.code);
+      res.status(500).send({ error: 'Database error.' });
+      return;
+    }
+
+    // Success
+    res.status(200).send({ message: 'Success' });
+  });
+});
+
 module.exports = router;

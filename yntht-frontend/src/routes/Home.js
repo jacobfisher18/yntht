@@ -59,6 +59,7 @@ class Home extends React.Component {
 
     this.notify = this.notify.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.deleteItemFromHistory = this.deleteItemFromHistory.bind(this);
   }
 
   componentDidMount() {
@@ -108,6 +109,12 @@ class Home extends React.Component {
   putSongInMy3(index, newSong) {
     this.setState((prevState) => ({
       my3: prevState.my3.map((currSong) => (currSong.item_index === index ? { ...newSong, item_index: index } : currSong)),
+    }));
+  }
+
+  deleteItemFromHistory(itemID) {
+    this.setState((prevState) => ({
+      history: prevState.history.filter(item => item.id !== itemID),
     }));
   }
 
@@ -206,7 +213,9 @@ class Home extends React.Component {
           <History
             bgColor={PAGES.HISTORY.bgColor}
             highlightColor={PAGES.HISTORY.highlightColor}
-            historyData={history}
+            data={history}
+            loading={appDataIsLoading}
+            deleteItemFromHistory={this.deleteItemFromHistory}
           />
         );
       case PAGES.PROFILE.name:

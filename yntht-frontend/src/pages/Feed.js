@@ -30,7 +30,7 @@ class Feed extends React.Component {
           loading ? <Loader loading={true}/> :
           data.length ?
             data.map(item => (
-              <div className="FeedItemContainer">
+              <div className="FeedItemContainer" key={item.id}>
                 <Avatar username={item.username}/>
                 <span
                   className="FeedItemUsername"
@@ -43,7 +43,7 @@ class Feed extends React.Component {
                 <span className="FeedItemNormalText">&nbsp;by&nbsp;</span>
                 <span className="FeedItemArtist">{item.artist}</span>
                 <span className="FeedItemNormalText">&nbsp;to Their 3&nbsp;</span>
-                <img className="FeedItemImg" src={item.img} />
+                <img className="FeedItemImg" src={item.img} alt="Album Cover" />
               </div>
             ))
             :

@@ -83,19 +83,13 @@
 
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers
-- Ability to post your 3; display all posts on Feed page; possibly History page as well
-  - For feed and history, add a message if they're empty prompting the user to do stuff
-  - Add backend routes for getting the feed from the actions table for everyone the user followers
-  - Add Feed page on frontend; consider doing this with Redux
-  - Add backend routes for getting the history from the actions table for only the current user
-  - Add History page on frontend
-  - Delete from actions table when deleting a user account
+- If the user has no "My 3", that part of the screen should have instructions to add songs
 
 #### Later Features:
+- Update Feed & History component state when a song is added to My3
 - Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
 - Ability to edit your 3 from the My 3 page
-- If the user has no "My 3", that part of the screen should have instructions to add songs
 - Thumbs up and thumbs down songs/posts
 - Specifically recommend a song to someone
 - Forgot password flow
