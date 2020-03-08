@@ -9,7 +9,7 @@ const PAGES = {
   },
   HISTORY: {
     name: 'History',
-    presentInMenu: false, // this is an upcoming feature
+    presentInMenu: true,
   },
   PROFILE: {
     name: 'Profile',
