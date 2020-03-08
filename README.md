@@ -73,10 +73,9 @@
 - Frontend and backend tests; develop some sort of QA regression/smoke test
 - Prop types
 - Make wider use of redux
-- Look for places where we can do multiple SQL statements in one query (i.e. initmy3 when user is created)
 - Escape all sql statements
-- Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Protect the api - api key, rate limiting, etc.
+- Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Combine frontend api calls so we don't need to do so many requests on data fetch; we should be able to get all the user data at once
 
 #### Later Features:
