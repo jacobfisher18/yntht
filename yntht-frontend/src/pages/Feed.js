@@ -1,4 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import Avatar from '../components/Avatar';
+import Loader from '../components/Loader';
+import { withRouter } from 'react-router-dom';
+import { setActiveTabAction } from '../redux/actionCreators';
 import '../global.css';
 import './Feed.css';
 
@@ -11,6 +17,8 @@ class Feed extends React.Component {
   }
 
   render() {
+    const { data, history, setActiveTab, loading } = this.props;
+
     return (
       <div className="Feed">
         <h1
@@ -18,9 +26,40 @@ class Feed extends React.Component {
         >
           Feed
         </h1>
+        {
+          loading ? <Loader loading={true}/> :
+          data.length ?
+            data.map(item => (
+              <div className="FeedItemContainer">
+                <Avatar username={item.username}/>
+                <span
+                  className="FeedItemUsername"
+                  onClick={() => { setActiveTab(''); history.push(`/user/${item.user_id}`); }}
+                >
+                  {item.username}
+                </span>
+                <span className="FeedItemNormalText">&nbsp;added&nbsp;</span>
+                <span className="FeedItemTitle">{item.title}</span>
+                <span className="FeedItemNormalText">&nbsp;by&nbsp;</span>
+                <span className="FeedItemArtist">{item.artist}</span>
+                <span className="FeedItemNormalText">&nbsp;to Their 3&nbsp;</span>
+                <img className="FeedItemImg" src={item.img} />
+              </div>
+            ))
+            :
+            <div>Nothing going on here yet, try following some people or adding to Your 3.</div>
+        }
       </div>
     );
   }
 }
 
-export default Feed;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = { setActiveTab: setActiveTabAction };
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(Feed);
+

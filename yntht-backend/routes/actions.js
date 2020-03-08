@@ -8,7 +8,9 @@ router.get('/api/history/:userID', checkDBIsConnected, (req, res) => {
   const { userID } = req.params;
 
   const query = `
-    SELECT * FROM actions WHERE user_id='${userID}';
+    SELECT * FROM actions
+    WHERE user_id='${userID}'
+    ORDER BY timestamp DESC;
   `;
 
   connection.query(query, (error, results) => {
@@ -50,9 +52,9 @@ router.get('/api/feed/:userID', checkDBIsConnected, (req, res) => {
     ids.push(Number(userID));
 
     const feedQuery = `
-    SELECT * FROM actions
-    WHERE user_id in (${ids.join(', ')})
-    ORDER BY timestamp ASC;
+      SELECT * FROM actions
+      WHERE user_id in (${ids.join(', ')})
+      ORDER BY timestamp DESC;
     `;
 
     connection.query(feedQuery, (error, feedResults) => {
@@ -61,8 +63,6 @@ router.get('/api/feed/:userID', checkDBIsConnected, (req, res) => {
         res.status(500).send({ error: 'Database error.' });
         return;
       }
-
-      console.log(feedResults);
 
       res.status(200).send({ data: feedResults });
     });

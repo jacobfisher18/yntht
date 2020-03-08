@@ -79,6 +79,7 @@
 - Escape all sql statements
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
 - Protect the api - api key, rate limiting, etc.
+- Somehow combine frontend api calls so we don't need to do so many requests on page load; we should be able to get all the initial user data at once
 
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers

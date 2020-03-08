@@ -12,6 +12,7 @@ import { spotifySearchRequest } from '../api/spotifyClient';
 import { searchUsers } from '../api/usersClient';
 import { getMy3ForUser } from '../api/my3Client';
 import { getFollowers, getFollowing } from '../api/followersClient';
+import { getFeed, getHistory } from '../api/actionsClient';
 import { PAGES } from '../utilities/constants';
 import { setActiveTabAction } from '../redux/actionCreators';
 import './Home.css';
@@ -49,6 +50,8 @@ class Home extends React.Component {
       ],
       followers: [],
       following: [],
+      feed: [],
+      history: [],
       notificationText: '',
       notificationType: '',
       displayNotification: false,
@@ -67,10 +70,16 @@ class Home extends React.Component {
       getMy3ForUser(userID),
       getFollowers(userID),
       getFollowing(userID),
+      getFeed(userID),
+      getHistory(userID),
     ];
 
     Promise.all(promises).then((results) => {
-      if (results[0].error || results[1].error || results[2].error) {
+      if (results[0].error
+        || results[1].error
+        || results[2].error
+        || results[3].error
+        || results[4].error) {
         this.setState({ appDataIsLoading: false, showErrorPage: true });
         return;
       }
@@ -86,6 +95,8 @@ class Home extends React.Component {
         })),
         followers: results[1].data,
         following: results[2].data,
+        feed: results[3].data,
+        history: results[4].data,
       });
     }).catch(() => {
       this.setState({ appDataIsLoading: false, showErrorPage: true });
@@ -167,6 +178,8 @@ class Home extends React.Component {
       searchIsLoading,
       followers,
       following,
+      feed,
+      history,
     } = this.state;
 
     switch (activeTab) {
@@ -175,6 +188,8 @@ class Home extends React.Component {
           <Feed
             bgColor={PAGES.FEED.bgColor}
             highlightColor={PAGES.FEED.highlightColor}
+            data={feed}
+            loading={appDataIsLoading}
           />
         );
       case PAGES.MY3.name:
@@ -191,6 +206,7 @@ class Home extends React.Component {
           <History
             bgColor={PAGES.HISTORY.bgColor}
             highlightColor={PAGES.HISTORY.highlightColor}
+            historyData={history}
           />
         );
       case PAGES.PROFILE.name:

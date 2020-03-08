@@ -1,0 +1,44 @@
+.Feed {
+  color: var(--main-light);
+  padding-bottom: 100px;
+}
+
+.FeedItemContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'Brandon Regular';
+  font-size: var(--font-s);
+  overflow: hidden; /* This is a temporary solution until the app is adapted for mobile */
+}
+
+.FeedItemUsername {
+  font-family: 'Brandon Black';
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
+.FeedItemTitle {
+  font-family: 'Brandon Bold';
+  white-space: nowrap;
+}
+
+.FeedItemArtist {
+  font-family: 'Brandon Bold';
+  white-space: nowrap;
+}
+
+.FeedItemNormalText {
+  white-space: nowrap;
+}
+
+.FeedItemImg {
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+}
+
+.FeedItemUsername:hover {
+  cursor: pointer;
+}

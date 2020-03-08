@@ -8,6 +8,10 @@ body {
   color: var(--main-highlight);
 }
 
+div:hover {
+  cursor: default;
+}
+
 /* We might run into issues if not webkit */
 .OneLine {
   text-overflow: ellipsis;
