@@ -98,7 +98,7 @@ class Profile extends React.Component {
                   </div>
                   <div className="ProfileListSectionContainer">
                     <div className="ProfileSectionTitle">Following</div>
-                    {following ? following.map((item) => (
+                    {following.length ? following.map((item) => (
                       <div key={item.id}>
                         <UserView
                           username={item.username}
