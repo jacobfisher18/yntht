@@ -162,11 +162,11 @@ class SearchResults extends React.Component {
       <div className="SearchResults">
         <Modal
           isOpen={isModalOpen}
-          onAfterOpen={() => { }}
-          onRequestClose={() => { }}
+          onRequestClose={() => this.setState({ isModalOpen: false })}
           style={modalStyles}
           overlayClassName="ReplaceSongModalOverlay"
           ariaHideApp={false}
+          shouldCloseOnOverlayClick={true}
         >
           <div className="ReplaceSongModalContentContainer">
             <div className="ReplaceSongModalHeaderContainer">

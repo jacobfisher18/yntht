@@ -24,11 +24,11 @@ const ConfirmModal = ({
 }) => (
   <Modal
     isOpen={isModalOpen}
-    onAfterOpen={() => { }}
-    onRequestClose={() => { }}
+    onRequestClose={closeAction}
     style={modalStyles}
     overlayClassName="ConfirmModalOverlay"
     ariaHideApp={false}
+    shouldCloseOnOverlayClick={true}
   >
     <div className="ConfirmModalContentContainer">
       <div className="ConfirmModalHeaderContainer">
