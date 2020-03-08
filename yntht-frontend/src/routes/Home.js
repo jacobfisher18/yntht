@@ -60,6 +60,7 @@ class Home extends React.Component {
     this.notify = this.notify.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
     this.deleteItemFromHistory = this.deleteItemFromHistory.bind(this);
+    this.fetchActions = this.fetchActions.bind(this);
   }
 
   componentDidMount() {
@@ -98,6 +99,35 @@ class Home extends React.Component {
         following: results[2].data,
         feed: results[3].data,
         history: results[4].data,
+      });
+    }).catch(() => {
+      this.setState({ appDataIsLoading: false, showErrorPage: true });
+    });
+  }
+
+  // for when changes have been made and we want fresh data for actions
+  fetchActions() {
+    const { userID } = this.props;
+
+    this.setState({ appDataIsLoading: true });
+
+    const promises = [
+      getFeed(userID),
+      getHistory(userID),
+    ];
+
+    Promise.all(promises).then((results) => {
+      if (results[0].error
+        || results[1].error) {
+        this.setState({ appDataIsLoading: false, showErrorPage: true });
+        return;
+      }
+
+      // success
+      this.setState({
+        appDataIsLoading: false,
+        feed: results[0].data,
+        history: results[1].data,
       });
     }).catch(() => {
       this.setState({ appDataIsLoading: false, showErrorPage: true });
@@ -216,6 +246,7 @@ class Home extends React.Component {
             data={history}
             loading={appDataIsLoading}
             deleteItemFromHistory={this.deleteItemFromHistory}
+            fetchActions={this.fetchActions}
           />
         );
       case PAGES.PROFILE.name:
@@ -242,6 +273,7 @@ class Home extends React.Component {
             my3={my3}
             putSongInMy3={(index, newSong) => this.putSongInMy3(index, newSong)}
             notify={this.notify}
+            fetchActions={this.fetchActions}
           />
         );
       default:

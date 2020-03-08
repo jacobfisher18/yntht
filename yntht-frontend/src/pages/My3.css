@@ -1,3 +1,7 @@
+.My3 {
+  color: var(--main-light);
+}
+
 .InfoButton {
   height: 20px;
   margin-left: 20px;
@@ -47,4 +51,8 @@
   border-width: 5px;
   border-style: solid;
   border-color: transparent rgba(0,0,0,0.3) transparent transparent;
+}
+
+.My3IsEmptyText {
+  color: 
 }

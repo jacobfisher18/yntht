@@ -83,10 +83,8 @@
 
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers
-- If the user has no "My 3", that part of the screen should have instructions to add songs
 
 #### Later Features:
-- Update Feed & History component state when a song is added to My3
 - Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
 - Ability to edit your 3 from the My 3 page

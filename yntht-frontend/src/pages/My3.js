@@ -23,7 +23,9 @@ class My3 extends React.Component {
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, songs } = this.props;
+
+    const songsIsEmpty = songs.every(item => !item.title && !item.artist && !item.img);
 
     return (
       <div className="My3">
@@ -44,13 +46,13 @@ class My3 extends React.Component {
 
         </h1>
         {
-          loading
-            ? (
-              <Loader
-                loading={loading}
-              />
-            )
-            : this.renderSongs()
+          loading ? (
+            <Loader
+              loading={loading}
+            />
+          ) : songsIsEmpty ? (
+            <div className="My3IsEmptyText">Your 3 is empty. Try searching for a song and adding it to Your 3.</div>
+          ) : this.renderSongs()
         }
       </div>
     );

@@ -47,7 +47,7 @@ class Feed extends React.Component {
               </div>
             ))
             :
-            <div>Nothing going on here yet, try following some people or adding to Your 3.</div>
+            <div>Your Feed is empty. Try following some people or adding to Your 3.</div>
         }
       </div>
     );
