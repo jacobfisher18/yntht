@@ -105,7 +105,7 @@ class Profile extends React.Component {
                           onClick={() => { history.push(`user/${item.id}`); }}
                         />
                       </div>
-                    )) : <div>Nobody is following you yet.</div>}
+                    )) : <div>You are not following anybody yet.</div>}
                   </div>
                 </div>
 
