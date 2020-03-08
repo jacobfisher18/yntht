@@ -67,6 +67,7 @@ class SearchResults extends React.Component {
       searchedTerm,
       my3,
       userID,
+      username,
       notify,
       putSongInMy3,
     } = this.props;
@@ -128,7 +129,7 @@ class SearchResults extends React.Component {
                 img: track.album.images[0].url,
               };
 
-              putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then((result) => {
+              putMy3ForUser(userID, username, newSong.title, newSong.artist, newSong.img, lowestEmptyIndex).then((result) => {
                 if (result.error) {
                   notify('Error', 'Error adding song to My3');
                   return;
@@ -151,6 +152,7 @@ class SearchResults extends React.Component {
     const {
       my3,
       userID,
+      username,
       notify,
       putSongInMy3,
       searchIsLoading,
@@ -190,7 +192,7 @@ class SearchResults extends React.Component {
                       onClick={() => {
                         const newSong = selectedSong;
 
-                        putMy3ForUser(userID, newSong.title, newSong.artist, newSong.img, song.item_index).then((result) => {
+                        putMy3ForUser(userID, username, newSong.title, newSong.artist, newSong.img, song.item_index).then((result) => {
                           if (result.error) {
                             notify('Error', 'Error replacing song in My3');
                             this.setState({ isModalOpen: false });

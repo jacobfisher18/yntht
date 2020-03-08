@@ -28,13 +28,17 @@ router.put('/api/my3/:userID', checkDBIsConnected, (req, res) => {
   const { userID } = req.params;
 
   const {
-    title, artist, img, item_index: itemIndex,
+    username, title, artist, img, item_index: itemIndex,
   } = req.body;
+
+  // we need to send username in request body now
 
   const query = `
     UPDATE my3
     SET title=${mysql.escape(title)}, artist=${mysql.escape(artist)}, img=${mysql.escape(img)}
     WHERE user_id='${userID}' AND item_index=${itemIndex};
+    INSERT INTO actions (user_id, username, title, artist, img)
+    VALUES (${mysql.escape(userID)}, ${mysql.escape(username)}, ${mysql.escape(title)}, ${mysql.escape(artist)}, ${mysql.escape(img)});
   `;
 
   connection.query(query, (error) => {

@@ -154,6 +154,7 @@ class Home extends React.Component {
   renderTab() {
     const {
       userID,
+      username,
       activeTab,
     } = this.props;
 
@@ -209,6 +210,7 @@ class Home extends React.Component {
             highlightColor={PAGES.SEARCH_RESULTS.highlightColor}
             searchedTerm={searchedTerm}
             userID={userID}
+            username={username}
             spotifySearchResults={spotifySearchResults}
             usersSearchResults={usersSearchResults}
             searchIsLoading={searchIsLoading}

@@ -10,12 +10,12 @@ export const getMy3ForUser = (userID) => new Promise((resolve, reject) => {
     });
 });
 
-export const putMy3ForUser = (userID, title, artist, img, itemIndex) => new Promise((resolve, reject) => {
+export const putMy3ForUser = (userID, username, title, artist, img, itemIndex) => new Promise((resolve, reject) => {
   fetch(`/api/my3/${userID}`, {
     method: 'PUT',
     headers: { 'Content-type': 'application/json' },
     body: JSON.stringify({
-      userID,
+      username,
       title,
       artist,
       img,
