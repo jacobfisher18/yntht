@@ -78,6 +78,7 @@
 - Look for places where we can do multiple SQL statements in one query (i.e. initmy3 when user is created)
 - Escape all sql statements
 - Figure out a better css system; there are bugs if two classes have the same name, we need some namespacing for these classes somehow
+- Protect the api - api key, rate limiting, etc.
 
 #### MVP Features:
 - Make it responsive, mobile friendly, and looking good on all browsers

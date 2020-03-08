@@ -9,6 +9,7 @@ const spotifyRoutes = require('./routes/spotify');
 const usersRoutes = require('./routes/users');
 const my3Routes = require('./routes/my3');
 const followersRoutes = require('./routes/followers');
+const actionsRoutes = require('./routes/actions');
 
 // load in environment variables, and abort if we don't have them
 const result = dotenv.config();
@@ -34,6 +35,7 @@ app.use(spotifyRoutes);
 app.use(usersRoutes);
 app.use(my3Routes);
 app.use(followersRoutes);
+app.use(actionsRoutes);
 
 // health check
 app.get('/api/health', (req, res) => {
