@@ -33,5 +33,6 @@ module.exports = {
     'no-nested-ternary': 'off',
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/no-unescaped-entities': 'off'
   },
 };

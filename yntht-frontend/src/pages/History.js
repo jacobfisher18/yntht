@@ -55,7 +55,7 @@ class History extends React.Component {
           actionText="Delete"
           isModalOpen={isModalOpen}
           error={deleteHistoryItemError}
-          confirmAction={() => { this.deleteHistoryItem(selectedItemID) }}
+          confirmAction={() => { this.deleteHistoryItem(selectedItemID); }}
           closeAction={() => { this.setState({ isModalOpen: false }); }}
         />
         <h1
@@ -64,26 +64,25 @@ class History extends React.Component {
           History
         </h1>
         {
-          loading ? <Loader loading={true}/> :
-          data.length ?
-            data.map(item => (
-              <div className="HistoryItemContainer" key={item.id}>
-                <img
-                  src={crossImg}
-                  alt="Delete Item"
-                  className="HistoryItemDelete"
-                  onClick={() => { this.setState({ isModalOpen: true, selectedItemID: item.id }); }}
-                />
-                <span className="HistoryItemNormalText">You added&nbsp;</span>
-                <span className="HistoryItemTitle">{item.title}</span>
-                <span className="HistoryItemNormalText">&nbsp;by&nbsp;</span>
-                <span className="HistoryItemArtist">{item.artist}</span>
-                <span className="HistoryItemNormalText">&nbsp;to Your 3&nbsp;</span>
-                <img className="HistoryItemImg" src={item.img} alt="Album Cover"/>
-              </div>
-            ))
-            :
-            <div>You haven't added any songs yet to Your 3.</div>
+          loading ? <Loader loading />
+            : data.length
+              ? data.map((item) => (
+                <div className="HistoryItemContainer" key={item.id}>
+                  <img
+                    src={crossImg}
+                    alt="Delete Item"
+                    className="HistoryItemDelete"
+                    onClick={() => { this.setState({ isModalOpen: true, selectedItemID: item.id }); }}
+                  />
+                  <span className="HistoryItemNormalText">You added&nbsp;</span>
+                  <span className="HistoryItemTitle">{item.title}</span>
+                  <span className="HistoryItemNormalText">&nbsp;by&nbsp;</span>
+                  <span className="HistoryItemArtist">{item.artist}</span>
+                  <span className="HistoryItemNormalText">&nbsp;to Your 3&nbsp;</span>
+                  <img className="HistoryItemImg" src={item.img} alt="Album Cover" />
+                </div>
+              ))
+              : <div>You haven't added any songs yet to Your 3.</div>
         }
       </div>
     );

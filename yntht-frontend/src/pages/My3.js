@@ -25,7 +25,7 @@ class My3 extends React.Component {
   render() {
     const { loading, songs } = this.props;
 
-    const songsIsEmpty = songs.every(item => !item.title && !item.artist && !item.img);
+    const songsIsEmpty = songs.every((item) => !item.title && !item.artist && !item.img);
 
     return (
       <div className="My3">

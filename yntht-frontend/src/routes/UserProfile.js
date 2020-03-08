@@ -192,10 +192,10 @@ class UserProfile extends React.Component {
 
   render() {
     const {
-      userIsLoading, error, username, followerCount, followingCount, unfollowModalVisible, songs
+      userIsLoading, error, username, followerCount, followingCount, unfollowModalVisible, songs,
     } = this.state;
 
-    const songsIsEmpty = songs.every(item => !item.title && !item.artist && !item.img);
+    const songsIsEmpty = songs.every((item) => !item.title && !item.artist && !item.img);
 
     return (
       <div className="UserProfile">
@@ -242,9 +242,9 @@ class UserProfile extends React.Component {
                       >
                         Their 3
                       </h1>
-                    {songsIsEmpty ? (
-                      <div>This user hasn't added any songs yet to Their 3.</div>
-                    ) : this.renderSongs() }
+                      {songsIsEmpty ? (
+                        <div>This user hasn't added any songs yet to Their 3.</div>
+                      ) : this.renderSongs() }
                     </div>
                   )
             }

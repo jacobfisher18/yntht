@@ -144,7 +144,7 @@ class Home extends React.Component {
 
   deleteItemFromHistory(itemID) {
     this.setState((prevState) => ({
-      history: prevState.history.filter(item => item.id !== itemID),
+      history: prevState.history.filter((item) => item.id !== itemID),
     }));
   }
 
