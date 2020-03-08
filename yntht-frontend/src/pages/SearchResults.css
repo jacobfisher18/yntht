@@ -1,7 +1,3 @@
-.SearchResults {
-  padding-bottom: 80px;
-}
-
 .SearchResultsContainer {
   display: flex;
   flex-direction: row;

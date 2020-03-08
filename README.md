@@ -81,10 +81,8 @@
 - Protect the api - api key, rate limiting, etc.
 - Somehow combine frontend api calls so we don't need to do so many requests on page load; we should be able to get all the initial user data at once
 
-#### MVP Features:
-- Make it responsive, mobile friendly, and looking good on all browsers
-
 #### Later Features:
+- Figure out getting Feed and History to be responsive
 - Enable the search bar on the logged in user profile page; this might require pulling search into the Redux state
 - Ability to "go back" to search results; perhaps a search tab in the nav menu or some other indication of how to reach it
 - Ability to edit your 3 from the My 3 page

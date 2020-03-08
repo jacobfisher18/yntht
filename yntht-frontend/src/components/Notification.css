@@ -1,7 +1,3 @@
-body {
-    overflow-x: hidden; /* For when it's hidden, don't scroll */
-}
-
 .Notification {
   position: fixed;
   z-index: 100;

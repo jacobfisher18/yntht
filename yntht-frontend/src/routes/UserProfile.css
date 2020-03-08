@@ -8,19 +8,21 @@
   flex-direction: column;
 }
 
-.UserProfileContentContainer {
-  padding: 0px 100px;
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 .Their3Title {
   color: var(--main-highlight);
   font-size: var(--font-xl);
   font-family: 'Brandon Black';
   margin: 20px 0px;
+}
+
+.UserProfileHeaderContainer {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .UserProfileHeaderContainer {
+    margin-top: 50px;
+  }
 }
 
 .UserProfileInfoText {

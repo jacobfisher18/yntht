@@ -211,7 +211,7 @@ class UserProfile extends React.Component {
         <Header
           handleSearchSubmit={() => { }}
         />
-        <div className="UserProfileContentContainer">
+        <div className="PageContainer">
           {
               error ? <ErrorText text={error} />
                 : userIsLoading

@@ -1,6 +1,5 @@
 .Profile {
   color: var(--main-light);
-  padding-bottom: 100px;
 }
 
 .ProfileHeaderContainer {
@@ -52,6 +51,7 @@
 
 .ProfileListSectionContainer {
   width: 300px;
+  padding-right: 10px;
 }
 
 .DeleteAccountButton {
