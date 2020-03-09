@@ -42,11 +42,6 @@ router.get('/api/feed/:userID', checkDBIsConnected, (req, res) => {
       return;
     }
 
-    if (followingResults.length < 1) {
-      res.status(200).send({ data: [] });
-      return;
-    }
-
     const ids = followingResults.map((item) => item.following_id);
 
     ids.push(Number(userID));
